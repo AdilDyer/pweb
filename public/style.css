@@ -773,14 +773,17 @@ h6 {
   display: none;
 }
 .team-cards .non-mob {
-  width: 80%;
+  width: 75rem;
   padding: 4rem;
 }
+
 .team-cards .non-mob .col-md-4,
 .team-cards .non-mob .col-md-8 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.team-cards .non-mob .col-md-4 {
 }
 .team-cards .non-mob .col-md-4 img {
   width: 16rem;
@@ -1023,6 +1026,14 @@ h6 {
   flex-direction: column;
   align-items: center;
   overflow: hidden;
+  background: linear-gradient(to left, white, rgba(179, 241, 255, 0.4));
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 200rem;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  margin-top: 2rem;
+  z-index: -5;
+  overflow: visible;
 }
 
 .regis-big-div form {
@@ -1294,21 +1305,20 @@ img.no-style {
   .studentInfoCards {
     display: flex;
     text-align: start;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     .infoCard {
       width: fit-content;
       background: rgba(255, 255, 255, 0.1);
       padding: 3rem;
-      text-align: center;
       color: blanchedalmond;
       box-shadow: rgb(12, 0, 36, 0.25) 0 0 20px;
       margin: 2rem;
-      border-radius: 2rem;
+      border-radius: 1rem;
     }
   }
 
-  .studentAppliedListings{
+  .studentAppliedListings {
     padding-bottom: 15rem;
   }
 

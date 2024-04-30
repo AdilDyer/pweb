@@ -2,6 +2,7 @@ const Student = require("../models/student");
 const Listing = require("../models/listing");
 const Application = require("../models/application");
 const Update = require("../models/update");
+const Recruiter = require("../models/recruiter");
 module.exports.showAccount = async (req, res) => {
   let { isRegistered, _id, course } = req.user;
 
@@ -56,12 +57,16 @@ module.exports.showStuPlacementProfile = async (req, res) => {
 
   res.render("resources/studentDetails.ejs", {
     stuDetails: stuDetails,
+    isRegistered: stuDetails.isRegistered,
+    stuId: stuDetails._id,
   });
 };
 
 module.exports.renderApplyForm = async (req, res) => {
   let { listingId, stuId } = req.query;
   let stuDetails = await Student.findOne({ _id: stuId });
+  let listingDetails = await Listing.findOne({ _id: listingId });
+
   if (stuDetails.isPlaced) {
     req.flash("error", "Placed Students cant apply for the Companies !");
     res.redirect("/account");
@@ -77,6 +82,8 @@ module.exports.renderApplyForm = async (req, res) => {
     listingId: listingId,
     stuId: stuId,
     stuDetails: stuDetails,
+    companyname: listingDetails.companyName,
+    jobtitle: listingDetails.jobTitle,
   });
 };
 

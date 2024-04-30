@@ -154,12 +154,13 @@ You can paste the above Link in the Browser's address bar.
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "smile.itsadil@gmail.com",
+        user: "noreply.spcweb@gmail.com",
         pass: process.env.APP_PASSWORD,
       },
     });
     const mailOptions = {
-      from: "ThePlacementCell@NFSU<smile.itsadil@gmail.com>",
+      from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+
       to: recDetails.headhremail,
       subject: "Registration Pending Information",
       html: message,
@@ -378,12 +379,13 @@ module.exports.markStuAudit = async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "smile.itsadil@gmail.com",
+      user: "noreply.spcweb@gmail.com",
       pass: process.env.APP_PASSWORD,
     },
   });
   const mailOptions = {
-    from: "ThePlacementCell@NFSU<smile.itsadil@gmail.com>",
+    from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+
     to: stuVerified.bodyData.email,
     subject:
       "Welcome to National Forensic Science University's Placement Cell.",
@@ -529,7 +531,7 @@ module.exports.markStuArrayAudit = async (req, res) => {
   </head>
   <body>
       <div class="container">
-          <h1>Welcome to Our Platform!</h1>
+          <h1>Welcome to The Placement Season 2023-24 !</h1>
           <p>We're excited to have you onboard. Below are your login credentials:</p>
           <div class="credentials">
               <p><strong>Username:
@@ -550,12 +552,13 @@ module.exports.markStuArrayAudit = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "smile.itsadil@gmail.com",
+          user: "noreply.spcweb@gmail.com",
           pass: process.env.APP_PASSWORD,
         },
       });
       const mailOptions = {
-        from: "ThePlacementCell@NFSU<smile.itsadil@gmail.com>",
+        from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+
         to: stuVerified.bodyData.email,
         subject:
           "Welcome to National Forensic Science University's Placement Cell.",

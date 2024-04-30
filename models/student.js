@@ -114,12 +114,6 @@ const studentSchema = new mongoose.Schema({
   gender: {
     type: String,
   },
-  disability: {
-    type: String,
-  },
-  maritalstatus: {
-    type: String,
-  },
   enrollmentNo: {
     type: Number,
   },

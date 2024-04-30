@@ -1,6 +1,7 @@
 const wrapAsync = require("./utils/wrapasync");
 const VerifiedUser = require("./models/verifiedUser");
 const OTP = require("./models/otp");
+const Recruiter = require("./models/recruiter");
 module.exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     res.locals.isAuthenticated = true;
@@ -35,16 +36,33 @@ module.exports.shallNotAuthenticated = wrapAsync(async (req, res, next) => {
 });
 
 module.exports.isVerified = wrapAsync(async (req, res, next) => {
-  let result = await VerifiedUser.findOne({ bodyData: req.session.bodyData });
-  if (result) {
-    return next();
-  } else {
-    if (req.user.isAudited == true) {
+  //for get of recruiters
+  // if (req.query.hasOwnProperty("recid")) {
+  //   let result = await Recruiter.findOne({ _id: req.query.recid });
+  //   if (result) {
+  //     return next();
+  //   } else {
+  //     req.flash("error", "Please enter a valid Recruiter Id");
+  //     req.session.save();
+  //     res.redirect("/");
+  //   }
+  // }
+
+  if (req.params.user == "stu") {
+    //for post and get
+    let result = await VerifiedUser.findOne({ bodyData: req.session.bodyData });
+    if (result) {
       return next();
     } else {
-      req.flash("error", "Please verify your Email First !");
-      res.redirect("/");
+      if (req.user.isAudited == true) {
+        return next();
+      } else {
+        req.flash("error", "Please verify your Email First !");
+        res.redirect("/");
+      }
     }
+  } else {
+    return next();
   }
 });
 

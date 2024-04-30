@@ -1,6 +1,8 @@
+<%layout("/layouts/boilerplate.ejs")%>
 <link rel="stylesheet" href="/style.css" />
 <div class="regis-big-div">
-  <!-- <div class="left-login">
+  <div class="left-login">
+    <br />
     <div class="pop-out">
       <a href="/"
         ><img
@@ -10,25 +12,20 @@
           width="300"
       /></a>
     </div>
-  </div> -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-    crossorigin="anonymous"
-  />
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"
-  ></script>
+    <br />
+  </div>
 
   <div class="down-regis">
     <div class="resources-student-big-div">
       <div class="content-div regis-content-div">
         <div class="content-title container">
+          <br />
+          <hr />
           <h2 style="text-align: center">Registration Details : Student</h2>
           <hr />
+
+          <br />
+          <br />
           <h2>Personal Details</h2>
           <br />
 
@@ -49,12 +46,12 @@
               <label for="username">Username</label>
               <input
                 type="text"
+                value="<%=stuDetails.username%>"
                 class="form-control"
                 id="username"
                 placeholder="username"
                 readonly
                 disabled
-                value="<%=stuDetails.username%>"
               />
             </div>
             <div class="form-group">
@@ -88,8 +85,7 @@
                 class="form-control"
                 id="fathername"
                 placeholder="Father's Name"
-                readonly
-                disabled
+                required
                 value="<%=stuDetails.fathername%>"
               />
             </div>
@@ -100,477 +96,611 @@
                 class="form-control"
                 id="mothername"
                 placeholder="Mother's Name"
-                readonly
-                disabled
+                required
+                name="mothername"
                 value="<%=stuDetails.mothername%>"
               />
             </div>
 
-            <div class="form-group">
+            <div class="card">
               <div class="card-body">
                 <p class="regis-card-title">Gender</p>
-                <input
-                  type="text"
-                  class="form-control"
-                  readonly
-                  disabled
-                  value="<%=stuDetails.gender%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="birthdate">Birth Date</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="birthdate"
-                  name="birthdate"
-                  readonly
-                  disabled
-                  value="<%=stuDetails.birthdate%>"
-                />
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <p class="regis-card-title">Marital Status</p>
-                  <input
-                    type="text"
-                    class="form-control"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.maritalstatus%>"
-                  />
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <p class="regis-card-title">
-                    Are you a person with a disability?
-                  </p>
-                  <input
-                    type="text"
-                    class="form-control"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.disability%>"
-                  />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="mobno">Mobile Number</label>
-                <input
-                  type="tel"
-                  class="form-control"
-                  disabled
-                  readonly
-                  id="mobno"
-                  name="mobileno"
-                  placeholder="Mobile Number"
-                  value="<%=stuDetails.mobileno%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="altmob">Alternate Mobile No</label>
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="altmob"
-                  placeholder="Alternate Mobile No"
-                  name="altmobileno"
-                  readonly
-                  disabled
-                  value="<%=stuDetails.altmobileno%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Email"
-                  readonly
-                  disabled
-                  value="<%=stuDetails.email%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="altemail">Alternate Email </label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="altemail"
-                  placeholder="Alternate  Email "
-                  name="altemail"
-                  readonly
-                  disabled
-                  value="<%=stuDetails.altemail%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="category">Category Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="altemail"
-                  placeholder="Alternate  Email "
-                  name="altemail"
-                  readonly
-                  disabled
-                  value="<%=stuDetails.altemail%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="nationality">Nationality</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nationality"
-                  name="nationality"
-                  readonly
-                  disabled
-                  value="<%=stuDetails.nationality%>"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content-div regis-content-div">
-          <div class="content-title container">
-            <hr />
-            <h2>Communication Details</h2>
-            <br />
-            <div class="comm-fields">
-              <div class="input-fields">
-                <div class="form-group">
-                  <label for="presentcountry">Present Country</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="presentcountry"
-                    name="presentcountry"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.presentcountry%>"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="presentstate">Present State</label>
-
-                  <input
-                    type="text"
-                    name="presentstate"
-                    required
-                    id="presentstate"
-                    class="form-control"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.presentstate%>"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="presentdistrict">Present District</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="presentdistrict"
-                    name="presentdistrict"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.presentdistrict%>"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="Landmark">Landmark</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="Landmark"
-                    name="landmark"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.landmark%>"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="presentaddress">Present Address</label>
-                  <textarea
-                    type="text"
-                    class="form-control"
-                    id="presentaddress"
-                    name="presentaddress"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.presentaddress%>"
-                  >
-                  </textarea>
-                </div>
-
-                <div class="form-group">
-                  <label for="Pincode">Pincode/Zipcode</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    value="123322"
-                    id="Pincode"
-                    name="pincode"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.pincode%>"
-                  />
-                </div>
-              </div>
-
-              <div class="input-fields">
-                <div class="form-group">
-                  <label for="presentcountryp">Permanent Country</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    readonly
-                    disabled
-                    id="presentcountryp"
-                    placeholder="Permanent Country"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="presentstatep">Permanent State</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    required
-                    id="presentstatep"
-                    placeholder="Permanent State"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="presentdistrictp">Permanent District</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="presentdistrictp"
-                    required
-                    placeholder="Permanent District"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="Landmarkp">Landmark</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="Landmarkp"
-                    placeholder="Landmark"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="presentaddressp">Permanent Address</label>
-                  <textarea
-                    type="text"
-                    class="form-control"
-                    required
-                    id="presentaddressp"
-                    placeholder="Permanent Address"
-                  ></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label for="Pincodep">Pincode/Zipcode</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="Pincodep"
-                    placeholder="Pincode"
-                    required
-                  />
+                <div class="card-text">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      <%=stuDetails.gender == "female"?"checked":""%>
+                      name="gender"
+                      value="female"
+                      id="gender"
+                      required
+                    />
+                    <label class="form-check-label" for="gender">
+                      Female
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                       <%=stuDetails.gender == "male"?"checked":""%>
+                      value="male"
+                      name="gender"
+                      required
+                      id="gender2"
+                    />
+                    <label class="form-check-label" for="gender2"> Male </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio" <%=stuDetails.gender == "other"?"checked":""%>
+                      value="other"
+                      required
+                      name="gender"
+                      id="gender3"
+                    />
+                    <label class="form-check-label" for="gender3">
+                      Other
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="content-div regis-content-div" id="procedure">
-          <div class="content-title container">
-            <hr />
-            <h2>Education Details</h2>
-            <br />
-            <div class="comm-fields">
-              <div class="input-fields">
-                <div class="form-group">
-                  <label for="10th">10th Result</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    required
-                    id="10th"
-                    name="tenth"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.tenth%>"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="10thMarksheet">10th Marksheet</label>
-                  <a
-                    type="text"
-                    class="form-control"
-                    required
-                    id="10thMarksheet"
-                    name="tenth"
-                    target="_blank"
-                    style="text-decoration: none"
-                    readonly
-                    disabled
-                    href="<%=stuDetails.tenthMarksheetUrl%>"
-                    >See your Upload</a
-                  >
-                </div>
-                <div class="form-group">
-                  <label for="12th">12th Result</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="12th"
-                    name="twelth"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.twelth%>"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="12thMarksheet">12th Marksheet</label>
-                  <a
-                    type="text"
-                    class="form-control"
-                    required
-                    id="12thMarksheet"
-                    style="text-decoration: none"
-                    name="tenth"
-                    target="_blank"
-                    readonly
-                    disabled
-                    href="<%=stuDetails.twelthMarksheetUrl%>"
-                    >See your Upload</a
-                  >
-                </div>
-                <div class="form-group">
-                  <label for="lastsemcgpa">Last Sem CGPA</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="lastsemcgpa"
-                    name="lastsemcgpa"
-                    placeholder="CGPA"
-                    readonly
-                    disabled
-                    value="<%=stuDetails.lastsemcgpa%>"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content-div regis-content-div" id="procedure">
-          <div class="content-title container">
-            <hr />
-            <h2>Declaration</h2>
-            <br />
-            1. I hereby declare that all information provided in this
-            registration form is true and accurate to the best of my knowledge,
-            and I understand that any false information may result in the
-            cancellation of my registration for the placement session 2024-25.
-            <br />
-            2. I have read, understood, and agree to abide by all the rules,
-            policies, and guidelines set forth by the Placement Cell and
-            participating companies for the duration of the placement session
-            2024-25. <br />
-            3. Furthermore, I authorize the Placement Cell to share my academic
-            and personal information with potential employers for the purpose of
-            recruitment during the placement session 2024-25. I acknowledge that
-            the Placement Cell and participating companies have the right to
-            conduct background checks, including but not limited to academic
-            records and employment history, to verify the information provided
-            in this registration form. <br />
-            4. I understand that failure to comply with the rules and policies
-            of the placement session may result in disciplinary action,
-            including but not limited to disqualification from further
-            participation in placement activities. <br />
-            5. I acknowledge that the Placement Cell reserves the right to
-            modify or update the rules and policies of the placement session,
-            and it is my responsibility to stay informed about any changes
-            communicated by the Placement Cell.
-
-            <br /><br />
-            <div class="form-check">
-              <label class="form-check-label" for="flexCheckDefault">
-                I Agree
-              </label>
+             <%
+        const date = stuDetails.birthdate;
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(date.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+    %>
+            <div class="form-group">
+              <label for="birthdate">Birth Date (DD/MM/YYYY)</label>
               <input
-                class="form-check-input"
-                checked
-                readonly
-                disabled
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
+                type="date"
+                class="form-control"
+                id="birthdate"
+                name="birthdate"
+                required
+                placeholder="DD/MM/YYYY"
+                value="<%=formattedDate%>"
               />
             </div>
-            <br />
+            <div class="form-group">
+              <label for="mobno">Mobile Number</label>
+              <input
+                type="tel"
+                class="form-control"
+                disabled
+                readonly
+                id="mobno"
+                name="mobileno"
+                placeholder="Mobile Number"
+                value="<%=stuDetails.mobileno%>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="altmob">Alternate Mobile No</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="altmob"
+                required
+                placeholder="Alternate Mobile No"
+                name="altmobileno"
+                value="<%=stuDetails.altmobileno%>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                readonly
+                disabled
+                placeholder="Email"
+                value="<%=stuDetails.email%>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="altemail">Alternate Email </label>
+              <input
+                type="email"
+                class="form-control"
+                id="altemail"
+                placeholder="Alternate  Email "
+                required
+                name="altemail"
+                value="<%=stuDetails.altemail%>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="category">Category Name</label>
+              <select
+                type="text"
+                required
+                class="form-control"
+                id="category"
+                name="category"
+                placeholder="Category Name"
+              >
+                <option
+<%=stuDetails.category == "ST"?"selected":""%>
+
+                value="ST">ST</option>
+                <option
+<%=stuDetails.category == "SC"?"selected":""%>
+                 value="SC">SC</option>
+                <option
+<%=stuDetails.category == "OBC"?"selected":""%>
+                 value="OBC">OBC</option>
+                <option
+<%=stuDetails.category == "EWS"?"selected":""%>
+                 value="EWS">EWS</option>
+                <option
+<%=stuDetails.category == "GENERAL"?"selected":""%>
+                 value="GENERAL">GENERAL</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="nationality">Nationality</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nationality"
+                required
+                name="nationality"
+                placeholder="Nationality"
+                value="<%=stuDetails.nationality%>"
+              />
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="content-div regis-content-div">
+        <div class="content-title container">
+          <hr />
+          <br />
+          <h2>Communication Details</h2>
+          <br />
+          <div class="comm-fields">
+            <div class="input-fields">
+              <div class="form-group">
+                <label for="presentcountry">Present Country</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  required
+                  id="presentcountry"
+                  name="presentcountry"
+                  placeholder="Present Country"
+                  value="<%=stuDetails.presentcountry%>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="presentstate">Present State</label>
+
+                <select
+                  type="text"
+                  value=""
+                  name="presentstate"
+                  required
+                  id="presentstate"
+                  class="form-control"
+                  placeholder="Present State"
+                >
+                  <option
+<%=stuDetails.presentstate == "Andhra Pradesh"?"selected":""%>
+
+                  value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option
+<%=stuDetails.presentstate == "Andaman and Nicobar Islands"?"selected":""%>
+                   value="Andaman and Nicobar Islands">
+                    Andaman and Nicobar Islands
+                  </option>
+                  <option
+
+<%=stuDetails.presentstate == "Arunachal Pradesh"?"selected":""%>
+
+                   value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option
+<%=stuDetails.presentstate == "Assam"?"selected":""%>
+
+
+                   value="Assam">Assam</option>
+                   <option
+<%=stuDetails.presentstate == "Bihar"?"selected":""%>
+                     value="Bihar">Bihar</option>
+                  <option
+<%=stuDetails.presentstate == "Chandigarh"?"selected":""%>
+                    value="Chandigarh">Chandigarh</option>
+                  <option
+<%=stuDetails.presentstate == "Chhattisgarh"?"selected":""%>
+                    value="Chhattisgarh">Chhattisgarh</option>
+                  <option
+<%=stuDetails.presentstate == "Dadar and Nagar Haveli"?"selected":""%>
+                    value="Dadar and Nagar Haveli">
+                    Dadar and Nagar Haveli
+                  </option>
+                  <option
+<%=stuDetails.presentstate == "Daman and Diu"?"selected":""%>
+                  value="Daman and Diu">Daman and Diu</option>
+                  <option
+<%=stuDetails.presentstate == "Delhi"?"selected":""%>
+                  value="Delhi">Delhi</option>
+                  <option
+<%=stuDetails.presentstate == "Lakshadweep"?"selected":""%>
+                  value="Lakshadweep">Lakshadweep</option>
+                  <option
+<%=stuDetails.presentstate == "Puducherry"?"selected":""%>
+                  value="Puducherry">Puducherry</option>
+                  <option
+<%=stuDetails.presentstate == "Goa"?"selected":""%>
+                  value="Goa">Goa</option>
+                  <option
+<%=stuDetails.presentstate == "Gujarat"?"selected":""%>
+                   value="Gujarat">Gujarat</option>
+                  <option
+<%=stuDetails.presentstate == "Haryana"?"selected":""%>
+                  value="Haryana">Haryana</option>
+                  <option
+<%=stuDetails.presentstate == "Himachal Pradesh"?"selected":""%>
+                  value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option
+<%=stuDetails.presentstate == "Jammu and Kashmir"?"selected":""%>
+                  value="Jammu and Kashmir">Jammu and Kashmir</option>
+                  <option
+<%=stuDetails.presentstate == "Jharkhand"?"selected":""%>
+                  value="Jharkhand">Jharkhand</option>
+                  <option
+<%=stuDetails.presentstate == "Karnataka"?"selected":""%>
+                  value="Karnataka">Karnataka</option>
+                  <option
+<%=stuDetails.presentstate == "Kerala"?"selected":""%>
+                  value="Kerala">Kerala</option>
+                  <option
+<%=stuDetails.presentstate == "Madhya Pradesh"?"selected":""%>
+                  value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option
+<%=stuDetails.presentstate == "Maharashtra"?"selected":""%>
+                  value="Maharashtra">Maharashtra</option>
+                  <option
+<%=stuDetails.presentstate == "Manipur"?"selected":""%>
+                  value="Manipur">Manipur</option>
+                  <option
+<%=stuDetails.presentstate == "Meghalaya"?"selected":""%>
+                  value="Meghalaya">Meghalaya</option>
+                  <option
+<%=stuDetails.presentstate == "Mizoram"?"selected":""%>
+                  value="Mizoram">Mizoram</option>
+                  <option
+<%=stuDetails.presentstate == "Nagaland"?"selected":""%>
+                  value="Nagaland">Nagaland</option>
+                  <option
+<%=stuDetails.presentstate == "Odisha"?"selected":""%>
+                  value="Odisha">Odisha</option>
+                  <option
+<%=stuDetails.presentstate == "Punjab"?"selected":""%>
+                  value="Punjab">Punjab</option>
+                  <option
+<%=stuDetails.presentstate == "Rajasthan"?"selected":""%>
+                  value="Rajasthan">Rajasthan</option>
+                  <option
+<%=stuDetails.presentstate == "Sikkim"?"selected":""%>
+                  value="Sikkim">Sikkim</option>
+                  <option
+<%=stuDetails.presentstate == "Tamil Nadu"?"selected":""%>
+                  value="Tamil Nadu">Tamil Nadu</option>
+                  <option
+<%=stuDetails.presentstate == "Telangana"?"selected":""%>
+                  value="Telangana">Telangana</option>
+                  <option
+<%=stuDetails.presentstate == "Tripura"?"selected":""%>
+                  value="Tripura">Tripura</option>
+                  <option
+<%=stuDetails.presentstate == "Uttar Pradesh"?"selected":""%>
+                  value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option
+<%=stuDetails.presentstate == "Uttarakhand"?"selected":""%>
+                  value="Uttarakhand">Uttarakhand</option>
+                  <option
+<%=stuDetails.presentstate == "West Bengal"?"selected":""%>
+                  value="West Bengal">West Bengal</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="presentdistrict">Present District</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="presentdistrict"
+                  name="presentdistrict"
+                  value="Gandhinagar"
+                  required
+                  value="<%=stuDetails.presentdistrict%>"
+                  placeholder="Present District"
+                />
+              </div>
+              <div class="form-group">
+                <label for="Landmark">Landmark</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Landmark"
+                  name="landmark"
+                  required
+                  value="<%=stuDetails.landmark%>"
+                  placeholder="Landmark"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="presentaddress">Present Address</label>
+                <textarea
+                  type="text"
+                  value="hehe"
+                  class="form-control"
+                  id="presentaddress"
+                  required
+
+                  name="presentaddress"
+                  placeholder="Present Address"
+                ><%=stuDetails.presentaddress%></textarea
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="Pincode">Pincode/Zipcode</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  value="<%=stuDetails.pincode%>"
+                  id="Pincode"
+                  required
+                  name="pincode"
+
+                  placeholder="Pincode"
+                />
+              </div>
+            </div>
+
+
+
+            <div class="input-fields">
+              <div class="form-group">
+                <label for="presentcountryp">Permanent Country</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  required
+                  name="permanentCountry"
+                  value="France"
+                  id="presentcountryp"
+                  placeholder="Permanent Country"
+                />
+              </div>
+              <div class="form-group">
+                <label for="presentstatep">Permanent State</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  required
+                  id="presentstatep"
+                  value="Brittany"
+                  name="permanentState"
+                  placeholder="Permanent State"
+                />
+              </div>
+              <div class="form-group">
+                <label for="presentdistrictp">Permanent District</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="presentdistrictp"
+                  value="Cest la ville "
+                  name="permanentDistrict"
+                  required
+                  placeholder="Permanent District"
+                />
+              </div>
+              <div class="form-group">
+                <label for="Landmarkp">Landmark</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="permanentLandmark"
+                  id="Landmarkp"
+                  value="Le Parc Petit"
+                  placeholder="Landmark"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="presentaddressp">Permanent Address</label>
+                <textarea
+                  type="text"
+                  class="form-control"
+                  required
+                  name="permanentAddress"
+                  id="presentaddressp"
+                  placeholder="Permanent Address"
+                >
+Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="Pincodep">Pincode/Zipcode</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="Pincodep"
+                  name="permanentPincode"
+                  value="120021"
+                  placeholder="Pincode"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-div regis-content-div" id="procedure">
+        <div class="content-title container">
+          <hr />
+          <br />
+          <h2>Education Details</h2>
+          <br />
+          <div class="comm-fields">
+            <div class="input-fields">
+              <div class="form-group">
+                <label for="10th">10th Result</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  required
+                  id="10th"
+                  name="tenth"
+                  placeholder="Percentage"
+                  value="<%=stuDetails.tenth%>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="10thupload">Upload 10th Marksheet</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="10thupload"
+                  name="tenthmarksheet"
+                />
+              </div>
+              <div class="form-group">
+                <label for="12th">12th Result</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="12th"
+                  name="twelth"
+                  required
+                  placeholder="Percentage"
+                  value="<%=stuDetails.twelth%>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="12thupload">Upload 12th Marksheet</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="12thupload"
+                  name="twelthmarksheet"
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastsemcgpa">Last Sem CGPA</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="lastsemcgpa"
+                  name="lastsemcgpa"
+                  placeholder="CGPA"
+                  value="<%=stuDetails.lastsemcgpa%>"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-div regis-content-div" id="procedure">
+        <div class="content-title container">
+          <hr />
+          <br />
+          <h2>Declaration</h2>
+          <br />
+          1. I hereby declare that all information provided in this registration
+          form is true and accurate to the best of my knowledge, and I
+          understand that any false information may result in the cancellation
+          of my registration for the placement session 2024-25.
+          <br />
+          2. I have read, understood, and agree to abide by all the rules,
+          policies, and guidelines set forth by the Placement Cell and
+          participating companies for the duration of the placement session
+          2024-25. <br />
+          3. Furthermore, I authorize the Placement Cell to share my academic
+          and personal information with potential employers for the purpose of
+          recruitment during the placement session 2024-25. I acknowledge that
+          the Placement Cell and participating companies have the right to
+          conduct background checks, including but not limited to academic
+          records and employment history, to verify the information provided in
+          this registration form. <br />
+          4. I understand that failure to comply with the rules and policies of
+          the placement session may result in disciplinary action, including but
+          not limited to disqualification from further participation in
+          placement activities. <br />
+          5. I acknowledge that the Placement Cell reserves the right to modify
+          or update the rules and policies of the placement session, and it is
+          my responsibility to stay informed about any changes communicated by
+          the Placement Cell.
+
+          <br /><br />
+
+          <br />
         </div>
       </div>
     </div>
   </div>
-
-  <script>
-    // JavaScript for form validation
-    (function () {
-      "use strict";
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.querySelectorAll(".needs-validation");
-      // Loop over them and prevent submission
-      Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener(
-          "submit",
-          function (event) {
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add("was-validated");
-          },
-          false
-        );
-      });
-    })();
-  </script>
-
-  <script>
-    function copyPresentAddress() {
-      var presentcountry = document.getElementById("presentcountry").value;
-      var presentstate = document.getElementById("presentstate").value;
-      var presentdistrict = document.getElementById("presentdistrict").value;
-      var Landmark = document.getElementById("Landmark").value;
-      var presentaddress = document.getElementById("presentaddress").value;
-      var Pincode = document.getElementById("Pincode").value;
-      document.getElementById("presentcountryp").value = presentcountry;
-      document.getElementById("presentstatep").value = presentstate;
-      document.getElementById("presentdistrictp").value = presentdistrict;
-      document.getElementById("Landmarkp").value = Landmark;
-      document.getElementById("presentaddressp").value = presentaddress;
-      document.getElementById("Pincodep").value = Pincode;
-    }
-    document.getElementById("addcheck").addEventListener("change", function () {
-      if (this.checked) {
-        copyPresentAddress();
-      } else {
-        document.getElementById("presentcountryp").value = "";
-        document.getElementById("presentstatep").value = "";
-        document.getElementById("presentdistrictp").value = "";
-        document.getElementById("Landmarkp").value = "";
-        document.getElementById("presentaddressp").value = "";
-        document.getElementById("Pincodep").value = "";
-      }
-    });
-  </script>
 </div>
+
+<script>
+  // JavaScript for form validation
+  (function () {
+    "use strict";
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll(".needs-validation");
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>
+
+<script>
+  function copyPresentAddress() {
+    var presentcountry = document.getElementById("presentcountry").value;
+    var presentstate = document.getElementById("presentstate").value;
+    var presentdistrict = document.getElementById("presentdistrict").value;
+    var Landmark = document.getElementById("Landmark").value;
+    var presentaddress = document.getElementById("presentaddress").value;
+    var Pincode = document.getElementById("Pincode").value;
+    document.getElementById("presentcountryp").value = presentcountry;
+    document.getElementById("presentstatep").value = presentstate;
+    document.getElementById("presentdistrictp").value = presentdistrict;
+    document.getElementById("Landmarkp").value = Landmark;
+    document.getElementById("presentaddressp").value = presentaddress;
+    document.getElementById("Pincodep").value = Pincode;
+  }
+  document.getElementById("addcheck").addEventListener("change", function () {
+    if (this.checked) {
+      copyPresentAddress();
+    } else {
+      document.getElementById("presentcountryp").value = "";
+      document.getElementById("presentstatep").value = "";
+      document.getElementById("presentdistrictp").value = "";
+      document.getElementById("Landmarkp").value = "";
+      document.getElementById("presentaddressp").value = "";
+      document.getElementById("Pincodep").value = "";
+    }
+  });
+</script>

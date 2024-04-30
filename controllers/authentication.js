@@ -26,7 +26,7 @@ module.exports.sendTwoFactor = async (req, res) => {
     email: stuDetails.email,
     code: newOtp,
   });
-  message = `<p style="color: red;">Hey Dear Fellow NFSUian !</p>
+  message = `<p style="color: red;">Hey Dear Student !</p>
     <br/>
 We have received a request to OTP Verification associated with your account. If you did not make this request, you can safely ignore this email.
 <br/><br/>
@@ -52,12 +52,13 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "smile.itsadil@gmail.com",
+      user: "noreply.spcweb@gmail.com",
       pass: process.env.APP_PASSWORD,
     },
   });
   const mailOptions = {
-    from: "ThePlacementCell@NFSU<smile.itsadil@gmail.com>",
+    from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+
     to: stuDetails.email,
     subject: "2 Factor Authentication Request",
     html: message,
@@ -173,7 +174,7 @@ module.exports.sendOtp = async (req, res) => {
   });
   let message = "";
   if (req.session.username == "Student") {
-    message = `<p style="color: red;">Hey Dear Fellow NFSUian !</p>`;
+    message = `<p style="color: red;">Hey Dear Student !</p>`;
   } else {
     message = `<p style="color: red;">Dear Respected Recruiter,</p>`;
   }
@@ -210,12 +211,12 @@ You can paste the above OTP in the <strong>Following Link</strong>:
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "smile.itsadil@gmail.com",
+      user: "noreply.spcweb@gmail.com",
       pass: process.env.APP_PASSWORD,
     },
   });
   const mailOptions = {
-    from: "ThePlacementCell@NFSU<smile.itsadil@gmail.com>",
+    from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
     to: email,
     subject: "OTP Verification Request",
     html: message,
@@ -482,7 +483,7 @@ module.exports.sendResetPassOtp = async (req, res) => {
     email: req.body.email,
     code: newOtp,
   });
-  message = `<p style="color: red;">Hey Dear Fellow NFSUian !</p>
+  message = `<p style="color: red;">Hey Dear Student !</p>
     <br/>
 We have received a request to Reset Password associated with your account. If you did not make this request, you can safely ignore this email.
 <br/><br/>
@@ -508,12 +509,13 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "smile.itsadil@gmail.com",
+      user: "noreply.spcweb@gmail.com",
       pass: process.env.APP_PASSWORD,
     },
   });
   const mailOptions = {
-    from: "ThePlacementCell@NFSU<smile.itsadil@gmail.com>",
+    from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+
     to: req.body.email,
     subject: "Password Reset Request",
     html: message,
