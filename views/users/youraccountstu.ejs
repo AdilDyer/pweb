@@ -8,8 +8,11 @@
 <%}else if(isRegistered){%>
 <div class="studentDashboard">
   <div class="studentHeadBanner">
-    <h5>Dashboard</h5>
-    <button class="list-inline-item btn btn-info adminupdates">
+    <a style="text-decoration: none; color: white" href="/account">
+      <h5 class="pop-out">Dashboard</h5></a
+    >
+
+    <button class="pop-out list-inline-item btn btn-info adminupdates">
       Admin Updates
     </button>
   </div>
@@ -27,18 +30,25 @@
     <%});%>
   </div>
 
-  <div class="studentInfoCards">
-    <div class="infoCard">
-      <h5>Total Companies Listed</h5>
-      <hr />
-      <h4><%=countAvailableListings%></h4>
+  <div class="studentInfoCards pop-out">
+    <div class="infoCard"></div>
+    <div class="card">
+      <div class="infocardtext">
+        <h5>Total Companies Listed</h5>
+        <hr />
+        <h4><%=countAvailableListings%></h4>
+      </div>
     </div>
 
-    <div class="infoCard">
-      <h5>Total Applied Companies</h5>
-      <hr />
-      <h4><%=countAppliedListings%></h4>
+    <div class="infoCard"></div>
+    <div class="card">
+      <div class="infocardtext">
+        <h5>Total Applied Companies</h5>
+        <hr />
+        <h4><%=countAppliedListings%></h4>
+      </div>
     </div>
+    <div class="infoCard"></div>
   </div>
 
   <div class="studentAvailableListings">
@@ -47,20 +57,20 @@
     <table class="table table-hover table-borderless studenttable1">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Company Name</th>
-          <th scope="col">Job Title</th>
-          <th scope="col">Job Location</th>
-          <th scope="col">Job Type</th>
-          <th scope="col">Job Description</th>
-          <th scope="col">CTC/Stipend</th>
-          <th scope="col">Last Date To Apply</th>
-          <th scope="col">Application Status</th>
+          <th scope="col" class="pop-out">#</th>
+          <th scope="col" class="pop-out">Company Name</th>
+          <th scope="col" class="pop-out">Job Title</th>
+          <th scope="col" class="pop-out">Job Location</th>
+          <th scope="col" class="pop-out">Job Type</th>
+          <th scope="col" class="pop-out">Job Description</th>
+          <th scope="col" class="pop-out">CTC/Stipend</th>
+          <th scope="col" class="pop-out">Last Date To Apply</th>
+          <th scope="col" class="pop-out">Application Status</th>
         </tr>
       </thead>
       <tbody>
         <% availableListings.forEach((listing,index) => { %>
-        <tr>
+        <tr class="pop-out">
           <td scope="row"><%=index +1%></td>
           <td scope="row"><%=listing.companyName%></td>
           <td scope="row"><%=listing.jobTitle%></td>
@@ -96,19 +106,19 @@
     <table class="table table-hover table-borderless studenttable1">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Company Name</th>
-          <th scope="col">Job Title</th>
-          <th scope="col">Job Location</th>
-          <th scope="col">Job Type</th>
-          <th scope="col">Job Description</th>
-          <th scope="col">CTC/Stipend</th>
-          <th scope="col">Application Status</th>
+          <th scope="col" class="pop-out">#</th>
+          <th scope="col" class="pop-out">Company Name</th>
+          <th scope="col" class="pop-out">Job Title</th>
+          <th scope="col" class="pop-out">Job Location</th>
+          <th scope="col" class="pop-out">Job Type</th>
+          <th scope="col" class="pop-out">Job Description</th>
+          <th scope="col" class="pop-out">CTC/Stipend</th>
+          <th scope="col" class="pop-out">Application Status</th>
         </tr>
       </thead>
       <tbody>
         <% appliedListings.forEach((listing,index) => { %>
-        <tr>
+        <tr class="pop-out">
           <td scope="row"><%=index +1%></td>
 
           <td scope="row"><%=listing.companyName%></td>
@@ -135,6 +145,12 @@
       </tbody>
     </table>
   </div>
+  <footer>
+    <div>
+      <h6>&copy; Placement Cell</h6>
+      <h6>SCSDF, NFSU</h6>
+    </div>
+  </footer>
 </div>
 <script>
   let adminupdateBtn = document.querySelector(".adminupdates");

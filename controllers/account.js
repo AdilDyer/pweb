@@ -3,6 +3,7 @@ const Listing = require("../models/listing");
 const Application = require("../models/application");
 const Update = require("../models/update");
 const Recruiter = require("../models/recruiter");
+const Query = require("../models/query");
 module.exports.showAccount = async (req, res) => {
   let { isRegistered, _id, course } = req.user;
 
@@ -112,4 +113,29 @@ module.exports.submitApply = async (req, res) => {
     req.flash("success", "Application Submitted Succesfully !");
     res.redirect("/account");
   }
+};
+
+module.exports.renderQueryForm = async (req, res) => {
+  let allQueries = await Query.find({ stuId: req.user._id });
+
+  res.render("resources/askquery.ejs", {
+    isRegistered: true,
+    stuId: req.user._id,
+    allQueries: allQueries,
+  });
+};
+
+module.exports.submitStudentQuery = async (req, res) => {
+  let { subject, query } = req.body;
+  let newQuery = new Query({
+    subject: subject,
+    query: query,
+    stuId: req.user._id,
+  });
+
+  await newQuery.save();
+
+  req.flash("success", "Query Submitted Successfully !");
+  req.session.save();
+  res.redirect("/account/askqueries");
 };

@@ -1,0 +1,68 @@
+<%layout("./layouts/boilerplate")%>
+<div class="askquerydiv">
+  <div class="queryCard">
+    <h2>Ask a Query</h2>
+    <br />
+    <form action="/account/askqueries" method="post">
+      <div class="form-group">
+        <div class="form-label">Subject</div>
+        <br />
+        <input
+          type="text"
+          name="subject"
+          required
+          placeholder="Subject"
+          class="form-control"
+        />
+      </div>
+      <br />
+      <div class="form-group">
+        <div class="form-lable">Query</div>
+        <br />
+        <textarea
+          name="query"
+          class="form-control"
+          required
+          placeholder="Write Your Query here..."
+        ></textarea>
+      </div>
+      <br />
+      <button class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <div class="previousQueriesStudent">
+    <h3>Previous Queries</h3>
+
+    <div class="studentAvailableListings studentAppliedListings">
+      <table class="table table-hover table-borderless studenttable1">
+        <thead>
+          <tr>
+            <th scope="col" class="pop-out">#</th>
+            <th scope="col" class="pop-out">Subject</th>
+            <th scope="col" class="pop-out">Query</th>
+            <th scope="col" class="pop-out">Response</th>
+            <th scope="col" class="pop-out">Submitted at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allQueries.forEach((query,index) => { %>
+          <tr class="pop-out">
+            <td scope="row"><%=index +1%></td>
+            <td scope="row"><%=query.subject%></td>
+            <td scope="row"><%=query.query%></td>
+            <td scope="row"><%=query.reply%></td>
+            <td scope="row"><%=query.createdAt%></td>
+          </tr>
+          <%});%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <h6 style="color: blanchedalmond">&copy; Placement Cell</h6>
+      <h6 style="color: blanchedalmond">SCSDF, NFSU</h6>
+    </div>
+  </footer>
+</div>

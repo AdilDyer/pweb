@@ -84,11 +84,18 @@ module.exports.registerTheUser = async (req, res) => {
       //   req.flash("error", "error validating recruiter's details" + error);
       //   res.redirect("/register/rec");
       // }
-
-      const newRecruiter = {
+      let attachedFileLink = "";
+      if (req.files) {
+        if (req.files.attachedFile) {
+          if (req.files.attachedFile[0]) {
+            attachedFileLink = req.files.attachedFile[0].path;
+          }
+        }
+      }
+      const newRecruiter = await {
         isAudited: true || "",
         isRegistered: true || "",
-        attachedFileLink: req.files.attachedFile[0].path || "",
+        attachedFileLink: attachedFileLink,
         companyname: req.body.companyname || "",
         natureofbusiness: req.body.natureofbusiness || "",
         websitelink: req.body.websitelink || "",

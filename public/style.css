@@ -1254,12 +1254,54 @@ img.no-style {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 80vh;
+  height: 90vh;
   background-color: #f6ebe5;
 }
 
+.askquerydiv {
+  background: linear-gradient(to right, rgb(10, 0, 41), rgb(7, 24, 46, 01));
+  color: blanchedalmond;
+  width: 100%;
+  height: fit-content;
+  min-height: 86vh;
+  padding: 5rem;
+  .previousQueriesStudent {
+    margin-top: 5rem;
+    .studentAvailableListings {
+      display: flex;
+      padding-top: 5rem;
+      padding-bottom: 2rem;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    .studenttable1 {
+      width: 95%;
+      border-radius: 2rem;
+      box-shadow: 0 0 100px rgba(4, 0, 33, 0.35);
+      overflow: hidden;
+      thead {
+        box-shadow: 0 0 10px rgba(4, 0, 16, 0.469);
+      }
+      th {
+        text-align: center;
+        vertical-align: middle;
+      }
+      td,
+      th {
+        padding: 1.5rem;
+        color: white;
+        text-align: center;
+        background-color: rgb(255, 255, 255, 0.1);
+      }
+      .buttonTd {
+        text-align: center;
+      }
+    }
+  }
+}
 .studentDashboard {
-  background: linear-gradient(to right, rgb(10, 0, 41), rgba(18, 0, 135, 0.8));
+  background: linear-gradient(to right, rgb(10, 0, 41), rgb(7, 24, 46, 01));
   color: white;
   width: 100%;
   height: fit-content;
@@ -1305,8 +1347,9 @@ img.no-style {
   .studentInfoCards {
     display: flex;
     text-align: start;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
+    padding: 1rem;
     .infoCard {
       width: fit-content;
       background: rgba(255, 255, 255, 0.1);
@@ -1337,8 +1380,463 @@ img.no-style {
       }
     }
   }
+
+  /*  */
+  .card {
+    width: 20rem;
+    height: 15rem;
+    background: #07182e;
+    position: relative;
+    display: flex;
+    place-content: center;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  .card .infocardtext {
+    z-index: 1;
+    color: white;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    width: 1000px;
+    background-image: linear-gradient(
+      180deg,
+      rgb(0, 183, 255),
+      rgb(255, 48, 255)
+    );
+    height: 100px;
+    animation: rotBGimg 10s linear infinite;
+    transition: all 0.2s linear;
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    background: #07182e;
+    inset: 5px;
+    border-radius: 15px;
+  }
+  /* .card:hover:before {
+    background-image: linear-gradient(180deg, rgb(81, 255, 0), purple);
+    animation: rotBGimg 3.5s linear infinite;
+  } */
+  footer {
+    background-color: black;
+    height: 6rem;
+    box-shadow: black 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h6 {
+      color: white;
+    }
+  }
 }
 
+/* admin dashboard */
+.adminbigdiv {
+  height: fit-content;
+  min-height: 100vh;
+  width: 100%;
+  overflow-y: scroll !important;
+  background-color: blanchedalmond;
+  display: flex;
+
+  .leftadmin {
+    height: 100%;
+    position: fixed;
+    width: 20%;
+    background-color: blanchedalmond;
+
+    padding: 1rem;
+
+    .whiteboxleftadmin {
+      height: 100%;
+      background-color: rgba(155, 0, 52, 0.422);
+      border-radius: 1rem;
+      padding: 0;
+      box-shadow: 0 0 20px rgba(53, 0, 0, 0.121);
+    }
+
+    .admindashimgdiv {
+      display: flex;
+      padding: 1rem;
+      h5 {
+        margin-left: 1rem;
+        display: flex;
+        align-items: center;
+      }
+    }
+    .sectionslinksadmin {
+      margin-top: 2rem;
+      a {
+        text-decoration: none;
+        color: black;
+        font-weight: 500;
+        font-size: 1.1rem;
+      }
+      .selected {
+        background-color: brown;
+        border-radius: 1rem;
+        color: white;
+      }
+
+      li:hover {
+        background-color: brown;
+        border-radius: 1rem;
+        color: white;
+      }
+      li {
+        width: 80%;
+        padding: 1rem;
+        margin-top: 0.7rem;
+        transition: all 0.6s;
+      }
+    }
+  }
+
+  .rightadmin {
+    height: fit-content;
+    width: 80%;
+    position: absolute;
+    padding: 1rem;
+    left: 20%;
+    overflow-y: scroll !important;
+    background-color: blanchedalmond;
+    .sectiondiv {
+      display: none;
+      min-height: 50vh;
+    }
+    #Dashboard {
+      display: block;
+      .dashupper {
+        width: 100%;
+
+        display: flex;
+        background-color: rgba(110, 91, 255, 0.958);
+        border-radius: 2rem;
+        color: white;
+        .card {
+          margin: 1rem;
+          width: 16rem;
+          height: 10rem;
+          background: #07182e;
+          position: relative;
+          display: flex;
+          place-content: center;
+          place-items: center;
+          overflow: hidden;
+          border-radius: 20px;
+        }
+
+        .card .infocardtext {
+          z-index: 1;
+          color: white;
+        }
+
+        .card::before {
+          content: "";
+          position: absolute;
+          width: 1000px;
+          background-image: linear-gradient(
+            180deg,
+            rgb(0, 115, 255),
+            rgba(90, 19, 255, 0.406)
+          );
+          height: 100px;
+          animation: rotBGimg 10s linear infinite;
+          transition: all 0.2s linear;
+        }
+
+        .card::after {
+          content: "";
+          position: absolute;
+          background: #07182e;
+          inset: 5px;
+          border-radius: 15px;
+        }
+      }
+      .dashlower {
+        display: flex;
+        flex-direction: column;
+        .dashlower1 {
+          display: flex;
+          .dashpie1 {
+            width: 45%;
+            background-color: rgba(255, 192, 203, 0.743);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 3rem;
+            margin-left: 0;
+          }
+          .trafficstats {
+            width: 55%;
+            margin-top: 2rem;
+            .livevisitorsadmin {
+              width: 100%;
+              .card {
+                margin: 1rem;
+                margin-left: 0;
+                width: 100%;
+                height: 10rem;
+                background: #00214c;
+                position: relative;
+                display: flex;
+                place-content: center;
+                place-items: center;
+                overflow: hidden;
+                border-radius: 20px;
+              }
+
+              .card .infocardtext {
+                z-index: 1;
+                color: white;
+              }
+
+              .card::before {
+                content: "";
+                position: absolute;
+                width: 1000px;
+                background-image: linear-gradient(
+                  180deg,
+                  rgba(176, 35, 47, 0.577),
+                  rgba(66, 0, 11, 0.543)
+                );
+                height: 100px;
+                animation: rotBGimg 10s linear infinite;
+                transition: all 0.2s linear;
+              }
+
+              .card::after {
+                content: "";
+                position: absolute;
+                background: #32012f;
+                inset: 5px;
+                border-radius: 15px;
+              }
+            }
+            .dailytrafficavg {
+              width: 100%;
+              height: 55%;
+              .card {
+                margin: 1rem;
+                margin-left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgb(95, 0, 122);
+                position: relative;
+                display: flex;
+                place-content: center;
+                place-items: center;
+                overflow: hidden;
+                border-radius: 20px;
+              }
+
+              .card .infocardtext {
+                z-index: 1;
+                color: white;
+              }
+
+              .card::before {
+                content: "";
+                position: absolute;
+                width: 1000px;
+                background-image: linear-gradient(
+                  180deg,
+                  rgb(112, 17, 0),
+                  rgba(15, 0, 218, 0.406)
+                );
+                height: 100px;
+                animation: rotBGimg 10s linear infinite;
+                transition: all 0.2s linear;
+              }
+
+              .card::after {
+                content: "";
+                position: absolute;
+                background: #1e0342;
+                inset: 5px;
+                border-radius: 15px;
+              }
+            }
+          }
+        }
+        .dashlower2 {
+          display: flex;
+          width: 100%;
+
+          .queries {
+            margin-right: 1rem;
+            width: 50%;
+            .card {
+              border-radius: 2rem;
+              background-color: midnightblue;
+              color: white;
+              padding: 2rem;
+              .card-text {
+                padding: 1rem;
+              }
+            }
+          }
+        }
+        .dashlower3 {
+          width: 100%;
+          background-color: rgb(98, 0, 0);
+          color: white;
+          margin-top: 2rem;
+          padding: 2rem;
+          border-radius: 2rem;
+        }
+      }
+    }
+    .dash-table-format {
+      margin-top: 2rem;
+
+      .dropdown {
+        display: inline;
+
+        button {
+          margin-bottom: 1rem;
+          box-shadow: 0 0 5px rgb(0, 0, 0, 0.1);
+        }
+      }
+      .dropdown-menu {
+        padding: 0.5rem;
+        li {
+          padding-left: 0;
+          display: flex;
+          align-items: center;
+          input {
+            margin: 0.5rem;
+          }
+        }
+      }
+      table {
+        border-radius: 1rem;
+        overflow: hidden;
+
+        th {
+          background-color: aliceblue;
+          color: midnightblue;
+          text-align: center;
+          vertical-align: middle;
+        }
+        td {
+          background-color: lightskyblue;
+          color: black;
+          padding: 1rem;
+        }
+      }
+    }
+    #Companies {
+      .addlisting {
+        width: 100%;
+        background-color: brown;
+        box-shadow: 0 0 20px rgb(0, 0, 0, 0.5);
+        color: white;
+        padding: 2rem;
+        border-radius: 2rem;
+        height: fit-content;
+        form {
+          display: flex;
+
+          flex-wrap: wrap;
+        }
+        input,
+        select,
+        textarea {
+          width: fit-content;
+          margin: 1rem;
+        }
+        h5 {
+          display: inline;
+        }
+        h6 {
+          color: white;
+          display: inline;
+        }
+      }
+      .companycards {
+        display: flex;
+        justify-content: center;
+        .card {
+          margin: 1rem;
+          width: 15rem;
+          height: 10rem;
+          color: white;
+          border-radius: 1rem;
+          box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+          /* background-image: linear-gradient(
+            144deg,
+            #2800a0,
+            #02000c 50%,
+            #eb0000
+          ); */
+          .card__content {
+            background: rgb(78, 0, 36);
+            background: rgb(108, 0, 0);
+            border-radius: 17px;
+            padding: 1rem;
+            width: 100%;
+            color: white;
+            height: 100%;
+            h5,
+            h6 {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+    #Students {
+    }
+    #Application {
+    }
+    #Updates {
+      .addupdate {
+        width: 100%;
+        background-color: brown;
+        box-shadow: 0 0 20px rgb(0, 0, 0, 0.5);
+        color: white;
+        padding: 2rem;
+        border-radius: 2rem;
+        height: fit-content;
+        form {
+          display: flex;
+
+          flex-wrap: wrap;
+        }
+        input,
+        select,
+        textarea {
+          width: fit-content;
+          margin: 1rem;
+        }
+        h5 {
+          display: inline;
+        }
+        h6 {
+          color: white;
+          display: inline;
+        }
+      }
+    }
+  }
+}
+
+@keyframes rotBGimg {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
 @media (max-width: 500px) {
   .navbar-brand img {
     width: 15%;

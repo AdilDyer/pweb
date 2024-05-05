@@ -77,4 +77,12 @@ router
   .route("/placedstudent/:applicationId")
   .get(isThisAdmin, adminController.renderPlacedStudentForm)
   .post(isThisAdmin, wrapAsync(adminController.markPlacedStudent));
+
+router
+  .route("/markqueryresolved/:queryId")
+  .post(wrapAsync(adminController.markQueryResolved));
+
+router
+  .route("/arrayMarkAsResolved")
+  .post(wrapAsync(adminController.arrayMarkQueryResolved));
 module.exports = router;

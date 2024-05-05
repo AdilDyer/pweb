@@ -35,37 +35,6 @@ module.exports.shallNotAuthenticated = wrapAsync(async (req, res, next) => {
   }
 });
 
-module.exports.isVerified = wrapAsync(async (req, res, next) => {
-  //for get of recruiters
-  // if (req.query.hasOwnProperty("recid")) {
-  //   let result = await Recruiter.findOne({ _id: req.query.recid });
-  //   if (result) {
-  //     return next();
-  //   } else {
-  //     req.flash("error", "Please enter a valid Recruiter Id");
-  //     req.session.save();
-  //     res.redirect("/");
-  //   }
-  // }
-
-  if (req.params.user == "stu") {
-    //for post and get
-    let result = await VerifiedUser.findOne({ bodyData: req.session.bodyData });
-    if (result) {
-      return next();
-    } else {
-      if (req.user.isAudited == true) {
-        return next();
-      } else {
-        req.flash("error", "Please verify your Email First !");
-        res.redirect("/");
-      }
-    }
-  } else {
-    return next();
-  }
-});
-
 module.exports.isThisAdmin = (req, res, next) => {
   if (res.locals.isAdmin == true) {
     return next();
@@ -105,7 +74,8 @@ module.exports.studentStayInDashboard = (req, res, next) => {
     !(req.path === "/auth/logout") &&
     !(req.path === "/register/stu") &&
     !(req.path == "/account/sturegisdetails/") &&
-    !(req.path == "/account/apply")
+    !(req.path == "/account/apply") &&
+    !(req.path == "/account/askqueries")
   ) {
     res.redirect("/account");
   } else {

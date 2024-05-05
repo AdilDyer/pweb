@@ -32,46 +32,46 @@
           <div class="input-fields">
             <div class="form-group">
               <label for="Enrollment">Enrollment No.</label>
-              <input
+              <input readonly
                 type="text"
                 class="form-control"
                 id="Enrollment"
                 readonly
-                disabled
+
                 value="<%=stuDetails.enrollmentNo%>"
                 placeholder="Enrollment No."
               />
             </div>
             <div class="form-group">
               <label for="username">Username</label>
-              <input
+              <input readonly
                 type="text"
                 value="<%=stuDetails.username%>"
                 class="form-control"
                 id="username"
                 placeholder="username"
                 readonly
-                disabled
+
               />
             </div>
             <div class="form-group">
               <label for="firstname">Full Name</label>
-              <input
+              <input readonly
                 type="text"
                 class="form-control"
                 id="firstname"
                 placeholder="First Name"
-                disabled
+
                 readonly
                 value="<%=stuDetails.fullname%>"
               />
             </div>
             <div class="form-group">
               <label>Course</label>
-              <input
+              <input readonly
                 type="text"
                 class="form-control"
-                disabled
+
                 readonly
                 value="<%=stuDetails.course%>"
               />
@@ -79,7 +79,7 @@
 
             <div class="form-group">
               <label for="fathername">Father's Name</label>
-              <input
+              <input readonly
                 type="text"
                 name="fathername"
                 class="form-control"
@@ -91,7 +91,7 @@
             </div>
             <div class="form-group">
               <label for="mothername">Mother's Name</label>
-              <input
+              <input readonly
                 type="text"
                 class="form-control"
                 id="mothername"
@@ -107,12 +107,13 @@
                 <p class="regis-card-title">Gender</p>
                 <div class="card-text">
                   <div class="form-check">
-                    <input
+                    <input readonly
                       class="form-check-input"
                       type="radio"
                       <%=stuDetails.gender == "female"?"checked":""%>
                       name="gender"
                       value="female"
+                      disabled
                       id="gender"
                       required
                     />
@@ -121,11 +122,12 @@
                     </label>
                   </div>
                   <div class="form-check">
-                    <input
+                    <input readonly
                       class="form-check-input"
                       type="radio"
                        <%=stuDetails.gender == "male"?"checked":""%>
                       value="male"
+                      disabled
                       name="gender"
                       required
                       id="gender2"
@@ -133,10 +135,11 @@
                     <label class="form-check-label" for="gender2"> Male </label>
                   </div>
                   <div class="form-check">
-                    <input
+                    <input readonly
                       class="form-check-input"
                       type="radio" <%=stuDetails.gender == "other"?"checked":""%>
                       value="other"
+                      disabled
                       required
                       name="gender"
                       id="gender3"
@@ -157,7 +160,7 @@
     %>
             <div class="form-group">
               <label for="birthdate">Birth Date (DD/MM/YYYY)</label>
-              <input
+              <input readonly
                 type="date"
                 class="form-control"
                 id="birthdate"
@@ -169,10 +172,10 @@
             </div>
             <div class="form-group">
               <label for="mobno">Mobile Number</label>
-              <input
+              <input readonly
                 type="tel"
                 class="form-control"
-                disabled
+
                 readonly
                 id="mobno"
                 name="mobileno"
@@ -182,7 +185,7 @@
             </div>
             <div class="form-group">
               <label for="altmob">Alternate Mobile No</label>
-              <input
+              <input readonly
                 type="tel"
                 class="form-control"
                 id="altmob"
@@ -194,19 +197,19 @@
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input
+              <input readonly
                 type="email"
                 class="form-control"
                 id="email"
                 readonly
-                disabled
+
                 placeholder="Email"
                 value="<%=stuDetails.email%>"
               />
             </div>
             <div class="form-group">
               <label for="altemail">Alternate Email </label>
-              <input
+              <input readonly
                 type="email"
                 class="form-control"
                 id="altemail"
@@ -224,6 +227,7 @@
                 class="form-control"
                 id="category"
                 name="category"
+                disabled
                 placeholder="Category Name"
               >
                 <option
@@ -246,7 +250,7 @@
             </div>
             <div class="form-group">
               <label for="nationality">Nationality</label>
-              <input
+              <input readonly
                 type="text"
                 class="form-control"
                 id="nationality"
@@ -261,7 +265,7 @@
       </div>
       <div class="content-div regis-content-div">
         <div class="content-title container">
-          <hr />
+          <hr style="margin: 0;"/>
           <br />
           <h2>Communication Details</h2>
           <br />
@@ -269,7 +273,7 @@
             <div class="input-fields">
               <div class="form-group">
                 <label for="presentcountry">Present Country</label>
-                <input
+                <input readonly
                   type="text"
                   class="form-control"
                   required
@@ -284,6 +288,7 @@
 
                 <select
                   type="text"
+                  disabled
                   value=""
                   name="presentstate"
                   required
@@ -412,7 +417,7 @@
               </div>
               <div class="form-group">
                 <label for="presentdistrict">Present District</label>
-                <input
+                <input readonly
                   type="text"
                   class="form-control"
                   id="presentdistrict"
@@ -425,7 +430,7 @@
               </div>
               <div class="form-group">
                 <label for="Landmark">Landmark</label>
-                <input
+                <input readonly
                   type="text"
                   class="form-control"
                   id="Landmark"
@@ -444,6 +449,7 @@
                   class="form-control"
                   id="presentaddress"
                   required
+                  disabled
 
                   name="presentaddress"
                   placeholder="Present Address"
@@ -453,7 +459,7 @@
 
               <div class="form-group">
                 <label for="Pincode">Pincode/Zipcode</label>
-                <input
+                <input readonly
                   type="number"
                   class="form-control"
                   value="<%=stuDetails.pincode%>"
@@ -471,7 +477,7 @@
             <div class="input-fields">
               <div class="form-group">
                 <label for="presentcountryp">Permanent Country</label>
-                <input
+                <input readonly
                   type="text"
                   class="form-control"
                   required
@@ -483,7 +489,7 @@
               </div>
               <div class="form-group">
                 <label for="presentstatep">Permanent State</label>
-                <input
+                <input readonly
                   type="text"
                   class="form-control"
                   required
@@ -495,7 +501,7 @@
               </div>
               <div class="form-group">
                 <label for="presentdistrictp">Permanent District</label>
-                <input
+                <input readonly
                   type="text"
                   class="form-control"
                   id="presentdistrictp"
@@ -507,7 +513,7 @@
               </div>
               <div class="form-group">
                 <label for="Landmarkp">Landmark</label>
-                <input
+                <input readonly
                   type="text"
                   class="form-control"
                   name="permanentLandmark"
@@ -522,6 +528,7 @@
                 <label for="presentaddressp">Permanent Address</label>
                 <textarea
                   type="text"
+                  disabled
                   class="form-control"
                   required
                   name="permanentAddress"
@@ -534,7 +541,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
 
               <div class="form-group">
                 <label for="Pincodep">Pincode/Zipcode</label>
-                <input
+                <input readonly
                   type="number"
                   class="form-control"
                   id="Pincodep"
@@ -550,7 +557,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
       </div>
       <div class="content-div regis-content-div" id="procedure">
         <div class="content-title container">
-          <hr />
+          <hr style="margin: 0;" />
           <br />
           <h2>Education Details</h2>
           <br />
@@ -558,7 +565,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
             <div class="input-fields">
               <div class="form-group">
                 <label for="10th">10th Result</label>
-                <input
+                <input readonly
                   type="number"
                   class="form-control"
                   required
@@ -569,17 +576,12 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                 />
               </div>
               <div class="form-group">
-                <label for="10thupload">Upload 10th Marksheet</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  id="10thupload"
-                  name="tenthmarksheet"
-                />
+                <label for="10thupload"> 10th Marksheet</label>
+               <a href="<%=stuDetails.tenthMarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
               </div>
               <div class="form-group">
                 <label for="12th">12th Result</label>
-                <input
+                <input readonly
                   type="number"
                   class="form-control"
                   id="12th"
@@ -590,17 +592,12 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                 />
               </div>
               <div class="form-group">
-                <label for="12thupload">Upload 12th Marksheet</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  id="12thupload"
-                  name="twelthmarksheet"
-                />
+                <label for="12thupload"> 12th Marksheet</label>
+                <a href="<%=stuDetails.twelthMarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
               </div>
               <div class="form-group">
                 <label for="lastsemcgpa">Last Sem CGPA</label>
-                <input
+                <input readonly
                   type="number"
                   class="form-control"
                   id="lastsemcgpa"
@@ -615,7 +612,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
       </div>
       <div class="content-div regis-content-div" id="procedure">
         <div class="content-title container">
-          <hr />
+          <hr style="margin: 0;"/>
           <br />
           <h2>Declaration</h2>
           <br />

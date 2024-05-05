@@ -6,6 +6,7 @@ const Application = require("../models/application");
 const { v4: uuidv4 } = require("uuid");
 const nodemailer = require("nodemailer");
 const Update = require("../models/update");
+const Query = require("../models/query");
 let converter = require("json-2-csv");
 
 module.exports.showAdmin = async (req, res) => {
@@ -55,6 +56,9 @@ module.exports.showAdmin = async (req, res) => {
 
   let allDeboardedStudents = await Student.find({ isDeboarded: true });
 
+  let allResolvedQueries = await Query.find({ markedAsResolved: true });
+  let allUnresolvedQueries = await Query.find({ markedAsResolved: false });
+
   res.render("users/admin.ejs", {
     allRecruitersPending: allRecruitersPending,
     allAuditedRecruiters: allAuditedRecruiters,
@@ -78,6 +82,8 @@ module.exports.showAdmin = async (req, res) => {
     updatesForMscDfis: updatesForMscDfis,
     allplacedStudents: allplacedStudents,
     allDeboardedStudents: allDeboardedStudents,
+    allUnresolvedQueries: allUnresolvedQueries,
+    allResolvedQueries: allResolvedQueries,
   });
 };
 
@@ -737,5 +743,46 @@ module.exports.markPlacedStudent = async (req, res) => {
 
   await Application.deleteMany({ stuId: student._id });
   req.flash("success", "Marked as Placed Successfully !");
+  res.redirect("/admin");
+};
+
+module.exports.markQueryResolved = async (req, res) => {
+  let { reply } = req.body;
+  if (!reply) reply = "Marked as Resolved";
+
+  let query = await Query.findOne({ _id: req.params.queryId });
+
+  query.reply = reply;
+  query.markedAsResolved = true;
+  await query.save();
+
+  req.flash("success", "Query Marked as Resolved");
+  req.session.save();
+  res.redirect("/admin");
+};
+
+module.exports.arrayMarkQueryResolved = async (req, res) => {
+  const selectedRows = req.body.selectedRows;
+
+  // Assuming Query is a Mongoose model
+  for (const selectedRow of selectedRows) {
+    const { queryId, response } = selectedRow;
+
+    let reply = response;
+    if (!reply) reply = "Marked as Resolved";
+
+    // Find the query by ID
+    let query = await Query.findOne({ _id: queryId });
+
+    // Update query properties
+    query.reply = reply;
+    query.markedAsResolved = true;
+
+    // Save the updated query
+    await query.save();
+  }
+
+  req.flash("success", "Queries Marked as Resolved");
+  req.session.save();
   res.redirect("/admin");
 };

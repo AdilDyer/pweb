@@ -29,4 +29,8 @@ router
   .get(wrapAsync(accountController.renderApplyForm))
   .post(upload.single("resumeLink"), wrapAsync(accountController.submitApply));
 
+router
+  .route("/askqueries")
+  .get(wrapAsync(accountController.renderQueryForm))
+  .post(wrapAsync(accountController.submitStudentQuery));
 module.exports = router;
