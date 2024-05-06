@@ -25,6 +25,7 @@ module.exports.showAdmin = async (req, res) => {
   let allAuditedStudents = await Student.find({
     isAudited: true,
     isRegistered: false,
+    isDeboarded: false,
   });
   let countallAuditedStudents = allAuditedStudents.length;
   let allRegisteredStudents = await Student.find({ isRegistered: true });
@@ -503,10 +504,15 @@ module.exports.markStuAudit = async (req, res) => {
 };
 
 module.exports.markStuArrayAudit = async (req, res) => {
-  let { idsOfCheckboxes } = req.body;
-  const idsOfCheckboxesArray = JSON.parse(idsOfCheckboxes);
+  // let { idsOfCheckboxes } = req.body;
+  // const idsOfCheckboxesArray = JSON.parse(idsOfCheckboxes);
 
-  for (verifiedStuID of idsOfCheckboxesArray) {
+  // for (verifiedStuID of idsOfCheckboxesArray) {
+  const { selectedRows } = req.body;
+
+  for (const row of selectedRows) {
+    const verifiedStuID = row.stuid;
+
     try {
       let stuVerified = await VerifiedUser.findOne({ _id: verifiedStuID });
       await VerifiedUser.deleteMany({ _id: verifiedStuID });
@@ -681,7 +687,7 @@ module.exports.markStuArrayAudit = async (req, res) => {
       console.log("error in registering array of students ", e);
     }
   }
-  req.flash("success", "All Marked Students Audited !");
+  req.flash("success", "All Marked Students Verified !");
   res.redirect("/admin");
 };
 
@@ -714,7 +720,8 @@ module.exports.deboardStudent = async (req, res) => {
 
   await stu.save();
 
-  req.flash("success", "Student De-Boarded Successfully !");
+  req.flash("success", "Student Account Disabled Successfully !");
+  req.session.save();
   res.redirect("/admin");
 };
 

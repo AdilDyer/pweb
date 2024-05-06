@@ -1,0 +1,614 @@
+<div id="Students" class="sectiondiv">
+  <div class="studenttable dash-table-format">
+    <div class="dropdown">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        id="tableSelectorbtnStudents"
+      >
+        Registered Students
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioStudents"
+            data-name="Registered Students"
+            name="tableRadioStudents"
+            checked
+            value="Registered Students"
+            style="display: inline"
+            id="radioregisstu"
+          />
+          <label for="radioregisstu"> Registered Students</label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioStudents"
+            name="tableRadioStudents"
+            value="Verification Pending Students"
+            style="display: inline"
+            id="radioverifypendstu"
+          />
+          <label for="radioverifypendstu"> Verification Pending</label>
+        </li>
+
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioStudents"
+            name="tableRadioStudents"
+            value="Verified Students"
+            style="display: inline"
+            id="radiopendinstu"
+          />
+          <label for="radiopendinstu"> Verified Students </label>
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown dropdown-options-students">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Options to Show
+      </button>
+
+      <ul
+        data-name="Registered Students"
+        class="dropdown-menu"
+        id="dropdown"
+        style="place-items: centre"
+      ></ul>
+    </div>
+    <button
+      class="btn btn-success"
+      id="markselectedverifiedStudents"
+      style="display: none; margin-bottom: 1rem; margin-left: 0.5rem"
+    >
+      Mark all Verified
+    </button>
+    <div class="tablesstudent">
+      <table
+        class="table table-hover table-bordered"
+        data-name="Registered Students"
+      >
+        <thead>
+          <tr class="headerrowRegisteredStudents">
+            <th scope="col">#</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Enroll No.</th>
+            <th scope="col">Course</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile No.</th>
+            <th scope="col" style="display: none">Disable Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allRegisteredStudents.forEach((student,index) => { %>
+          <tr class="dataTableRegisteredStudents">
+            <td><%=index +1%></td>
+            <td>
+              <a
+                href="/account/sturegisdetails/?stuId=<%=student._id%>"
+                target="_blank"
+                style="text-decoration: none; color: maroon"
+              >
+                <%=student.fullname%></a
+              >
+            </td>
+            <td><%= student.enrollmentNo %></td>
+            <td><%= student.course %></td>
+            <td><%= student.email %></td>
+            <td><%= student.mobileno%></td>
+            <td style="display: none">
+              <a href="/admin/deboard/student/<%= student._id %>">
+                <button class="btn btn-danger">Disable Account</button>
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="Verification Pending Students"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowPendingStudents">
+            <th scope="col">
+              <input
+                type="checkbox"
+                id="selectallStudentVerifyPending"
+                class="form-check-input"
+              />
+            </th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Enroll No.</th>
+            <th scope="col">Course</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile No.</th>
+            <th scope="col">Verification</th>
+            <th scope="col">Delete Request</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allStudentsPending.forEach((student,index) => { %>
+          <tr class="dataTablePendingStudents">
+            <td>
+              <input
+                type="checkbox"
+                class="form-check-input allStudentVerifypendingcheck"
+                name="<%=student._id%>"
+              />
+            </td>
+            <td><%= student.bodyData.stuname %></td>
+            <td><%= student.bodyData.enrollnostu %></td>
+            <td><%= student.bodyData.coursename %></td>
+            <td><%= student.bodyData.email %></td>
+            <td><%= student.bodyData.stumobno%></td>
+            <td>
+              <a href="/admin/markStuAudit/<%=student._id%>">
+                <button class="btn btn-success">Mark as Verified</button></a
+              >
+            </td>
+            <td>
+              <a href="/admin/deboard/student/<%= student._id %>">
+                <button class="btn btn-danger">Delete Request</button>
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="Verified Students"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowVerifiedStudents">
+            <th scope="col">#</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Enroll No.</th>
+            <th scope="col">Course</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile No.</th>
+            <th scope="col" style="display: none">Disable Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allAuditedStudents.forEach((student,index) => { %>
+          <tr class="dataTableVerifiedStudents">
+            <td><%=index +1%></td>
+            <td><%= student.fullname %></td>
+            <td><%= student.enrollmentNo %></td>
+            <td><%= student.course %></td>
+            <td><%= student.email %></td>
+            <td><%= student.mobileno%></td>
+            <td style="display: none">
+              <a href="/admin/deboard/student/<%= student._id %>">
+                <button class="btn btn-danger">Disable Account</button>
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- multiple select students verify pending -->
+<script>
+  document
+    .getElementById("markselectedverifiedStudents")
+    .addEventListener("click", () => {
+      const selectedRows = [];
+      document
+        .querySelectorAll(".allStudentVerifypendingcheck")
+        .forEach((checkbox) => {
+          if (checkbox.checked) {
+            const rowData = {
+              stuid: checkbox.getAttribute("name"),
+            };
+            selectedRows.push(rowData);
+          }
+        });
+
+      // Send the selectedRows array to your route handler
+      // You can use AJAX (e.g., fetch) to send the data to your backend
+      // Example:
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/admin/markStuAudit/1221"; // Specify your route here
+
+      // Create hidden input fields for each selected row
+      selectedRows.forEach((rowData, index) => {
+        // Create an input element for checkbox value
+        const checkboxInput = document.createElement("input");
+        checkboxInput.type = "hidden";
+        checkboxInput.name = `selectedRows[${index}][stuid]`; // Adjust name based on your backend expectation
+        checkboxInput.value = rowData.stuid;
+        form.appendChild(checkboxInput);
+      });
+
+      // Append the form to the body and submit it
+      document.body.appendChild(form);
+      form.submit();
+    });
+
+  // Add event listener to your "Select All" checkbox
+  document
+    .getElementById("selectallStudentVerifyPending")
+    .addEventListener("click", () => {
+      const selectAllCheckbox = document.getElementById(
+        "selectallStudentVerifyPending"
+      );
+
+      document.getElementById("markselectedverifiedStudents").style.display =
+        selectAllCheckbox.checked ? "inline" : "none";
+
+      const checkboxes = document.querySelectorAll(
+        ".allStudentVerifypendingcheck"
+      );
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAllCheckbox.checked;
+      });
+    });
+
+  document
+    .querySelectorAll(".allStudentVerifypendingcheck")
+    .forEach((checkbox) => {
+      checkbox.addEventListener("click", () => {
+        const anyChecked = Array.from(
+          document.querySelectorAll(".allStudentVerifypendingcheck")
+        ).some((checkbox) => checkbox.checked);
+        // If any checkbox is checked, show the button; otherwise, hide it
+        document.getElementById("markselectedverifiedStudents").style.display =
+          anyChecked ? "inline" : "none";
+      });
+    });
+</script>
+
+<!-- for students-->
+<!-- table script -->
+<script>
+  let monitorAllRegisteredCheckboxesStudents = () => {
+    let allOptions = document
+      .querySelectorAll(".checkregisstu")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+          toggleColumn1Students(checkbox);
+        });
+      });
+  };
+
+  let monitorAllPendingCheckboxesStudents = () => {
+    let allOptions2 = document
+      .querySelectorAll(".verifipendingstu")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+          toggleColumn2Students(checkbox);
+        });
+      });
+  };
+
+  let monitorAllListingCheckboxesStudents = () => {
+    let allOptions3 = document
+      .querySelectorAll(".verifistu")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+          toggleColumn3Students(checkbox);
+        });
+      });
+  };
+
+  function toggleTableStudents(radio) {
+    let studentCategoryName = radio.value;
+    document.querySelector("#tableSelectorbtnStudents").innerHTML =
+      studentCategoryName;
+    let allUls = document.querySelectorAll(".dropdown-options-students ul");
+    allUls.forEach((ul) => {
+      if ("Registered Students" == studentCategoryName) {
+        ul.innerHTML = `<li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkregisstu"
+                name="Student Name"
+                value="Student Name"
+                checked
+                style="display: inline"
+              />
+              Students Name
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkregisstu"
+                name="Enroll No."
+                value="Enroll No."
+                checked
+                style="display: inline"
+              />
+Enroll No.
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkregisstu"
+                name="Course"
+                value="Course"
+                checked
+                style="display: inline"
+              />
+              Course
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkregisstu"
+                name="Email"
+                checked
+                value="Email"
+                style="display: inline"
+              />
+              Email
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkregisstu"
+                name="Mobile No."
+                checked
+                value="Mobile No."
+                style="display: inline"
+              />
+              Mobile No.
+            </li><li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkregisstu"
+                name="Disable Option"
+                value="Disable Option"
+                style="display: inline"
+              />
+              Disable Option
+            </li>`;
+        monitorAllRegisteredCheckboxesStudents();
+      } else if (studentCategoryName == "Verification Pending Students") {
+        ul.innerHTML = `<li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifipendingstu"
+                name="Student Name"
+                value="Student Name"
+                checked
+                style="display: inline"
+              />
+              Student Name
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifipendingstu"
+                name="Enroll No."
+                value="Enroll No."
+                checked
+                style="display: inline"
+              />
+              Enroll No.
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifipendingstu"
+                name="Course"
+                value="Course"
+                checked
+                style="display: inline"
+              />
+              Course
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifipendingstu"
+                name="Email"
+                checked
+                value="Email"
+                style="display: inline"
+              />
+              Email
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifipendingstu"
+                name="Mobile No."
+                checked
+                value="Mobile No."
+                style="display: inline"
+              />
+              Mobile No.
+            </li>
+          `;
+        monitorAllPendingCheckboxesStudents();
+      } else {
+        ul.innerHTML = `<li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifistu"
+                name="Student Name"
+                value="Student Name"
+                checked
+                style="display: inline"
+              />
+              Student Name
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifistu"
+                name="Enroll No."
+                value="Enroll No."
+                checked
+                style="display: inline"
+              />
+              Enroll No.
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifistu"
+                name="Course"
+                value="Course"
+                checked
+                style="display: inline"
+              />
+              Course
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifistu"
+                name="Email"
+                checked
+                value="Email"
+                style="display: inline"
+              />
+              Email
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifistu"
+                name="Mobile No."
+                checked
+                value="Mobile No."
+                style="display: inline"
+              />
+              Mobile No.
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check verifistu"
+                name="Disable Option"
+                value="Disable Option"
+                style="display: inline"
+              />
+              Disable Option
+            </li>
+          `;
+        monitorAllListingCheckboxesStudents();
+      }
+    });
+
+    let allTablesStudents = document.querySelectorAll(".tablesstudent table");
+    allTablesStudents.forEach((table) => {
+      if (table.getAttribute("data-name") == studentCategoryName) {
+        table.style.display = "table";
+      } else {
+        table.style.display = "none";
+      }
+    });
+  }
+
+  document.querySelectorAll(".tableRadioStudents").forEach(function (radio) {
+    radio.addEventListener("change", function (event) {
+      toggleTableStudents(radio);
+    });
+  });
+
+  toggleTableStudents(
+    document.querySelector(".dropdown input[data-name='Registered Students']")
+  );
+</script>
+<!-- column script -->
+<script>
+  function toggleColumn1Students(checkbox) {
+    let columnIndexStudents = checkbox.value;
+
+    let headerRowStudents = document.querySelectorAll(
+      ".headerrowRegisteredStudents th"
+    );
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRowStudents).findIndex(
+      (th) => th.textContent.trim() === columnIndexStudents
+    );
+
+    // Hide/show the th element
+    headerRowStudents[index].style.display = checkbox.checked
+      ? "table-cell"
+      : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRowsStudents = document.querySelectorAll(
+      ".dataTableRegisteredStudents"
+    );
+    tableRowsStudents.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+</script>
+<script>
+  function toggleColumn2Students(checkbox) {
+    let columnIndex = checkbox.value;
+    let headerRow = document.querySelectorAll(".headerrowPendingStudents th");
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRow).findIndex(
+      (th) => th.textContent.trim() === columnIndex
+    );
+
+    // Hide/show the th element
+    headerRow[index].style.display = checkbox.checked ? "table-cell" : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRows = document.querySelectorAll(".dataTablePendingStudents");
+    tableRows.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+</script>
+<script>
+  function toggleColumn3Students(checkbox) {
+    let columnIndex = checkbox.value;
+    let headerRow = document.querySelectorAll(".headerrowVerifiedStudents th");
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRow).findIndex(
+      (th) => th.textContent.trim() === columnIndex
+    );
+
+    // Hide/show the th element
+    headerRow[index].style.display = checkbox.checked ? "table-cell" : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRows = document.querySelectorAll(".dataTableVerifiedStudents");
+    tableRows.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+</script>

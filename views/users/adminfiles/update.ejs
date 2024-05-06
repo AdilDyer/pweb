@@ -1,0 +1,376 @@
+<div id="Updates" class="sectiondiv">
+  <div class="addupdate">
+    <h3>Add a New Update</h3>
+    <br />
+    <form
+      class="needs-validation"
+      validate=""
+      method="post"
+      action="/admin/sendupdate"
+    >
+      <div>
+        <h6>Title</h6>
+        <input
+          type="text"
+          class="form-control"
+          required
+          placeholder="Update Title"
+          name="title"
+        />
+      </div>
+      <div>
+        <h6>Description</h6>
+        <textarea
+          type="text"
+          class="form-control"
+          required
+          placeholder="Description"
+          name="description"
+        ></textarea>
+        <br />
+      </div>
+
+      <div>
+        <h6>Select For Course:</h6>
+        <div class="form-group" style="display: flex; padding: 0.5rem">
+          <div
+            class="form-check AllCourseCheckSendUpdate"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="All"
+              name="forCourse"
+              style="width: 1rem"
+              id="AllCourseCheckSendUpdate"
+            />
+            <label class="form-check-label" for="AllCourseCheckSendUpdate">
+              All
+            </label>
+          </div>
+
+          <div
+            class="form-check forCourseSendUpdatediv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              style="width: 1rem"
+              name="forCourse"
+              value="MtechCs"
+              id="MTechCS"
+            />
+            <label class="form-check-label" for="MTechCS">MTech CS </label>
+          </div>
+
+          <div
+            class="form-check forCourseSendUpdatediv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              style="width: 1rem"
+              name="forCourse"
+              id="MScCS"
+              value="MscCs"
+            />
+            <label class="form-check-label" for="MScCS">MSc CS</label>
+          </div>
+
+          <div
+            class="form-check forCourseSendUpdatediv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              style="width: 1rem"
+              name="forCourse"
+              id="MScDFIS"
+              value="MscDfis"
+            />
+            <label class="form-check-label" for="MScDFIS">MSc DFIS</label>
+          </div>
+
+          <div
+            class="form-check forCourseSendUpdatediv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              style="width: 1rem"
+              name="forCourse"
+              id="Mtechadsai"
+              value="MtechAdsai"
+            />
+            <label class="form-check-label" for="Mtechadsai">
+              MTech ADSAI</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn form-control"
+        style="
+          margin-top: 1rem;
+          background-color: maroon;
+          color: white;
+          border-radius: 2rem;
+          box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+          padding: 1rem;
+        "
+      >
+        Post Update
+      </button>
+    </form>
+  </div>
+  <div class="updatestable dash-table-format">
+    <div class="dropdown">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        id="tableSelectorbtnUpdate"
+        aria-expanded="false"
+      >
+        For All Courses
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioUpdates"
+            data-name="For All Courses"
+            name="tableRadioUpdates"
+            checked
+            value="For All Courses"
+            style="display: inline"
+            id="radioallcourseupdate"
+          />
+          <label for="radioallcourseupdate">For All Courses</label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioUpdates"
+            name="tableRadioUpdates"
+            value="For Mtech Cs"
+            data-name="For Mtech Cs"
+            style="display: inline"
+            id="radiomtechcsupdate"
+          />
+          <label for="radiomtechcsupdate">For Mtech Cs</label>
+        </li>
+
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioUpdates"
+            name="tableRadioUpdates"
+            value="For Mtech Adsai"
+            data-name="For Mtech Adsai"
+            style="display: inline"
+            id="radioupdatemtechadsai"
+          />
+          <label for="radioupdatemtechadsai">For Mtech Adsai</label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioUpdates"
+            name="tableRadioUpdates"
+            value="For Msc Cs"
+            data-name="For Msc Cs"
+            style="display: inline"
+            id="radioupdatemsccs"
+          />
+          <label for="radioupdatemsccs">For Msc Cs</label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioUpdates"
+            name="tableRadioUpdates"
+            value="For Msc Dfis"
+            data-name="For Msc Dfis"
+            style="display: inline"
+            id="radioupdatemscdfis"
+          />
+          <label for="radioupdatemscdfis">For Msc Dfis</label>
+        </li>
+      </ul>
+    </div>
+    <div class="tablesupdate">
+      <table
+        class="table table-hover table-bordered"
+        data-name="For All Courses"
+      >
+        <thead>
+          <tr class="headerrowUpdateForAll">
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% updatesForAll.forEach((update,index) => { %>
+          <tr class="dataTableUpdateForAll">
+            <td><%=index +1%></td>
+            <td><%= update.title %></td>
+            <td><%= update.description %></td>
+            <td><%= update.createdAt %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="For Mtech Cs"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowUpdateForMtechCs">
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% updatesForMtechCs.forEach((update,index) => { %>
+          <tr class="dataTableUpdateForMtechCs">
+            <td><%=index +1%></td>
+            <td><%= update.title %></td>
+            <td><%= update.description %></td>
+            <td><%= update.createdAt %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="For Mtech Adsai"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowUpdateForMtechAdsai">
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% updatesForMtechAdsai.forEach((update,index) => { %>
+          <tr class="dataTableUpdateForMtechAdsai">
+            <td><%=index +1%></td>
+            <td><%= update.title %></td>
+            <td><%= update.description %></td>
+            <td><%= update.createdAt %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="For Msc Cs"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowUpdateForMscCs">
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% updatesForMscCs.forEach((update,index) => { %>
+          <tr class="dataTableUpdateForMscCs">
+            <td><%=index +1%></td>
+            <td><%= update.title %></td>
+            <td><%= update.description %></td>
+            <td><%= update.createdAt %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="For Msc Dfis"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowUpdateForMscDfis">
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% updatesForMscDfis.forEach((update,index) => { %>
+          <tr class="dataTableUpdateForMscDfis">
+            <td><%=index +1%></td>
+            <td><%= update.title %></td>
+            <td><%= update.description %></td>
+            <td><%= update.createdAt %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- for updates -->
+<!-- table script only -->
+<script>
+  function toggleTableUpdates(radio) {
+    let UpdatesCategoryName = radio.value;
+    document.querySelector("#tableSelectorbtnUpdate").innerHTML =
+      UpdatesCategoryName;
+    let allTables = document.querySelectorAll(".tablesupdate table");
+    allTables.forEach((table) => {
+      if (table.getAttribute("data-name") == UpdatesCategoryName) {
+        table.style.display = "table";
+      } else {
+        table.style.display = "none";
+      }
+    });
+  }
+
+  document.querySelectorAll(".tableRadioUpdates").forEach(function (radio) {
+    radio.addEventListener("change", function (event) {
+      toggleTableUpdates(radio);
+    });
+  });
+
+  toggleTableUpdates(
+    document.querySelector(".dropdown input[data-name='For All Courses']")
+  );
+</script>
+
+<!-- all course send update -->
+<script>
+  document
+    .getElementById("AllCourseCheckSendUpdate")
+    .addEventListener("click", () => {
+      document.querySelectorAll(".forCourseSendUpdatediv").forEach((div) => {
+        // Get the input element inside the current div
+        let input = div.querySelector("input");
+        // Check if the input value is not equal to "All"
+        if (input.value !== "All") {
+          // Disable the input element
+          input.disabled = input.disabled ? false : true;
+        }
+      });
+    });
+</script>

@@ -1,0 +1,127 @@
+<div id="Dashboard" class="sectiondiv">
+  <div class="dashupper">
+    <div class="card pop-out">
+      <div class="infocardtext">
+        <p class="pop-out">Total Companies Listed</p>
+        <hr />
+        <h4 class="pop-out">0<%=countAllListedRecruiters%></h4>
+      </div>
+    </div>
+
+    <div class="card pop-out">
+      <div class="infocardtext">
+        <p class="pop-out">Total Registered Students</p>
+        <hr />
+        <h4 class="pop-out">0<%=countallRegisteredStudents%></h4>
+      </div>
+    </div>
+    <div class="card pop-out">
+      <div class="infocardtext">
+        <p class="pop-out">Student Verification Left</p>
+        <hr />
+        <h4 class="pop-out">0<%=countallStudentsPending%></h4>
+      </div>
+    </div>
+    <div class="card pop-out">
+      <div class="infocardtext">
+        <p class="pop-out">Company Verification Left</p>
+        <hr />
+        <h4 class="pop-out">0<%=countAllRecruitersPending%></h4>
+      </div>
+    </div>
+  </div>
+  <div class="dashlower">
+    <div class="dashlower1">
+      <div class="dashpie1">
+        <canvas class="pop-out" id="pieChart"></canvas>
+      </div>
+      <div class="trafficstats">
+        <div class="livevisitorsadmin">
+          <div class="card pop-out">
+            <div class="infocardtext">
+              <h5 class="pop-out">Currently Live Traffic</h5>
+              <hr />
+              <h4 class="pop-out">0<%=countAllListedRecruiters%> Users/Min</h4>
+            </div>
+          </div>
+        </div>
+        <div class="dailytrafficavg">
+          <div class="card pop-out">
+            <div class="infocardtext">
+              <h5 class="pop-out">Daily Average Traffic Onsite</h5>
+              <hr />
+              <h4 class="pop-out">00<%=countAllListedRecruiters%></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashlower2">
+      <div class="queries">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Recent Queries</h5>
+            <br />
+            <h6 class="card-subtitle mb-2 text-body-primary">
+              Raghav Sharma
+              <br />
+              PL-MTCS-40
+            </h6>
+            <p class="card-text">
+              Respected Sir, I would like to enquire about the Placement
+              Policy's line no 56, i.e. the updation of the credentials...
+            </p>
+            <h6 class="card-subtitle mb-2 text-body-primary">
+              Raghav Sharma
+              <br />
+              PL-MTCS-40
+            </h6>
+            <p class="card-text">
+              Respected Sir, I would like to enquire about the Placement
+              Policy's line no 56, i.e. the updation of the credentials...
+            </p>
+            <a
+              href="#"
+              style="text-decoration: none; color: white"
+              class="btn btn-primary card-link"
+              >See all Queries</a
+            >
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+      <div class="queries">
+        <div class="card" style="background-color: dodgerblue">
+          <div class="card-body">
+            <h5 class="card-title">Push a General Update</h5>
+            <br />
+            <div class="form-group">
+              <h5>Title</h5>
+              <input type="text" class="form-control" placeholder="Title" />
+              <br />
+              <h5>Description</h5>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Description"
+              />
+              <br />
+            </div>
+            <a
+              href="#"
+              style="text-decoration: none; color: white"
+              class="btn btn-primary card-link"
+              >Submit</a
+            >
+            <a href="#" class="card-link">See all Updates</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dashlower3">
+      <h3>Download Stats</h3>
+      <br />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1167 @@
+<div id="Companies" class="sectiondiv">
+  <div class="addlisting">
+    <h3>Add a New Listing</h3>
+    <br />
+    <form
+      class="needs-validation"
+      validate=""
+      method="post"
+      action="/admin/addcompanylisting"
+      enctype="multipart/form-data"
+    >
+      <div>
+        <h6>Company Name</h6>
+        <input
+          type="text"
+          id="companyName"
+          class="form-control"
+          required
+          placeholder="Company Name"
+          name="companyName"
+        />
+      </div>
+      <div>
+        <h6>Job Location</h6>
+        <input
+          type="text"
+          id="jobLocation"
+          class="form-control"
+          required
+          placeholder="Job Location"
+          name="jobLocation"
+        />
+        <br />
+      </div>
+      <div>
+        <h6>Job Type</h6>
+        <select name="jobType" id="joType" class="form-control" required>
+          <option value="Internship">Internship (I)</option>
+          <option value="Intern FTE">Intern FTE (I+F)</option>
+          <option value="FTE">FTE (F)</option>
+          <option value="Internship PPO">Internship PPO (I+P)</option>
+        </select>
+      </div>
+
+      <div>
+        <h6>Job Title</h6>
+        <input
+          type="text"
+          id="jobTitle"
+          class="form-control"
+          placeholder="Job Title"
+          required
+          name="jobTitle"
+        />
+      </div>
+
+      <div>
+        <h6>Select For Course:</h6>
+        <div class="form-group" style="display: flex; padding: 0.5rem">
+          <div
+            class="form-check forCourseAddlistingdiv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="All"
+              name="forCourse"
+              style="width: 1rem"
+              id="AllCourseCheckAddListing"
+            />
+            <label class="form-check-label" for="AllCourseCheckAddListing">
+              All
+            </label>
+          </div>
+
+          <div
+            class="form-check forCourseAddlistingdiv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              style="width: 1rem"
+              name="forCourse"
+              value="MtechCs"
+              id="MTechCS"
+            />
+            <label class="form-check-label" for="MTechCS">MTech CS </label>
+          </div>
+
+          <div
+            class="form-check forCourseAddlistingdiv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              style="width: 1rem"
+              name="forCourse"
+              id="MScCS"
+              value="MscCs"
+            />
+            <label class="form-check-label" for="MScCS">MSc CS</label>
+          </div>
+
+          <div
+            class="form-check forCourseAddlistingdiv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              style="width: 1rem"
+              name="forCourse"
+              id="MScDFIS"
+              value="MscDfis"
+            />
+            <label class="form-check-label" for="MScDFIS">MSc DFIS</label>
+          </div>
+
+          <div
+            class="form-check forCourseAddlistingdiv"
+            style="height: fit-content; display: flex; align-items: center"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              style="width: 1rem"
+              name="forCourse"
+              id="Mtechadsai"
+              value="MtechAdsai"
+            />
+            <label class="form-check-label" for="Mtechadsai">
+              MTech ADSAI</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h6>Job Description</h6>
+        <input
+          type="file"
+          required
+          id="jobdescriptionFile"
+          name="jobDescriptionFile"
+          class="form-control"
+        />
+      </div>
+
+      <div>
+        <h6>CTC/Stipend</h6>
+        <input
+          type="number"
+          id="ctc"
+          class="form-control"
+          name="ctc"
+          required
+          placeholder="CTC"
+        />
+      </div>
+
+      <div>
+        <h6>Last Date For Application</h6>
+        <input
+          type="date"
+          id="lastDate"
+          name="lastDateToApply"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn form-control"
+        style="
+          margin-top: 1rem;
+          background-color: maroon;
+          color: white;
+          border-radius: 2rem;
+          box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+          padding: 1rem;
+        "
+      >
+        Add Listing
+      </button>
+    </form>
+  </div>
+  <div class="companycards">
+    <div class="card">
+      <div class="card__content">
+        <h5>Total Registered Companies</h5>
+        <hr />
+        <h6><%=countAllRegisteredRecruiters%></h6>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__content">
+        <h5>Total Requests Pending</h5>
+        <hr />
+        <h6><%=countAllRecruitersPending%></h6>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__content">
+        <h5>Total Listed Companies</h5>
+        <hr />
+        <h6><%=countAllListedRecruiters%></h6>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__content">
+        <a href="/admin/export/company" style="text-decoration: none">
+          <h5>Export Data Recruiters</h5>
+          <br />
+          <i style="color: white" class="fa-solid fa-download"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="companytable dash-table-format">
+    <div class="dropdown">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        id="tableSelectorbtncompanies"
+      ></button>
+      <ul class="dropdown-menu">
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadio"
+            data-name="Registered Companies"
+            name="tableRadio"
+            checked
+            value="Registered Companies"
+            style="display: inline"
+            id="radioregiscomp"
+          />
+          <label for="radioregiscomp"> Registered Companies</label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadio"
+            name="tableRadio"
+            value="Verified Companies"
+            style="display: inline"
+            id="radioverifiedcomp"
+          />
+          <label for="radioverifiedcomp"> Verified Companies</label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadio"
+            name="tableRadio"
+            value="Verification Pending"
+            style="display: inline"
+            id="radioverifypend"
+          />
+          <label for="radioverifypend"> Verification Pending</label>
+        </li>
+
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadio"
+            name="tableRadio"
+            value="Listed Companies"
+            style="display: inline"
+            id="radiopendincomp"
+          />
+          <label for="radiopendincomp"> Listed Companies </label>
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown dropdown-options">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Options to Show
+      </button>
+
+      <ul
+        data-name="Registered Companies"
+        class="dropdown-menu"
+        id="dropdown"
+        style="place-items: centre"
+      ></ul>
+    </div>
+
+    <button
+      class="btn btn-success"
+      id="markselectedverifiedCompany"
+      style="display: none; margin-bottom: 1rem; margin-left: 0.5rem"
+    >
+      Mark all Verified
+    </button>
+    <div class="tables">
+      <table
+        class="table table-hover table-bordered"
+        data-name="Registered Companies"
+      >
+        <thead>
+          <tr class="headerrowRegistered">
+            <th scope="col">#</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Job Type</th>
+            <th scope="col">Job Title</th>
+            <th scope="col">Job Location</th>
+            <th scope="col">Job Description</th>
+            <th scope="col">See Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allRegisteredRecruiters.forEach((recruiter,index) => { %>
+          <tr id="dataTableRegistered">
+            <td><%=index + 1%></td>
+            <td>
+              <a
+                href="/admin/recdetails/<%= recruiter._id %>?noAuditNeeded=true"
+                target="_blank"
+                style="text-decoration: none; color: maroon"
+                ><%=recruiter.companyname%></a
+              >
+            </td>
+            <td><%= recruiter.jobtype %></td>
+            <td><%= recruiter.jobtitle %></td>
+            <td><%= recruiter.tentativejoblocation %></td>
+            <td><%=recruiter.JobDescription%></td>
+            <td>
+              <a
+                href="/admin/recdetails/<%= recruiter._id %>?noAuditNeeded=true"
+              >
+                <button class="btn btn-primary">See Details</button>
+              </a>
+            </td>
+            <!-- <td>
+                <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
+                  <button id="DeboardBtn">De-Board</button>
+                </a>
+              </td> -->
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
+      <table
+        class="table table-hover table-bordered"
+        data-name="Verification Pending"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowPending">
+            <th scope="col">
+              <input
+                type="checkbox"
+                id="selectallCompanyVerifytable"
+                class="form-check-input"
+              />
+            </th>
+
+            <th scope="col">Company Name</th>
+            <th scope="col">Nature of Business</th>
+            <th scope="col">Website Link</th>
+            <th scope="col">Postal Address</th>
+            <th scope="col">Category</th>
+            <th scope="col">HR Name</th>
+            <th scope="col">HR Mobile No.</th>
+            <th scope="col">HR Email</th>
+            <th scope="col">Delete Request</th>
+            <th scope="col">Verification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allRecruitersPending.forEach((recruiter,index) => { %>
+          <tr id="dataTablePending">
+            <td>
+              <input
+                type="checkbox"
+                class="form-check-input allCompanyVerificationCheck"
+                name="<%=recruiter._id%>"
+              />
+            </td>
+            <td><%= recruiter.companyname %></td>
+            <td><%= recruiter.natureofbusiness %></td>
+            <td><%= recruiter.websitelink %></td>
+            <td><%= recruiter.postaladdress %></td>
+            <td><%=recruiter.category%></td>
+            <td><%= recruiter.headhrname %></td>
+            <td><%= recruiter.headhrmobno %></td>
+            <td><%= recruiter.headhremail %></td>
+            <td>
+              <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
+                <button class="btn btn-danger">Delete Request</button>
+              </a>
+            </td>
+            <td>
+              <a href="/admin/recaudited/<%=recruiter._id%>">
+                <button class="btn btn-success">Mark as Verified</button>
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="Listed Companies"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowListing">
+            <th scope="col">#</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Job Type</th>
+            <th scope="col">Job Title</th>
+            <th scope="col">Job Location</th>
+            <th scope="col">Job Description</th>
+            <th scope="col">CTC</th>
+            <th scope="col">For Course</th>
+            <th scope="col">Last Date to Apply</th>
+            <th scope="col">Edit Listing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allListedRecruiters.forEach((recruiter,index) => { %>
+          <tr id="dataTableListing">
+            <td><%=index +1%></td>
+            <td><%= recruiter.companyName %></td>
+            <td><%= recruiter.jobType %></td>
+            <td><%= recruiter.jobTitle %></td>
+            <td><%= recruiter.jobLocation %></td>
+            <td>
+              <a
+                href="<%=recruiter.jobDescriptionFile%>"
+                class="btn btn-primary"
+                target="_blank"
+                >Show File</a
+              >
+            </td>
+            <td><%= recruiter.ctc %></td>
+            <td><%=recruiter.forCourse%></td>
+            <td><%=recruiter.lastDateToApply%></td>
+            <td>
+              <a href="/admin/listingDetails/<%=recruiter._id%>">
+                <button class="btn btn-primary">Edit Listing</button>
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="Verified Companies"
+      >
+        <thead>
+          <tr class="headerrowVerifiedCompanies">
+            <th scope="col">#</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Nature of Business</th>
+            <th scope="col">Website Link</th>
+            <th scope="col">Postal Address</th>
+            <th scope="col">Category</th>
+            <th scope="col">HR Name</th>
+            <th scope="col">HR Mobile No.</th>
+            <th scope="col">HR Email</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allAuditedRecruiters.forEach((recruiter,index) => { %>
+          <tr id="dataTableVerifiedCompanies">
+            <td><%=index +1%></td>
+            <td><%= recruiter.companyname %></td>
+            <td><%= recruiter.natureofbusiness %></td>
+            <td><%= recruiter.websitelink %></td>
+            <td><%= recruiter.postaladdress %></td>
+            <td><%=recruiter.category%></td>
+            <td><%= recruiter.headhrname %></td>
+            <td><%= recruiter.headhrmobno %></td>
+            <td><%= recruiter.headhremail %></td>
+            <td>
+              <a
+                href="/admin/recdetails/<%= recruiter._id %>?noAuditNeeded=true"
+              >
+                <button class="btn btn-primary">See Details</button>
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- company to show option in application received  -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let allcompanyselectlis = document.querySelectorAll(
+      ".dropdownToShowCompanies li "
+    );
+    let allApplicationReceivedRows = document.querySelectorAll(
+      ".dataTableApplicationReceived"
+    );
+    allcompanyselectlis.forEach((li) => {
+      // Assuming `allApplicationReceivedRows` is a reference to all the table rows in your table
+      // and `allApplicationReceivedRows` is an array of those rows.
+
+      li.addEventListener("click", (event) => {
+        // Get the selected company name
+        const selectedCompany = event.target.getAttribute("data-companyName");
+
+        // If "All" is selected, toggle the display of all rows
+        if (selectedCompany == "All") {
+          allApplicationReceivedRows.forEach((row) => {
+            // Toggle the "hidden" class to show/hide the row
+            row.classList.remove("d-none");
+          });
+        } else {
+          // If a specific company is selected, show only the rows for that company
+          allApplicationReceivedRows.forEach((row) => {
+            // Check if the row's company name matches the selected company
+            const companyName = row
+              .querySelector("td:nth-child(4)")
+              .textContent.trim(); // Assuming the company name is in the 4th column
+            if (companyName == selectedCompany) {
+              // If it matches, show the row
+              row.classList.remove("d-none");
+            } else {
+              // If it doesn't match, hide the row
+              row.classList.add("d-none");
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
+<!-- multiple select companies verify pending -->
+<script>
+  document
+    .getElementById("markselectedverifiedCompany")
+    .addEventListener("click", () => {
+      const selectedRows = [];
+      document
+        .querySelectorAll(".allCompanyVerificationCheck")
+        .forEach((checkbox) => {
+          if (checkbox.checked) {
+            const rowData = {
+              recid: checkbox.getAttribute("name"),
+            };
+            selectedRows.push(rowData);
+          }
+        });
+
+      // Send the selectedRows array to your route handler
+      // You can use AJAX (e.g., fetch) to send the data to your backend
+      // Example:
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/admin/arrayMarkRecAudited"; // Specify your route here
+
+      // Create hidden input fields for each selected row
+      selectedRows.forEach((rowData, index) => {
+        // Create an input element for checkbox value
+        const checkboxInput = document.createElement("input");
+        checkboxInput.type = "hidden";
+        checkboxInput.name = `selectedRows[${index}][recid]`; // Adjust name based on your backend expectation
+        checkboxInput.value = rowData.recid;
+        form.appendChild(checkboxInput);
+      });
+
+      // Append the form to the body and submit it
+      document.body.appendChild(form);
+      form.submit();
+    });
+
+  // Add event listener to your "Select All" checkbox
+  document
+    .getElementById("selectallCompanyVerifytable")
+    .addEventListener("click", () => {
+      const selectAllCheckbox = document.getElementById(
+        "selectallCompanyVerifytable"
+      );
+
+      document.getElementById("markselectedverifiedCompany").style.display =
+        selectAllCheckbox.checked ? "inline" : "none";
+
+      const checkboxes = document.querySelectorAll(
+        ".allCompanyVerificationCheck"
+      );
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAllCheckbox.checked;
+      });
+    });
+
+  document
+    .querySelectorAll(".allCompanyVerificationCheck")
+    .forEach((checkbox) => {
+      checkbox.addEventListener("click", () => {
+        const anyChecked = Array.from(
+          document.querySelectorAll(".allCompanyVerificationCheck")
+        ).some((checkbox) => checkbox.checked);
+        // If any checkbox is checked, show the button; otherwise, hide it
+        document.getElementById("markselectedverifiedCompany").style.display =
+          anyChecked ? "inline" : "none";
+      });
+    });
+</script>
+
+<!-- for companies -->
+<!--table script -->
+<script>
+  let monitorAllRegisteredCheckboxes = () => {
+    let allOptions = document
+      .querySelectorAll(".columnCheckboxRegistered")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+          toggleColumn1(checkbox);
+        });
+      });
+  };
+
+  let monitorAllPendingCheckboxes = () => {
+    let allOptions2 = document
+      .querySelectorAll(".columnCheckboxPending")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+
+          toggleColumn2(checkbox);
+        });
+      });
+  };
+
+  let monitorAllListingCheckboxes = () => {
+    let allOptions3 = document
+      .querySelectorAll(".columnCheckboxListing")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+          toggleColumn3(checkbox);
+        });
+      });
+  };
+
+  let monitorAllVerifiedCompaniesCheckboxes = () => {
+    let allOptions3 = document
+      .querySelectorAll(".columnCheckboxVerifiedCompanies")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+          toggleColumn4(checkbox);
+        });
+      });
+  };
+
+  function toggleTable(radio) {
+    let companyCategoryName = radio.value;
+    document.querySelector("#tableSelectorbtncompanies").innerHTML =
+      companyCategoryName;
+    let allUls = document.querySelectorAll(".dropdown-options ul");
+    allUls.forEach((ul) => {
+      if ("Registered Companies" == companyCategoryName) {
+        ul.innerHTML = `
+  <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobtype"
+                  value="See Details"
+                  checked
+                  style="display: inline"
+                />
+                See Details
+              </li>
+
+          <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobtype"
+                  value="Company Name"
+                  checked
+                  style="display: inline"
+                />
+                Company Name
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobtype"
+                  value="Job Type"
+                  checked
+                  style="display: inline"
+                />
+                Job Type
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobtitle"
+                  value="Job Title"
+                  checked
+                  style="display: inline"
+                />
+                Job Title
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="joblocation"
+                  checked
+                  value="Job Location"
+                  style="display: inline"
+                />
+                Job Location
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobdescription"
+                  checked
+                  value="Job Description"
+                  style="display: inline"
+                />
+                Job Description
+              </li>
+             `;
+        monitorAllRegisteredCheckboxes();
+      } else if (companyCategoryName == "Verification Pending") {
+        ul.innerHTML = `<li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="jobtype"
+                  value="Company Name"
+                  checked
+                  style="display: inline"
+                />
+                Company Name
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="Nature of Business"
+                  value="Nature of Business"
+                  checked
+                  style="display: inline"
+                />
+                Nature of Business
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="Website Link"
+                  value="Website Link"
+                  checked
+                  style="display: inline"
+                />
+                Website Link
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="Postal Address"
+                  checked
+                  value="Postal Address"
+                  style="display: inline"
+                />
+                Postal Address
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="Category"
+                  checked
+                  value="Category"
+                  style="display: inline"
+                />
+                Category
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="HR Name"
+                  value="HR Name"
+                  checked
+                  style="display: inline"
+                />
+                HR Name
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="HR Mobile No."
+                  value="HR Mobile No."
+                  checked
+                  style="display: inline"
+                />
+                HR Mobile No.
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="HR Email"
+                  value="HR Email"
+                  checked
+                  style="display: inline"
+                />
+                HR Email
+              </li>`;
+        monitorAllPendingCheckboxes();
+      } else if (companyCategoryName == "Listed Companies") {
+        ul.innerHTML = `
+    <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="EditListing"
+                  checked
+                  value="Edit Listing"
+                  style="display: inline"
+                />
+                Edit Listing
+              </li>
+          <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="jobtype"
+                  value="Company Name"
+                  checked
+                  style="display: inline"
+                />
+                Company Name
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="jobtype"
+                  value="Job Type"
+                  checked
+                  style="display: inline"
+                />
+                Job Type
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="jobtitle"
+                  value="Job Title"
+                  checked
+                  style="display: inline"
+                />
+                Job Title
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="joblocation"
+                  checked
+                  value="Job Location"
+                  style="display: inline"
+                />
+                Job Location
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="jobdescription"
+                  checked
+                  value="Job Description"
+                  style="display: inline"
+                />
+                Job Description
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="ctc"
+                  value="CTC"
+                  checked
+                  style="display: inline"
+                />
+                CTC
+              </li><li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="ctc"
+                  value="For Course"
+                  checked
+                  style="display: inline"
+                />
+                For Course
+              </li><li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="ctc"
+                  value="Last Date to Apply"
+                  checked
+                  style="display: inline"
+                />
+                Last Date to Apply
+              </li>`;
+        monitorAllListingCheckboxes();
+      } else if (companyCategoryName == "Verified Companies") {
+        ul.innerHTML = `
+   <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="jobtype"
+                  value="Company Name"
+                  checked
+                  style="display: inline"
+                />
+                Company Name
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="Nature of Business"
+                  value="Nature of Business"
+                  checked
+                  style="display: inline"
+                />
+                Nature of Business
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="Website Link"
+                  value="Website Link"
+                  checked
+                  style="display: inline"
+                />
+                Website Link
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="Postal Address"
+                  checked
+                  value="Postal Address"
+                  style="display: inline"
+                />
+                Postal Address
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="Category"
+                  checked
+                  value="Category"
+                  style="display: inline"
+                />
+                Category
+              </li>
+              <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="HR Name"
+                  value="HR Name"
+                  checked
+                  style="display: inline"
+                />
+                HR Name
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="HR Mobile No."
+                  value="HR Mobile No."
+                  checked
+                  style="display: inline"
+                />
+                HR Mobile No.
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="HR Email"
+                  value="HR Email"
+                  checked
+                  style="display: inline"
+                />
+                HR Email
+              </li>
+             `;
+      }
+    });
+
+    let allTables = document.querySelectorAll(".tables table");
+    allTables.forEach((table) => {
+      if (table.getAttribute("data-name") == companyCategoryName) {
+        table.style.display = "table";
+      } else {
+        table.style.display = "none";
+      }
+    });
+  }
+
+  document.querySelectorAll(".tableRadio").forEach(function (radio) {
+    radio.addEventListener("change", function (event) {
+      toggleTable(radio);
+    });
+  });
+
+  toggleTable(
+    document.querySelector(".dropdown input[data-name='Registered Companies']")
+  );
+</script>
+<!-- column script -->
+<script>
+  function toggleColumn1(checkbox) {
+    let columnIndex = checkbox.value;
+
+    let headerRow = document.querySelectorAll(".headerrowRegistered th");
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRow).findIndex(
+      (th) => th.textContent.trim() === columnIndex
+    );
+
+    // Hide/show the th element
+    headerRow[index].style.display = checkbox.checked ? "table-cell" : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRows = document.querySelectorAll("#dataTableRegistered");
+    tableRows.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+
+  monitorAllRegisteredCheckboxes();
+</script>
+<script>
+  function toggleColumn2(checkbox) {
+    let columnIndex = checkbox.value;
+    let headerRow = document.querySelectorAll(".headerrowPending th");
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRow).findIndex(
+      (th) => th.textContent.trim() === columnIndex
+    );
+
+    // Hide/show the th element
+    headerRow[index].style.display = checkbox.checked ? "table-cell" : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRows = document.querySelectorAll("#dataTablePending");
+    tableRows.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+
+  monitorAllPendingCheckboxes();
+</script>
+<script>
+  function toggleColumn3(checkbox) {
+    let columnIndex = checkbox.value;
+    let headerRow = document.querySelectorAll(".headerrowListing th");
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRow).findIndex(
+      (th) => th.textContent.trim() === columnIndex
+    );
+
+    // Hide/show the th element
+    headerRow[index].style.display = checkbox.checked ? "table-cell" : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRows = document.querySelectorAll("#dataTableListing");
+    tableRows.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+
+  monitorAllListingCheckboxes();
+</script>
+<script>
+  function toggleColumn4(checkbox) {
+    let columnIndex = checkbox.value;
+
+    let headerRow = document.querySelectorAll(".headerrowVerifiedCompanies th");
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRow).findIndex(
+      (th) => th.textContent.trim() === columnIndex
+    );
+
+    // Hide/show the th element
+    headerRow[index].style.display = checkbox.checked ? "table-cell" : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRows = document.querySelectorAll("#dataTableVerifiedCompanies");
+    tableRows.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+
+  monitorAllVerifiedCompaniesCheckboxes();
+</script>
+
+<!-- all course add listing -->
+<script>
+  let allforcoursebtn = document
+    .getElementById("AllCourseCheckAddListing")
+    .addEventListener("click", () => {
+      document.querySelectorAll(".forCourseAddlistingdiv").forEach((div) => {
+        // Get the input element inside the current div
+        let input = div.querySelector("input");
+        // Check if the input value is not equal to "All"
+        if (input.value !== "All") {
+          // Disable the input element
+          input.disabled = input.disabled ? false : true;
+        }
+      });
+    });
+</script>

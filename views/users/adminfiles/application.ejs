@@ -1,0 +1,395 @@
+<div id="Application" class="sectiondiv">
+  <div class="applicationtable dash-table-format">
+    <div class="dropdown">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        id="tableSelectorbtnapplication"
+      >
+        Applications Received
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioApplication"
+            data-name="Application Received"
+            name="tableRadioApplication"
+            checked
+            value="Application Received"
+            style="display: inline"
+            id="radioregisapplication"
+          />
+          <label for="radioregiapplication"> Applications Received</label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioApplication"
+            name="tableRadioApplication"
+            value="Placed Students"
+            style="display: inline"
+            id="radioverifypendapplic"
+          />
+          <label for="radioverifypendapplic"> Placed Students</label>
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown dropdown-options-application">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Options to Show
+      </button>
+
+      <ul class="dropdown-menu" id="dropdown" style="place-items: centre"></ul>
+    </div>
+    <div class="dropdown dropdown-listingname-toshow">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Companies to Show
+      </button>
+
+      <ul
+        data-name="Companies to Show"
+        class="dropdown-menu dropdownToShowCompanies"
+        id="dropdown"
+        style="place-items: centre"
+      >
+        <li
+          class="dropdown-item"
+          data-companyName="All"
+          style="cursor: pointer"
+        >
+          All
+        </li>
+        <%allListedRecruiters.forEach((recruiter,index)=>{%>
+        <li
+          class="dropdown-item"
+          style="cursor: pointer"
+          data-companyName="<%=recruiter.companyName%>"
+        >
+          <%=(index+1) %>. <%=recruiter.companyName %>
+        </li>
+        <% })%>
+      </ul>
+    </div>
+    <div class="tablesapplication">
+      <table
+        class="table table-hover table-bordered"
+        data-name="Application Received"
+      >
+        <thead>
+          <tr class="headerrowApplicationReceived">
+            <th scope="col">#</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Course</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Mobile No.</th>
+            <th scope="col">Date Applied</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody id="applicationsBody">
+          <% allApplications.forEach(function(appObj, index) { %>
+          <tr class="dataTableApplicationReceived">
+            <td><%=index+1%></td>
+            <td>
+              <a
+                href="/account/sturegisdetails/?stuId=<%=appObj.stuId._id%>"
+                target="_blank"
+                style="text-decoration: none; color: maroon"
+              >
+                <%=appObj.stuId.fullname%></a
+              >
+            </td>
+            <td><%=appObj.stuId.course%></td>
+            <td>
+              <a
+                href="/admin/listingDetails/<%=appObj.listingId._id%>"
+                target="_blank"
+                style="text-decoration: none; color: maroon"
+                ><%=appObj.listingId.companyName%></a
+              >
+            </td>
+            <td><%=appObj.stuId.mobileno%></td>
+            <td><%=appObj.createdAt%></td>
+            <td>
+              <a href="/admin/placedstudent/<%=appObj._id%>"
+                ><button class="btn btn-primary">Mark as Placed</button></a
+              >
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="Placed Students"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowPlacedStudents">
+            <th scope="col">#</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Course</th>
+            <th scope="col">Company name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Date Placed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allplacedStudents.forEach((student,index) => { %>
+          <tr class="dataTablePlacedStudents">
+            <td><%=index +1%></td>
+            <td>
+              <a
+                href="/account/sturegisdetails/?stuId=<%=student._id%>"
+                target="_blank"
+                style="text-decoration: none; color: maroon"
+              >
+                <%=student.fullname%></a
+              >
+            </td>
+            <td><%=student.course%></td>
+            <td><%=student.placedCompany%></td>
+            <td><%=student.email%></td>
+            <td><%=student.placedDate%></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- for applications -->
+<!-- table script -->
+<script>
+  let monitorAllApplicationsReceived = () => {
+    let allOptions = document
+      .querySelectorAll(".checkApplicationReceived")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+          toggleColumn1application(checkbox);
+        });
+      });
+  };
+
+  let monitorAllPlacedStudents = () => {
+    let allOptions2 = document
+      .querySelectorAll(".checkPlacedStudents")
+      .forEach(function (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+          event.preventDefault();
+
+          toggleColumn2application(checkbox);
+        });
+      });
+  };
+
+  function toggleTableApplications(radio) {
+    let ApplicationCategoryName = radio.value;
+    document.querySelector("#tableSelectorbtnapplication").innerHTML =
+      ApplicationCategoryName;
+    let allUls = document.querySelectorAll(".dropdown-options-application ul");
+    allUls.forEach((ul) => {
+      if ("Application Received" == ApplicationCategoryName) {
+        ul.innerHTML = `<li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkApplicationReceived"
+                name="Student Name"
+                value="Student Name"
+                checked
+                style="display: inline"
+              />
+              Student Name
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkApplicationReceived"
+                name="Course"
+                value="Course"
+                checked
+                style="display: inline"
+              />
+              Course
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkApplicationReceived"
+                name="Company Name"
+                value="Company Name"
+                checked
+                style="display: inline"
+              />
+              Company Name
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkApplicationReceived"
+                name="Mobile No."
+                checked
+                value="Mobile No."
+                style="display: inline"
+              />
+              Mobile No.
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkApplicationReceived"
+                name="Date Applied"
+                checked
+                value="Date Applied"
+                style="display: inline"
+              />
+              Date Applied
+            </li>
+           `;
+        monitorAllApplicationsReceived();
+      } else if (ApplicationCategoryName == "Placed Students") {
+        ul.innerHTML = `<li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkPlacedStudents"
+                name="Student Name"
+                value="Student Name"
+                checked
+                style="display: inline"
+              />
+              Student Name
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkPlacedStudents"
+                name="Course"
+                value="Course"
+                checked
+                style="display: inline"
+              />
+              Course
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkPlacedStudents"
+                name="Company name"
+                value="Company name"
+                checked
+                style="display: inline"
+              />
+              Company name
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkPlacedStudents"
+                name="Email"
+                checked
+                value="Email"
+                style="display: inline"
+              />
+              Email
+            </li>
+            <li class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check checkPlacedStudents"
+                name="Date Placed"
+                checked
+                value="Date Placed"
+                style="display: inline"
+              />
+              Date Placed
+            </li>
+           `;
+        monitorAllPlacedStudents();
+      }
+    });
+
+    let allTables = document.querySelectorAll(".tablesapplication table");
+    allTables.forEach((table) => {
+      if (table.getAttribute("data-name") == ApplicationCategoryName) {
+        table.style.display = "table";
+      } else {
+        table.style.display = "none";
+      }
+    });
+  }
+
+  document.querySelectorAll(".tableRadioApplication").forEach(function (radio) {
+    radio.addEventListener("change", function (event) {
+      toggleTableApplications(radio);
+    });
+  });
+
+  toggleTableApplications(
+    document.querySelector(".dropdown input[data-name='Application Received']")
+  );
+</script>
+<!-- column script -->
+<script>
+  function toggleColumn1application(checkbox) {
+    let columnIndex = checkbox.value;
+
+    let headerRow = document.querySelectorAll(
+      ".headerrowApplicationReceived th"
+    );
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRow).findIndex(
+      (th) => th.textContent.trim() === columnIndex
+    );
+
+    // Hide/show the th element
+    headerRow[index].style.display = checkbox.checked ? "table-cell" : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRows = document.querySelectorAll(".dataTableApplicationReceived");
+    tableRows.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+</script>
+<script>
+  function toggleColumn2application(checkbox) {
+    let columnIndex = checkbox.value;
+    let headerRow = document.querySelectorAll(".headerrowPlacedStudents th");
+
+    // Find the index of the column to toggle
+    let index = Array.from(headerRow).findIndex(
+      (th) => th.textContent.trim() === columnIndex
+    );
+
+    // Hide/show the th element
+    headerRow[index].style.display = checkbox.checked ? "table-cell" : "none";
+
+    // Hide/show the corresponding td elements in the table body
+    let tableRows = document.querySelectorAll(".dataTablePlacedStudents");
+    tableRows.forEach((row) => {
+      let td = row.querySelectorAll("td")[index];
+      if (td) {
+        td.style.display = checkbox.checked ? "table-cell" : "none";
+      }
+    });
+  }
+</script>
