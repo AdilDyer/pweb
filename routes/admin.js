@@ -58,6 +58,9 @@ router
   .get(isThisAdmin, wrapAsync(adminController.deboardStudent));
 
 router
+  .route("/onboard/recruiter/:recid")
+  .get(isThisAdmin, wrapAsync(adminController.onboardRecruiter));
+router
   .route("/onboard/student/:stuid")
   .get(isThisAdmin, wrapAsync(adminController.onboardStudent));
 router

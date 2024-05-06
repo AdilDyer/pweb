@@ -60,6 +60,7 @@ module.exports.showAdmin = async (req, res) => {
   let allResolvedQueries = await Query.find({ markedAsResolved: true });
   let allUnresolvedQueries = await Query.find({ markedAsResolved: false });
 
+  let allDisabledCompanies = await Recruiter.find({ isDeboarded: true });
   res.render("users/admin.ejs", {
     allRecruitersPending: allRecruitersPending,
     allAuditedRecruiters: allAuditedRecruiters,
@@ -85,6 +86,7 @@ module.exports.showAdmin = async (req, res) => {
     allDeboardedStudents: allDeboardedStudents,
     allUnresolvedQueries: allUnresolvedQueries,
     allResolvedQueries: allResolvedQueries,
+    allDisabledCompanies: allDisabledCompanies,
   });
 };
 
@@ -697,7 +699,7 @@ module.exports.deboardRecruiter = async (req, res) => {
   result.isDeboarded = true;
   await Application.deleteMany({ listingId: recid });
   await result.save();
-  req.flash("success", "Recruiter De-Boarded Successfully !");
+  req.flash("success", "Recruiter Desabled Successfully !");
   req.session.save();
   res.redirect("/admin");
 };
@@ -736,7 +738,17 @@ module.exports.onboardStudent = async (req, res) => {
 
   await stu.save();
 
-  req.flash("success", "Student On-Boarded Successfully !");
+  req.flash("success", "Student Enabled Successfully !");
+  res.redirect("/admin");
+};
+
+module.exports.onboardRecruiter = async (req, res) => {
+  let { recid } = req.params;
+  let result = await Recruiter.findOne({ _id: recid });
+  result.isDeboarded = false;
+  await result.save();
+  req.flash("success", "Recruiter Enabled Successfully !");
+  req.session.save();
   res.redirect("/admin");
 };
 

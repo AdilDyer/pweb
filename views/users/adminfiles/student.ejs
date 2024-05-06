@@ -7,9 +7,7 @@
         data-bs-toggle="dropdown"
         aria-expanded="false"
         id="tableSelectorbtnStudents"
-      >
-        Registered Students
-      </button>
+      ></button>
       <ul class="dropdown-menu">
         <li>
           <input
@@ -46,6 +44,17 @@
             id="radiopendinstu"
           />
           <label for="radiopendinstu"> Verified Students </label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioStudents"
+            name="tableRadioStudents"
+            value="Disabled Students"
+            style="display: inline"
+            id="radiodisabledstu"
+          />
+          <label for="radiodisabledstu">Disabled Students</label>
         </li>
       </ul>
     </div>
@@ -195,6 +204,49 @@
             <td style="display: none">
               <a href="/admin/deboard/student/<%= student._id %>">
                 <button class="btn btn-danger">Disable Account</button>
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="Disabled Students"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowDisabledStudents">
+            <th scope="col">#</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Enroll No.</th>
+            <th scope="col">Course</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile No.</th>
+            <th scope="col">Details</th>
+            <th scope="col">Enable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allDeboardedStudents.forEach((student,index) => { %>
+          <tr class="dataTableDisabledStudents">
+            <td><%=index +1%></td>
+            <td><%= student.fullname %></td>
+            <td><%= student.enrollmentNo %></td>
+            <td><%= student.course %></td>
+            <td><%= student.email %></td>
+            <td><%= student.mobileno%></td>
+            <td>
+              <a
+                href="/account/sturegisdetails/?stuId=<%=student._id%>"
+                target="_blank"
+              >
+                <button class="btn btn-primary">See Details</button></a
+              >
+            </td>
+            <td>
+              <a href="/admin/onboard/student/<%=student._id%>">
+                <button class="btn btn-success">Enable Account</button>
               </a>
             </td>
           </tr>
