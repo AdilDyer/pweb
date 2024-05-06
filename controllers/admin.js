@@ -693,9 +693,12 @@ module.exports.markStuArrayAudit = async (req, res) => {
 
 module.exports.deboardRecruiter = async (req, res) => {
   let { recid } = req.params;
-  let result = await Recruiter.deleteMany({ _id: recid });
-
+  let result = await Recruiter.findOne({ _id: recid });
+  result.isDeboarded = true;
+  await Application.deleteMany({ listingId: recid });
+  await result.save();
   req.flash("success", "Recruiter De-Boarded Successfully !");
+  req.session.save();
   res.redirect("/admin");
 };
 

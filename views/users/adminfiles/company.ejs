@@ -318,6 +318,7 @@
             <th scope="col">Job Location</th>
             <th scope="col">Job Description</th>
             <th scope="col">See Details</th>
+            <th scope="col" style="display: none">Disable Company</th>
           </tr>
         </thead>
         <tbody>
@@ -339,15 +340,16 @@
             <td>
               <a
                 href="/admin/recdetails/<%= recruiter._id %>?noAuditNeeded=true"
+                target="_blank"
               >
                 <button class="btn btn-primary">See Details</button>
               </a>
             </td>
-            <!-- <td>
-                <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
-                  <button id="DeboardBtn">De-Board</button>
-                </a>
-              </td> -->
+            <td style="display: none">
+              <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
+                <button class="btn btn-danger">Disable Company</button>
+              </a>
+            </td>
           </tr>
           <% }); %>
         </tbody>
@@ -451,7 +453,10 @@
             <td><%=recruiter.forCourse%></td>
             <td><%=recruiter.lastDateToApply%></td>
             <td>
-              <a href="/admin/listingDetails/<%=recruiter._id%>">
+              <a
+                href="/admin/listingDetails/<%=recruiter._id%>"
+                target="_blank"
+              >
                 <button class="btn btn-primary">Edit Listing</button>
               </a>
             </td>
@@ -474,6 +479,7 @@
             <th scope="col">HR Name</th>
             <th scope="col">HR Mobile No.</th>
             <th scope="col">HR Email</th>
+            <th scope="col" style="display: none">Disable Company</th>
             <th scope="col">Details</th>
           </tr>
         </thead>
@@ -489,9 +495,15 @@
             <td><%= recruiter.headhrname %></td>
             <td><%= recruiter.headhrmobno %></td>
             <td><%= recruiter.headhremail %></td>
+            <td style="display: none">
+              <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
+                <button class="btn btn-danger">Disable Company</button>
+              </a>
+            </td>
             <td>
               <a
                 href="/admin/recdetails/<%= recruiter._id %>?noAuditNeeded=true"
+                target="_blank"
               >
                 <button class="btn btn-primary">See Details</button>
               </a>
@@ -742,6 +754,16 @@
                   style="display: inline"
                 />
                 Job Description
+              </li>
+                <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="Disable Company"
+                  value="Disable Company"
+                  style="display: inline"
+                />
+                Disable Company
               </li>
              `;
         monitorAllRegisteredCheckboxes();
@@ -1021,7 +1043,19 @@
                 />
                 HR Email
               </li>
+         <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="Disable Company"
+                  value="Disable Company"
+
+                  style="display: inline"
+                />
+                Disable Company
+              </li>
              `;
+        monitorAllVerifiedCompaniesCheckboxes();
       }
     });
 
@@ -1069,8 +1103,6 @@
       }
     });
   }
-
-  monitorAllRegisteredCheckboxes();
 </script>
 <script>
   function toggleColumn2(checkbox) {
@@ -1094,8 +1126,6 @@
       }
     });
   }
-
-  monitorAllPendingCheckboxes();
 </script>
 <script>
   function toggleColumn3(checkbox) {
@@ -1119,8 +1149,6 @@
       }
     });
   }
-
-  monitorAllListingCheckboxes();
 </script>
 <script>
   function toggleColumn4(checkbox) {
@@ -1145,8 +1173,6 @@
       }
     });
   }
-
-  monitorAllVerifiedCompaniesCheckboxes();
 </script>
 
 <!-- all course add listing -->

@@ -2,13 +2,17 @@ const { string, bool } = require("joi");
 const passportLocalMongoose = require("passport-local-mongoose");
 const mongoose = require("mongoose");
 const recruiterSchema = new mongoose.Schema({
+  isDeboarded: {
+    type: Boolean,
+    default: false,
+  },
   isAudited: {
     type: Boolean,
     required: true,
   },
   isRegistered: { type: Boolean, required: true },
   attachedFileLink: {
-    type:String,
+    type: String,
   },
   companyname: { type: String },
   natureofbusiness: { type: String },

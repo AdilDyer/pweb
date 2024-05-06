@@ -127,6 +127,12 @@ module.exports.renderQueryForm = async (req, res) => {
 
 module.exports.submitStudentQuery = async (req, res) => {
   let { subject, query } = req.body;
+
+  if (query.split(/\s+/).length > 100) {
+    // Splitting by whitespace to count words
+    req.flash("error", "Query should be less than 100 words");
+    res.redirect("/account/askqueries");
+  }
   let newQuery = new Query({
     subject: subject,
     query: query,
