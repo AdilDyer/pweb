@@ -137,6 +137,110 @@ const studentSchema = new mongoose.Schema({
 
     maxlength: 3,
   },
+  othermarksheetUrl: {
+    type: String,
+    default: "",
+  },
+  othermarks: {
+    type: Number,
+    default: "",
+  },
+  otheryearofpassing: {
+    type: Number,
+    default: -1,
+  },
+  otheryrofjoining: {
+    type: Number,
+    default: -1,
+  },
+  otherintitutename: {
+    type: String,
+    default: "",
+  },
+  otheruniversity: {
+    type: String,
+    default: "",
+  },
+  postgraduationmarksheetUrl: {
+    type: String,
+    default: "",
+  },
+  postgraduation: {
+    type: Number,
+    default: "",
+  },
+  postgraduationyearofpassing: {
+    type: Number,
+    default: -1,
+  },
+  postgraduationyrofjoining: {
+    type: Number,
+    default: -1,
+  },
+  postgraduationintitutename: {
+    type: String,
+    default: "",
+  },
+  postgraduationuniversity: {
+    type: String,
+    default: "",
+  },
+  graduationmarksheetUrl: {
+    type: String,
+    default: "",
+  },
+  graduation: {
+    type: Number,
+    default: "",
+  },
+  graduationyearofpassing: {
+    type: Number,
+    default: -1,
+  },
+  graduationyrofjoining: {
+    type: Number,
+    default: -1,
+  },
+  graduationintitutename: {
+    type: String,
+    default: "",
+  },
+  graduationuniversity: {
+    type: String,
+    default: "",
+  },
+  twelthyearofpassing: {
+    type: Number,
+    default: -1,
+  },
+  twelthyrofjoining: {
+    type: Number,
+    default: -1,
+  },
+  twelthintitutename: {
+    type: String,
+    default: "",
+  },
+  twelthBoard: {
+    type: String,
+    default: "",
+  },
+  tenthintitutename: {
+    type: String,
+    default: "",
+  },
+  tenthyearofjoining: {
+    type: Number,
+    default: -1,
+  },
+  tenthyearofpassing: {
+    type: Number,
+    default: -1,
+  },
+  tenthboard: {
+    type: String,
+    default: "",
+  },
 });
 studentSchema.plugin(passportLocalMongoose); //above the below line
 const Student = mongoose.model("Student", studentSchema);

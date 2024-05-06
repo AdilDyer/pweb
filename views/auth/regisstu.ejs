@@ -1,643 +1,1609 @@
-<%layout("/layouts/boilerplate.ejs")%>
-<link rel="stylesheet" href="/style.css" />
-<div class="regis-big-div">
-  <div class="left-login">
-    <br />
-    <div class="pop-out">
-      <a href="/"
-        ><img
-          loading="lazy"
-          src="https://res.cloudinary.com/ddxv0iwcs/image/upload/v1710502741/emblem_e7gmxn.png"
-          alt=""
-          width="300"
-      /></a>
-    </div>
-    <br />
-  </div>
-  <form
-    novalidate
-    class="needs-validation"
-    action="/register/stu"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    <div class="down-regis">
-      <div class="resources-student-big-div">
-        <div class="content-div regis-content-div">
-          <div class="content-title container">
-            <br />
-            <hr />
-            <h2 style="text-align: center">Registration : Student</h2>
-            <hr />
-            *You only need to Fill the remaining Input fields.
-            <br />
-            <br />
-            <h2>Personal Details</h2>
-            <br />
+<%-include("../includes/flash.ejs")%>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <style>
+      .process-wrapper {
+        margin: auto;
+        max-width: 100%;
+      }
 
-            <div class="input-fields">
-              <div class="form-group">
-                <label for="Enrollment">Enrollment No.</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Enrollment"
-                  readonly
-                  disabled
-                  value="<%=enroll%>"
-                  placeholder="Enrollment No."
-                />
-              </div>
-              <div class="form-group">
-                <label for="username">Username</label>
-                <input
-                  type="text"
-                  value="<%=username%>"
-                  class="form-control"
-                  id="username"
-                  placeholder="username"
-                  readonly
-                  disabled
-                />
-              </div>
-              <div class="form-group">
-                <label for="firstname">Full Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="firstname"
-                  placeholder="First Name"
-                  disabled
-                  readonly
-                  value="<%=fullname%>"
-                />
-              </div>
-              <div class="form-group">
-                <label>Course</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  disabled
-                  readonly
-                  value="<%=course%>"
-                />
-              </div>
+      #progress-bar-container {
+        position: relative;
 
-              <div class="form-group">
-                <label for="fathername">Father's Name</label>
-                <input
-                  type="text"
-                  name="fathername"
-                  class="form-control"
-                  id="fathername"
-                  placeholder="Father's Name"
-                  required
-                  value="Jetha Lal Gada"
-                />
-              </div>
-              <div class="form-group">
-                <label for="mothername">Mother's Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="mothername"
-                  placeholder="Mother's Name"
-                  required
-                  name="mothername"
-                  value="Daya Gada "
-                />
-              </div>
+        width: 100%;
+        margin-left: 10%;
+        height: 100px;
+        /* margin-top:20px;  */
+      }
 
-              <div class="card">
-                <div class="card-body">
-                  <p class="regis-card-title">Gender</p>
-                  <div class="card-text">
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        checked
-                        name="gender"
-                        value="female"
-                        id="gender"
-                        required
-                      />
-                      <label class="form-check-label" for="gender">
-                        Female
-                      </label>
+      #progress-bar-container ul {
+        float: right;
+        padding: 0;
+        margin: 0;
+        padding-top: 15px;
+        z-index: 9999;
+        position: absolute;
+        width: 100%;
+        margin-top: -33px;
+      }
+
+      #progress-bar-container li:before {
+        content: " ";
+        display: block;
+        margin: auto;
+        opacity: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: solid 2px #aaa;
+        transition: all ease 0.3s;
+      }
+
+      #progress-bar-container li.active:before,
+      #progress-bar-container li:hover:before {
+        border: solid 2px #fff;
+
+        background: linear-gradient(to right, #e91e63 0%, #fff 100%);
+      }
+
+      #progress-bar-container li {
+        list-style: none;
+        float: left;
+        width: 20%;
+        text-align: center;
+        color: #aaa;
+        text-transform: uppercase;
+        font-size: 11px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: all ease 0.2s;
+        vertical-align: bottom;
+        height: 60px;
+        position: relative;
+      }
+
+      #progress-bar-container li .step-inner {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        font-size: 14px;
+      }
+
+      #progress-bar-container li.active,
+      #progress-bar-container li:hover {
+        color: #444;
+      }
+
+      #progress-bar-container li:after {
+        content: " ";
+        display: block;
+        width: 6px;
+        height: 6px;
+        background: #777;
+        margin: auto;
+        border: solid 7px #fff;
+        border-radius: 50%;
+        margin-top: 40px;
+        box-shadow: 0 2px 13px -1px rgba(0, 0, 0, 0.3);
+        transition: all ease 0.2s;
+      }
+
+      #progress-bar-container li:hover:after {
+        background: #555;
+      }
+
+      #progress-bar-container li.active:after {
+        background: #207893;
+      }
+
+      #progress-bar-container #line {
+        width: 60%;
+        margin: auto;
+        background: #eee;
+        height: 6px;
+        position: absolute;
+        left: 10%;
+        top: 57px;
+        z-index: 1;
+        border-radius: 50px;
+        transition: all ease 0.9s;
+      }
+
+      #progress-bar-container #line-progress {
+        content: " ";
+        width: 3%;
+        height: 100%;
+        background: #207893;
+        background: linear-gradient(to right, #207893 0%, #2ea3b7 100%);
+        position: absolute;
+        z-index: 2;
+        border-radius: 50px;
+        transition: all ease 0.9s;
+      }
+
+      #progress-content-section {
+        width: 90%;
+        margin: auto;
+        /* background: #f3f3f3; */
+        border-radius: 4px;
+        box-shadow: 0px 3px 12px 0px #ccc;
+        border: 1px solid transparent;
+        margin-bottom: 3%;
+      }
+
+      #progress-content-section .section-content {
+        padding: 30px 40px;
+        /* text-align:center; */
+      }
+
+      #progress-content-section .section-content h2 {
+        font-size: 17px;
+        text-transform: uppercase;
+        color: #333;
+        letter-spacing: 1px;
+      }
+
+      #progress-content-section .section-content p {
+        font-size: 16px;
+        line-height: 1.8em;
+        color: #777;
+      }
+
+      #progress-content-section .section-content {
+        display: none;
+        animation: FadeInUp 700ms ease 1;
+        animation-fill-mode: forwards;
+        transform: translateY(15px);
+        opacity: 0;
+      }
+
+      #progress-content-section .section-content.active {
+        display: block;
+      }
+
+      @keyframes FadeInUp {
+        0% {
+          transform: translateY(15px);
+          opacity: 0;
+        }
+
+        100% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
+
+      /* it is where the code starts for registrations form */
+
+      .regis-big-div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .regis-big-div form {
+        line-height: 2rem;
+      }
+      .regis-big-div form .form-group {
+        width: fit-content;
+      }
+      .regis-logo {
+        width: 100%;
+        height: 15rem;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        background-color: powderblue;
+      }
+      .regis-logo-img {
+        width: 28rem;
+        height: 10rem;
+        background: url("https://res.cloudinary.com/ddxv0iwcs/image/upload/v1710502741/emblem_e7gmxn.png");
+        background-size: cover;
+        background-position: center;
+      }
+      /* .regis-logo-img img {
+  object-fit: contain;
+} */
+
+      .input-fields {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .form-group {
+        margin-right: 05rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .form-group input {
+        width: 15rem;
+      }
+
+      .down-regis .card {
+        background-color: transparent;
+        border: 0;
+        width: 20rem;
+      }
+      .down-regis .card p {
+        margin: 0;
+      }
+      .down-regis button {
+        margin: 3rem;
+        padding: 0.3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-bottom: 1rem;
+      }
+      .submit-btn {
+        display: flex;
+        justify-content: center;
+      }
+
+      .card-body {
+        padding: 7px;
+
+        border-style: solid;
+        border-color: grey;
+        border-width: 1px;
+        border-radius: 10px;
+        width: 15rem;
+      }
+      .regis-card-title {
+        text-align: start !important;
+      }
+
+      .comm-fields {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      label {
+        color: #163269;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="regis-big-div">
+      <div class="left-login">
+        <br />
+        <div class="pop-out">
+          <a href="/"
+            ><img
+              loading="lazy"
+              src="https://res.cloudinary.com/ddxv0iwcs/image/upload/v1710502741/emblem_e7gmxn.png"
+              alt=""
+              width="300"
+          /></a>
+        </div>
+        <br />
+      </div>
+      <form
+        novalidate=""
+        class="needs-validation"
+        action="/register/stu"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="down-regis">
+          <div class="resources-student-big-div">
+            <!-- <h1>Our Process</h1> -->
+            <!-- <h4 style="text-align: center;margin-bottom:  10px;">Registration : Student</h4> -->
+            <h3
+              style="
+                text-align: center;
+                padding-top: o.7rem;
+                padding-bottom: 2rem;
+                margin-bottom: 0;
+                color: #163269;
+              "
+            >
+              Registration : Student
+            </h3>
+
+            <br />
+            <div class="process-wrapper">
+              <div id="progress-bar-container">
+                <ul>
+                  <li class="step step01 active">
+                    <div class="step-inner">
+                      <img
+                        src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992420/one_m4duss.svg"
+                        alt=""
+                        width="40px"
+                        height="40px"
+                      /><br />Personal Details
                     </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        value="male"
-                        name="gender"
-                        required
-                        id="gender2"
-                      />
-                      <label class="form-check-label" for="gender2">
-                        Male
-                      </label>
+                  </li>
+                  <li class="step step02">
+                    <div class="step-inner">
+                      <img
+                        src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992421/two_wowyxr.svg"
+                        alt=""
+                        width="40px"
+                        height="40px"
+                      /><br />Communication Details
                     </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        value="other"
-                        required
-                        name="gender"
-                        id="gender3"
-                      />
-                      <label class="form-check-label" for="gender3">
-                        Other
-                      </label>
+                  </li>
+                  <li class="step step03">
+                    <div class="step-inner">
+                      <img
+                        src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992420/three_kdx4je.svg"
+                        alt=""
+                        width="40px"
+                        height="40px"
+                      /><br />Academic Details
+                    </div>
+                  </li>
+                  <li class="step step04">
+                    <div class="step-inner">
+                      <img
+                        src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992419/four_t1yszz.svg"
+                        alt=""
+                        width="40px"
+                        height="40px"
+                      /><br />Declaration
+                    </div>
+                  </li>
+                  <!-- <li class="step step05"><div class="step-inner">OUR LOCATIONS</div></li> -->
+                </ul>
+
+                <div id="line">
+                  <div id="line-progress"></div>
+                </div>
+              </div>
+
+              <div id="progress-content-section">
+                <div class="section-content discovery active">
+                  <div class="content-div regis-content-div">
+                    <div class="content-title container">
+                      <h2
+                        style="
+                          border-left-style: solid;
+                          border-width: 3px;
+                          padding-left: 5px;
+                          color: #163269;
+                          font-weight: 700;
+                        "
+                      >
+                        Personal Details
+                      </h2>
+                      <hr />
+
+                      <div class="input-fields">
+                        <div class="form-group">
+                          <label for="Enrollment">Enrollment No.</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="Enrollment"
+                            readonly=""
+                            disabled=""
+                            value="<%=enroll%>"
+                            placeholder="Enrollment No."
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="username">Username</label>
+                          <input
+                            type="text"
+                            value="<%=username%>"
+                            class="form-control"
+                            id="username"
+                            placeholder="username"
+                            readonly=""
+                            disabled=""
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="firstname">Full Name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="firstname"
+                            placeholder="First Name"
+                            disabled=""
+                            readonly=""
+                            value="<%=fullname%>"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label>Course</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            disabled=""
+                            readonly=""
+                            value="<%=course%>"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="fathername">Father's Name</label>
+                          <input
+                            type="text"
+                            name="fathername"
+                            class="form-control"
+                            id="fathername"
+                            placeholder="Father's Name"
+                            required=""
+                            value="Jetha Lal Gada"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="mothername">Mother's Name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="mothername"
+                            placeholder="Mother's Name"
+                            required=""
+                            name="mothername"
+                            value="Daya Gada "
+                          />
+                        </div>
+
+                        <div class="card">
+                          <div class="card-body">
+                            <p class="regis-card-title">Gender</p>
+                            <div class="card-text">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  checked=""
+                                  name="gender"
+                                  value="female"
+                                  id="gender"
+                                  required=""
+                                />
+                                <label class="form-check-label" for="gender">
+                                  Female
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  value="male"
+                                  name="gender"
+                                  required=""
+                                  id="gender2"
+                                />
+                                <label class="form-check-label" for="gender2">
+                                  Male
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  value="other"
+                                  required=""
+                                  name="gender"
+                                  id="gender3"
+                                />
+                                <label class="form-check-label" for="gender3">
+                                  Other
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="birthdate">Birth Date (DD/MM/YYYY)</label>
+                          <input
+                            type="date"
+                            class="form-control"
+                            id="birthdate"
+                            name="birthdate"
+                            required=""
+                            placeholder="DD/MM/YYYY"
+                            value="2004-05-18"
+                          />
+                        </div>
+                        <!-- <div class="card" >
+            <div class="card-body">
+              <p class="regis-card-title">Marital Status</p>
+              <div class="card-text">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="married"
+                    required
+                    checked
+                    name="maritalstatus"
+                    value="married"
+                  />
+                  <label class="form-check-label" for="married">
+                    Married
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    required
+                    type="radio"
+                    id="unmarried"
+                    value="unmarried"
+                    name="maritalstatus"
+                  />
+                  <label class="form-check-label" for="unmarried">
+                    Unmarried
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="separated"
+                    value="separated"
+                    required
+                    name="maritalstatus"
+                  />
+                  <label class="form-check-label" for="separated">
+                    Separated
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div> -->
+                        <!-- <div class="card">
+            <div class="card-body">
+              <p class="regis-card-title">
+                Are you a person with a disability?
+              </p>
+              <div class="card-text">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    value="yes"
+                    name="disability"
+                    id="disableyes"
+                    required
+                  />
+                  <label class="form-check-label" for="disableyes">
+                    YES
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    name="disability"
+                    value="no"
+                    checked
+                    required
+                    type="radio"
+                    id="disableno"
+                  />
+                  <label class="form-check-label" for="disableno">
+                    NO
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div> -->
+                        <div class="form-group">
+                          <label for="mobno">Mobile Number</label>
+                          <input
+                            type="tel"
+                            class="form-control"
+                            disabled=""
+                            readonly=""
+                            id="mobno"
+                            name="mobileno"
+                            placeholder="Mobile Number"
+                            value="<%=mobno%>"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="altmob">Alternate Mobile No</label>
+                          <input
+                            type="tel"
+                            class="form-control"
+                            id="altmob"
+                            required=""
+                            placeholder="Alternate Mobile No"
+                            name="altmobileno"
+                            value="9252180504"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            readonly=""
+                            disabled=""
+                            placeholder="Email"
+                            value="<%=email%>"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="altemail">Alternate Email </label>
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="altemail"
+                            placeholder="Alternate  Email "
+                            required=""
+                            name="altemail"
+                            value="smile.itsadil@gmail.com"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="category">Category Name</label>
+                          <select
+                            type="text"
+                            required=""
+                            class="form-control"
+                            id="category"
+                            name="category"
+                            placeholder="Category Name"
+                          >
+                            <option value="ST">ST</option>
+                            <option value="SC">SC</option>
+                            <option value="OBC">OBC</option>
+                            <option value="EWS">EWS</option>
+                            <option selected="" value="GENERAL">GENERAL</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="nationality">Nationality</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="nationality"
+                            required=""
+                            name="nationality"
+                            placeholder="Nationality"
+                            value="India"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="profilepicture"
+                            >Upload Profile Picture</label
+                          >
+                          <input
+                            type="file"
+                            class="form-control"
+                            id="profilepicture"
+                            placeholder="Profile Picture"
+                            name="profilepicture"
+                          />
+                        </div>
+                      </div>
+                      *You only need to Fill the remaining Input fields.
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="birthdate">Birth Date (DD/MM/YYYY)</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="birthdate"
-                  name="birthdate"
-                  required
-                  placeholder="DD/MM/YYYY"
-                  value="2004-05-18"
-                />
-              </div>
-             
-              <div class="form-group">
-                <label for="mobno">Mobile Number</label>
-                <input
-                  type="tel"
-                  class="form-control"
-                  disabled
-                  readonly
-                  id="mobno"
-                  name="mobileno"
-                  placeholder="Mobile Number"
-                  value="<%=mobno%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="altmob">Alternate Mobile No</label>
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="altmob"
-                  required
-                  placeholder="Alternate Mobile No"
-                  name="altmobileno"
-                  value="9252180504"
-                />
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  readonly
-                  disabled
-                  placeholder="Email"
-                  value="<%=email%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="altemail">Alternate Email </label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="altemail"
-                  placeholder="Alternate  Email "
-                  required
-                  name="altemail"
-                  value="smile.itsadil@gmail.com"
-                />
-              </div>
-              <div class="form-group">
-                <label for="category">Category Name</label>
-                <select
-                  type="text"
-                  required
-                  class="form-control"
-                  id="category"
-                  name="category"
-                  placeholder="Category Name"
-                >
-                  <option value="ST">ST</option>
-                  <option value="SC">SC</option>
-                  <option value="OBC">OBC</option>
-                  <option value="EWS">EWS</option>
-                  <option selected value="GENERAL">GENERAL</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="nationality">Nationality</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nationality"
-                  required
-                  name="nationality"
-                  placeholder="Nationality"
-                  value="India"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content-div regis-content-div">
-          <div class="content-title container">
-            <hr />
-            <br />
-            <h2>Communication Details</h2>
-            <br />
-            <div class="comm-fields">
-              <div class="input-fields">
-                <div class="form-group">
-                  <label for="presentcountry">Present Country</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    required
-                    id="presentcountry"
-                    name="presentcountry"
-                    placeholder="Present Country"
-                    value="India"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="presentstate">Present State</label>
-
-                  <select
-                    type="text"
-                    value=""
-                    name="presentstate"
-                    required
-                    id="presentstate"
-                    class="form-control"
-                    placeholder="Present State"
+                  <button
+                    type="button"
+                    class="step02 btn btn-primary"
+                    style="position: relative; align-items: center"
                   >
-                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                    <option value="Andaman and Nicobar Islands">
-                      Andaman and Nicobar Islands
-                    </option>
-                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Chandigarh">Chandigarh</option>
-                    <option value="Chhattisgarh">Chhattisgarh</option>
-                    <option value="Dadar and Nagar Haveli">
-                      Dadar and Nagar Haveli
-                    </option>
-                    <option value="Daman and Diu">Daman and Diu</option>
-                    <option value="Delhi">Delhi</option>
-                    <option value="Lakshadweep">Lakshadweep</option>
-                    <option value="Puducherry">Puducherry</option>
-                    <option value="Goa">Goa</option>
-                    <option selected value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Manipur">Manipur</option>
-                    <option value="Meghalaya">Meghalaya</option>
-                    <option value="Mizoram">Mizoram</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Sikkim">Sikkim</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Telangana">Telangana</option>
-                    <option value="Tripura">Tripura</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                    <option value="West Bengal">West Bengal</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="presentdistrict">Present District</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="presentdistrict"
-                    name="presentdistrict"
-                    value="Gandhinagar"
-                    required
-                    placeholder="Present District"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="Landmark">Landmark</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="Landmark"
-                    name="landmark"
-                    required
-                    value="Kudasan"
-                    placeholder="Landmark"
-                  />
+                    Save &amp; Next
+                  </button>
                 </div>
 
-                <div class="form-group">
-                  <label for="presentaddress">Present Address</label>
-                  <textarea
-                    type="text"
-                    value="hehe"
-                    class="form-control"
-                    id="presentaddress"
-                    required
-                    name="presentaddress"
-                    placeholder="Present Address"
-                  >
+                <div class="section-content strategy">
+                  <div class="content-div regis-content-div">
+                    <div class="content-title container">
+                      <h2
+                        style="
+                          border-left-style: solid;
+                          border-width: 3px;
+                          padding-left: 5px;
+                          color: #163269;
+                          font-weight: 700;
+                        "
+                      >
+                        Communication Details
+                      </h2>
+                      <hr />
+
+                      <div class="comm-fields">
+                        <div class="input-fields">
+                          <div class="form-group">
+                            <label for="presentcountry">Present Country</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              required=""
+                              id="presentcountry"
+                              name="presentcountry"
+                              placeholder="Present Country"
+                              value="India"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="presentstate">Present State</label>
+
+                            <select
+                              type="text"
+                              value=""
+                              name="presentstate"
+                              required=""
+                              id="presentstate"
+                              class="form-control"
+                              placeholder="Present State"
+                            >
+                              <option value="Andhra Pradesh">
+                                Andhra Pradesh
+                              </option>
+                              <option value="Andaman and Nicobar Islands">
+                                Andaman and Nicobar Islands
+                              </option>
+                              <option value="Arunachal Pradesh">
+                                Arunachal Pradesh
+                              </option>
+                              <option value="Assam">Assam</option>
+                              <option value="Bihar">Bihar</option>
+                              <option value="Chandigarh">Chandigarh</option>
+                              <option value="Chhattisgarh">Chhattisgarh</option>
+                              <option value="Dadar and Nagar Haveli">
+                                Dadar and Nagar Haveli
+                              </option>
+                              <option value="Daman and Diu">
+                                Daman and Diu
+                              </option>
+                              <option value="Delhi">Delhi</option>
+                              <option value="Lakshadweep">Lakshadweep</option>
+                              <option value="Puducherry">Puducherry</option>
+                              <option value="Goa">Goa</option>
+                              <option selected="" value="Gujarat">
+                                Gujarat
+                              </option>
+                              <option value="Haryana">Haryana</option>
+                              <option value="Himachal Pradesh">
+                                Himachal Pradesh
+                              </option>
+                              <option value="Jammu and Kashmir">
+                                Jammu and Kashmir
+                              </option>
+                              <option value="Jharkhand">Jharkhand</option>
+                              <option value="Karnataka">Karnataka</option>
+                              <option value="Kerala">Kerala</option>
+                              <option value="Madhya Pradesh">
+                                Madhya Pradesh
+                              </option>
+                              <option value="Maharashtra">Maharashtra</option>
+                              <option value="Manipur">Manipur</option>
+                              <option value="Meghalaya">Meghalaya</option>
+                              <option value="Mizoram">Mizoram</option>
+                              <option value="Nagaland">Nagaland</option>
+                              <option value="Odisha">Odisha</option>
+                              <option value="Punjab">Punjab</option>
+                              <option value="Rajasthan">Rajasthan</option>
+                              <option value="Sikkim">Sikkim</option>
+                              <option value="Tamil Nadu">Tamil Nadu</option>
+                              <option value="Telangana">Telangana</option>
+                              <option value="Tripura">Tripura</option>
+                              <option value="Uttar Pradesh">
+                                Uttar Pradesh
+                              </option>
+                              <option value="Uttarakhand">Uttarakhand</option>
+                              <option value="West Bengal">West Bengal</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="presentdistrict"
+                              >Present District</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="presentdistrict"
+                              name="presentdistrict"
+                              value="Gandhinagar"
+                              required=""
+                              placeholder="Present District"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="Landmark">Landmark</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="Landmark"
+                              name="landmark"
+                              required=""
+                              value="Kudasan"
+                              placeholder="Landmark"
+                            />
+                          </div>
+
+                          <div class="form-group">
+                            <label for="presentaddress">Present Address</label>
+                            <textarea
+                              type="text"
+                              value="hehe"
+                              class="form-control"
+                              id="presentaddress"
+                              required=""
+                              name="presentaddress"
+                              placeholder="Present Address"
+                            >
 Near Swarnim Park, 101, Sector 10, Gandhinagar </textarea
-                  >
-                </div>
+                            >
+                          </div>
 
-                <div class="form-group">
-                  <label for="Pincode">Pincode/Zipcode</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    value="110011"
-                    id="Pincode"
-                    required
-                    name="pincode"
-                    placeholder="Pincode"
-                  />
-                </div>
-              </div>
+                          <div class="form-group">
+                            <label for="Pincode">Pincode/Zipcode</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              value="110011"
+                              id="Pincode"
+                              required=""
+                              name="pincode"
+                              placeholder="Pincode"
+                            />
+                          </div>
+                        </div>
 
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="addcheck"
-                />
-                <label class="form-check-label" for="addcheck">
-                  Same As Present Address
-                </label>
-              </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="addcheck"
+                          />
+                          <label class="form-check-label" for="addcheck">
+                            Same As Present Address
+                          </label>
+                        </div>
 
-              <div class="input-fields">
-                <div class="form-group">
-                  <label for="presentcountryp">Permanent Country</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    required
-                    name="permanentCountry"
-                    value="France"
-                    id="presentcountryp"
-                    placeholder="Permanent Country"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="presentstatep">Permanent State</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    required
-                    id="presentstatep"
-                    value="Brittany"
-                    name="permanentState"
-                    placeholder="Permanent State"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="presentdistrictp">Permanent District</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="presentdistrictp"
-                    value="Cest la ville "
-                    name="permanentDistrict"
-                    required
-                    placeholder="Permanent District"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="Landmarkp">Landmark</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="permanentLandmark"
-                    id="Landmarkp"
-                    value="Le Parc Petit"
-                    placeholder="Landmark"
-                    required
-                  />
-                </div>
+                        <div class="input-fields">
+                          <div class="form-group">
+                            <label for="presentcountryp"
+                              >Permanent Country</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              required=""
+                              name="permanentCountry"
+                              value="France"
+                              id="presentcountryp"
+                              placeholder="Permanent Country"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="presentstatep">Permanent State</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              required=""
+                              id="presentstatep"
+                              value="Brittany"
+                              name="permanentState"
+                              placeholder="Permanent State"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="presentdistrictp"
+                              >Permanent District</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="presentdistrictp"
+                              value="Cest la ville "
+                              name="permanentDistrict"
+                              required=""
+                              placeholder="Permanent District"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="Landmarkp">Landmark</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="permanentLandmark"
+                              id="Landmarkp"
+                              value="Le Parc Petit"
+                              placeholder="Landmark"
+                              required=""
+                            />
+                          </div>
 
-                <div class="form-group">
-                  <label for="presentaddressp">Permanent Address</label>
-                  <textarea
-                    type="text"
-                    class="form-control"
-                    required
-                    name="permanentAddress"
-                    id="presentaddressp"
-                    placeholder="Permanent Address"
-                  >
+                          <div class="form-group">
+                            <label for="presentaddressp"
+                              >Permanent Address</label
+                            >
+                            <textarea
+                              type="text"
+                              class="form-control"
+                              required=""
+                              name="permanentAddress"
+                              id="presentaddressp"
+                              placeholder="Permanent Address"
+                            >
 Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
+                            >
+                          </div>
+
+                          <div class="form-group">
+                            <label for="Pincodep">Pincode/Zipcode</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="Pincodep"
+                              name="permanentPincode"
+                              value="120021"
+                              placeholder="Pincode"
+                              required=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="step01 btn btn-primary"
+                    style="position: relative; align-items: center"
                   >
+                    Previous
+                  </button>
+                  <button
+                    type="button"
+                    class="step03 btn btn-primary"
+                    style="position: relative; align-items: center"
+                  >
+                    Save &amp; Next
+                  </button>
                 </div>
 
-                <div class="form-group">
-                  <label for="Pincodep">Pincode/Zipcode</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="Pincodep"
-                    name="permanentPincode"
-                    value="120021"
-                    placeholder="Pincode"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content-div regis-content-div" id="procedure">
-          <div class="content-title container">
-            <hr />
-            <br />
-            <h2>Education Details</h2>
-            <br />
-            <div class="comm-fields">
-              <div class="input-fields">
-                <div class="form-group">
-                  <label for="10th">10th Result</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    required
-                    id="10th"
-                    name="tenth"
-                    placeholder="Percentage"
-                    value="99"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="10thupload">Upload 10th Marksheet</label>
-                  <input
-                    type="file"
-                    class="form-control"
-                    id="10thupload"
-                    name="tenthmarksheet"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="12th">12th Result</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="12th"
-                    name="twelth"
-                    required
-                    placeholder="Percentage"
-                    value="99"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="12thupload">Upload 12th Marksheet</label>
-                  <input
-                    type="file"
-                    class="form-control"
-                    id="12thupload"
-                    name="twelthmarksheet"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="lastsemcgpa">Last Sem CGPA</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="lastsemcgpa"
-                    name="lastsemcgpa"
-                    placeholder="CGPA"
-                    value="9.9"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content-div regis-content-div" id="procedure">
-          <div class="content-title container">
-            <hr />
-            <br />
-            <h2>Declaration</h2>
-            <br />
-            1. I hereby declare that all information provided in this
-            registration form is true and accurate to the best of my knowledge,
-            and I understand that any false information may result in the
-            cancellation of my registration for the placement session 2024-25.
-            <br />
-            2. I have read, understood, and agree to abide by all the rules,
-            policies, and guidelines set forth by the Placement Cell and
-            participating companies for the duration of the placement session
-            2024-25. <br />
-            3. Furthermore, I authorize the Placement Cell to share my academic
-            and personal information with potential employers for the purpose of
-            recruitment during the placement session 2024-25. I acknowledge that
-            the Placement Cell and participating companies have the right to
-            conduct background checks, including but not limited to academic
-            records and employment history, to verify the information provided
-            in this registration form. <br />
-            4. I understand that failure to comply with the rules and policies
-            of the placement session may result in disciplinary action,
-            including but not limited to disqualification from further
-            participation in placement activities. <br />
-            5. I acknowledge that the Placement Cell reserves the right to
-            modify or update the rules and policies of the placement session,
-            and it is my responsibility to stay informed about any changes
-            communicated by the Placement Cell.
-
-            <br /><br />
-            <div class="form-check">
-              <label class="form-check-label" for="flexCheckDefault">
-                I Agree
-              </label>
+                <div class="section-content creative">
+                  <div class="content-div regis-content-div" id="procedure">
+                    <div class="content-title container">
+                      <h2
+                        style="
+                          border-left-style: solid;
+                          border-width: 3px;
+                          padding-left: 5px;
+                          color: #163269;
+                          font-weight: 700;
+                        "
+                      >
+                        Education Details
+                      </h2>
+                      <hr />
+                      <!-- <div class="comm-fields">
+          <div class="input-fields">
+            <div class="form-group">
+              <label for="10th">10th Result</label>
               <input
-                class="form-check-input"
+                type="number"
+                class="form-control"
                 required
-                checked
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
+                id="10th"
+                name="tenth"
+                placeholder="Percentage"
+                value="99"
               />
             </div>
-            <br />
-            <div class="submit-btn">
-              <button class="btn btn-lg btn-success">SUBMIT</button>
+            <div class="form-group">
+              <label for="10thupload">Upload 10th Marksheet</label>
+              <input
+                type="file"
+                class="form-control"
+                id="10thupload"
+                name="tenthmarksheet"
+              />
+            </div>
+            <div class="form-group">
+              <label for="12th">12th Result</label>
+              <input
+                type="number"
+                class="form-control"
+                id="12th"
+                name="twelth"
+                required
+                placeholder="Percentage"
+                value="99"
+              />
+            </div>
+            <div class="form-group">
+              <label for="12thupload">Upload 12th Marksheet</label>
+              <input
+                type="file"
+                class="form-control"
+                id="12thupload"
+                name="twelthmarksheet"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lastsemcgpa">Last Sem CGPA</label>
+              <input
+                type="number"
+                class="form-control"
+                id="lastsemcgpa"
+                name="lastsemcgpa"
+                placeholder="CGPA"
+                value="9.9"
+              />
+            </div>
+          </div>
+        </div> -->
+                      <div class="comm-fields">
+                        <div class="input-fields" style="overflow-x: scroll">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Course
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Board/University
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Institute Name
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Yr of Joining
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Yr of Passing
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  % marks /CGPA
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                ></th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                ></th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <h5 style="text-align: center">Class X</h5>
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenthboard"
+                                    readonly=""
+                                    placeholder="Percentage"
+                                    required=""
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    value="3"
+                                    name="tenthintitutename"
+                                    placeholder="Intitute Name"
+                                    required=""
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    readonly=""
+                                    name="tenthyearofjoining"
+                                    placeholder="Year Of Joining"
+                                    required=""
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    value="3"
+                                    name="tenthyearofpassing"
+                                    placeholder="Year Of Passing"
+                                    required=""
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    required=""
+                                    id="10th"
+                                    name="tenth"
+                                    placeholder="Percentage"
+                                    value="99"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="file"
+                                    class="form-control"
+                                    id="10thupload"
+                                    name="tenthmarksheet"
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h5 style="text-align: center">
+                                    Class XII/Diploma
+                                  </h5>
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="twelthBoard"
+                                    value="a"
+                                    placeholder="Board/University"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="twelthintitutename"
+                                    placeholder="Institute Name"
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="twelthyrofjoining"
+                                    placeholder="Year Of Joining"
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="twelthyearofpassing"
+                                    placeholder="Year Of Passing"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    id="12th"
+                                    name="twelth"
+                                    required=""
+                                    placeholder="Percentage"
+                                    value="99"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="file"
+                                    class="form-control"
+                                    id="12thupload"
+                                    name="twelthmarksheet"
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h5 style="text-align: center">Graduation</h5>
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="graduationuniversity"
+                                    value="a"
+                                    placeholder="University"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="graduationintitutename"
+                                    placeholder="Institute Name"
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="graduationyrofjoining"
+                                    placeholder="Year Of Joining"
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="graduationyearofpassing"
+                                    placeholder="Year Of Passing"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    id="graduation"
+                                    name="graduation"
+                                    placeholder="Graduation Percentage"
+                                    value="99"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="file"
+                                    class="form-control"
+                                    id="graduationupload"
+                                    name="graduationmarksheet"
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h5 style="text-align: center">
+                                    Post Graduation
+                                  </h5>
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="postgraduationuniversity"
+                                    value="a"
+                                    placeholder="Board/University"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="postgraduationintitutename"
+                                    placeholder="Institute Name"
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="postgraduationyrofjoining"
+                                    placeholder="Year Of Joining"
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="postgraduationyearofpassing"
+                                    placeholder="Year Of Passing"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    id="postgraduation"
+                                    name="postgraduation"
+                                    placeholder="Percentage"
+                                    value="99"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="file"
+                                    class="form-control"
+                                    id="postgraduationupload"
+                                    name="postgraduationmarksheet"
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h5 style="text-align: center">
+                                    Other Certificates
+                                  </h5>
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="otheruniversity"
+                                    value="a"
+                                    placeholder="University"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="otherintitutename"
+                                    placeholder="Institute Name"
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="otheryrofjoining"
+                                    placeholder="Year Of Joining"
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="otheryearofpassing"
+                                    placeholder="Year Of Passing"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="othermarks"
+                                    value="99"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="file"
+                                    class="form-control"
+                                    id="otherupload"
+                                    name="othermarksheet"
+                                  />
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="step02 btn btn-primary"
+                    style="position: relative; align-items: center"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    type="button"
+                    class="step04 btn btn-primary"
+                    style="position: relative; align-items: center"
+                  >
+                    Save &amp; Next
+                  </button>
+                </div>
+
+                <div class="section-content production">
+                  <div class="content-div regis-content-div" id="procedure">
+                    <div class="content-title container">
+                      <h2
+                        style="
+                          border-left-style: solid;
+                          border-width: 3px;
+                          padding-left: 5px;
+                          color: #163269;
+                          font-weight: 700;
+                        "
+                      >
+                        Declaration
+                      </h2>
+                      <hr />
+                      1. I hereby declare that all information provided in this
+                      registration form is true and accurate to the best of my
+                      knowledge, and I understand that any false information may
+                      result in the cancellation of my registration for the
+                      placement session 2024-25.
+                      <br />
+                      2. I have read, understood, and agree to abide by all the
+                      rules, policies, and guidelines set forth by the Placement
+                      Cell and participating companies for the duration of the
+                      placement session 2024-25. <br />
+                      3. Furthermore, I authorize the Placement Cell to share my
+                      academic and personal information with potential employers
+                      for the purpose of recruitment during the placement
+                      session 2024-25. I acknowledge that the Placement Cell and
+                      participating companies have the right to conduct
+                      background checks, including but not limited to academic
+                      records and employment history, to verify the information
+                      provided in this registration form. <br />
+                      4. I understand that failure to comply with the rules and
+                      policies of the placement session may result in
+                      disciplinary action, including but not limited to
+                      disqualification from further participation in placement
+                      activities. <br />
+                      5. I acknowledge that the Placement Cell reserves the
+                      right to modify or update the rules and policies of the
+                      placement session, and it is my responsibility to stay
+                      informed about any changes communicated by the Placement
+                      Cell.
+
+                      <br /><br />
+                      <div class="form-check">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          I Agree
+                        </label>
+                        <input
+                          class="form-check-input"
+                          required=""
+                          checked=""
+                          type="checkbox"
+                          value=""
+                          id="flexCheckDefault"
+                        />
+                      </div>
+                      <br />
+                      <div class="submit-btn">
+                        <button class="btn btn-lg btn-success">SUBMIT</button>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="step03 btn btn-primary"
+                    style="position: relative; align-items: center"
+                  >
+                    Previous
+                  </button>
+                </div>
+
+                <!-- <div class="section-content analysis">
+		<h2>OUR LOCATIONS</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec neque justo, consequat non fermentum ac, tempor eu turpis. Proin nulla eros, placerat non ipsum ut, dapibus ullamcorper ex. Nulla in dapibus lorem. Suspendisse vitae velit ac ante consequat placerat ut sed eros. Nullam porttitor mattis mi, id fringilla ex consequat eu. Praesent pulvinar tincidunt leo et condimentum. Maecenas volutpat turpis at felis egestas malesuada. Phasellus sem odio, venenatis at ex a, lacinia suscipit orci.</p>
+	</div> -->
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
-  </form>
-</div>
 
-<script>
-  // JavaScript for form validation
-  (function () {
-    "use strict";
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll(".needs-validation");
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms).forEach(function (form) {
-      form.addEventListener(
-        "submit",
-        function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
+    <script>
+      // JavaScript for form validation
+      (function () {
+        "use strict";
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll(".needs-validation");
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener(
+            "submit",
+            function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      })();
+    </script>
+
+    <script>
+      function copyPresentAddress() {
+        var presentcountry = document.getElementById("presentcountry").value;
+        var presentstate = document.getElementById("presentstate").value;
+        var presentdistrict = document.getElementById("presentdistrict").value;
+        var Landmark = document.getElementById("Landmark").value;
+        var presentaddress = document.getElementById("presentaddress").value;
+        var Pincode = document.getElementById("Pincode").value;
+        document.getElementById("presentcountryp").value = presentcountry;
+        document.getElementById("presentstatep").value = presentstate;
+        document.getElementById("presentdistrictp").value = presentdistrict;
+        document.getElementById("Landmarkp").value = Landmark;
+        document.getElementById("presentaddressp").value = presentaddress;
+        document.getElementById("Pincodep").value = Pincode;
+      }
+      document
+        .getElementById("addcheck")
+        .addEventListener("change", function () {
+          if (this.checked) {
+            copyPresentAddress();
+          } else {
+            document.getElementById("presentcountryp").value = "";
+            document.getElementById("presentstatep").value = "";
+            document.getElementById("presentdistrictp").value = "";
+            document.getElementById("Landmarkp").value = "";
+            document.getElementById("presentaddressp").value = "";
+            document.getElementById("Pincodep").value = "";
           }
-          form.classList.add("was-validated");
-        },
-        false
-      );
-    });
-  })();
-</script>
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-  function copyPresentAddress() {
-    var presentcountry = document.getElementById("presentcountry").value;
-    var presentstate = document.getElementById("presentstate").value;
-    var presentdistrict = document.getElementById("presentdistrict").value;
-    var Landmark = document.getElementById("Landmark").value;
-    var presentaddress = document.getElementById("presentaddress").value;
-    var Pincode = document.getElementById("Pincode").value;
-    document.getElementById("presentcountryp").value = presentcountry;
-    document.getElementById("presentstatep").value = presentstate;
-    document.getElementById("presentdistrictp").value = presentdistrict;
-    document.getElementById("Landmarkp").value = Landmark;
-    document.getElementById("presentaddressp").value = presentaddress;
-    document.getElementById("Pincodep").value = Pincode;
-  }
-  document.getElementById("addcheck").addEventListener("change", function () {
-    if (this.checked) {
-      copyPresentAddress();
-    } else {
-      document.getElementById("presentcountryp").value = "";
-      document.getElementById("presentstatep").value = "";
-      document.getElementById("presentdistrictp").value = "";
-      document.getElementById("Landmarkp").value = "";
-      document.getElementById("presentaddressp").value = "";
-      document.getElementById("Pincodep").value = "";
-    }
-  });
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+      $(".step").click(function () {
+        $(this).addClass("active").prevAll().addClass("active");
+        $(this).nextAll().removeClass("active");
+      });
+
+      $(".step01").click(function () {
+        $("#line-progress").css("width", "3%");
+        $(".discovery").addClass("active").siblings().removeClass("active");
+      });
+
+      $(".step02").click(function fun3() {
+        $("#line-progress").css("width", "33%");
+        $(".strategy").addClass("active").siblings().removeClass("active");
+      });
+
+      $(".step03").click(function fun4() {
+        $("#line-progress").css("width", "67%");
+        $(".creative").addClass("active").siblings().removeClass("active");
+      });
+
+      $(".step04").click(function fun5() {
+        $("#line-progress").css("width", "100%");
+        $(".production").addClass("active").siblings().removeClass("active");
+      });
+    </script>
+  </body>
+</html>
