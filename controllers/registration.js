@@ -21,15 +21,17 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "error",
           "Please Enter a Valid Recruiter's Registration URL !"
         );
-        res.session.save();
+        req.session.save();
         res.redirect("/");
       }
       if (recDetails.isRegistered == true) {
         req.flash("success", "You already have been Registered !");
+        req.session.save();
         res.redirect("/");
       }
 
       req.session.recid = recid;
+      req.session.save();
 
       res.render("auth/regisrec.ejs", {
         headhremail: recDetails.headhremail,
@@ -300,6 +302,7 @@ National Forensic Science University.
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
             console.log("error in sending thanking email : " + error);
+            req.session.save();
             res.redirect("/");
           } else {
             req.flash(
@@ -316,10 +319,12 @@ National Forensic Science University.
         // If an error occurs during save operation, catch it here
         req.flash("error", "Error saving Recruiter's data:" + error.message);
         console.log(error);
+        req.session.save();
         res.redirect("/register/rec"); // Redirect to an error page
       }
     } catch (error) {
       req.flash("error", "error saving recruiter's data :" + error);
+      req.session.save();
       res.redirect("/register/rec");
     }
   } else if (user == "stu") {
@@ -368,10 +373,11 @@ National Forensic Science University.
           update,
           options
         );
-
+        req.session.save();
         res.redirect("/account");
       } catch (e) {
         console.log("error in updating student :" + e);
+        req.session.save();
         res.redirect("/register/stu");
       }
 
@@ -386,9 +392,11 @@ National Forensic Science University.
     } catch (error) {
       console.log(error);
       req.flash("error", error.message);
+      req.session.save();
       res.redirect("/register/stu");
     }
   } else {
+    req.session.save();
     res.send("Invalid URL");
   }
 };

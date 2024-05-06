@@ -115,6 +115,7 @@ app.get("/", (req, res) => {
   });
 });
 //login:auth
+
 app.use("/auth", authRouter);
 app.use("/register/:user", registrationRouter);
 app.use("/account", accountRouter);

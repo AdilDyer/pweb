@@ -24,7 +24,6 @@ const listingSchema = new mongoose.Schema({
     type: [
       {
         type: String,
-        enum: ["MscCs", "MscDfis", "MtechCs", "MtechAdsai", "All"],
       },
     ],
     required: true,

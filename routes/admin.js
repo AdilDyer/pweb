@@ -20,7 +20,11 @@ router
 
 router
   .route("/recaudited/:recid")
-  .put(isThisAdmin, wrapAsync(adminController.markRecAudit));
+  .get(isThisAdmin, wrapAsync(adminController.markRecAudit));
+
+router
+  .route("/arrayMarkRecAudited")
+  .post(wrapAsync(adminController.arrayMarkRecAudit));
 
 router
   .route("/addcompanylisting")
@@ -85,4 +89,5 @@ router
 router
   .route("/arrayMarkAsResolved")
   .post(wrapAsync(adminController.arrayMarkQueryResolved));
+
 module.exports = router;

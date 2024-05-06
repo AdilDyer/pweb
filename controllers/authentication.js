@@ -79,6 +79,7 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
     req.session.password = req.body.password;
     req.session.email = stuDetails.email;
     req.flash("success", "OTP sent successfully");
+    req.session.save();
     res.redirect(`/auth/login-student/verifyotp`);
   });
 };

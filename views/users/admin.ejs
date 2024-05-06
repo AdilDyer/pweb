@@ -399,9 +399,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
             id="tableSelectorbtncompanies"
-          >
-            Registered Companies
-          </button>
+          ></button>
           <ul class="dropdown-menu">
             <li>
               <input
@@ -469,6 +467,14 @@
             style="place-items: centre"
           ></ul>
         </div>
+
+        <button
+          class="btn btn-success"
+          id="markselectedverifiedCompany"
+          style="display: none"
+        >
+          Mark all Verified
+        </button>
         <div class="tables">
           <table
             class="table table-hover table-bordered"
@@ -482,20 +488,18 @@
                 <th scope="col">Job Title</th>
                 <th scope="col">Job Location</th>
                 <th scope="col">Job Description</th>
-                <th scope="col">CTC</th>
                 <th scope="col">See Details</th>
               </tr>
             </thead>
             <tbody>
               <% allRegisteredRecruiters.forEach((recruiter,index) => { %>
               <tr id="dataTableRegistered">
-                <td><%=index +1%></td>
+                <td><%=index + 1%></td>
                 <td><%= recruiter.companyname %></td>
                 <td><%= recruiter.jobtype %></td>
                 <td><%= recruiter.jobtitle %></td>
-                <td><%= recruiter.joblocation %></td>
-                <td><%=recruiter.jobdescription%></td>
-                <td><%= recruiter.ctc %></td>
+                <td><%= recruiter.tentativejoblocation %></td>
+                <td><%=recruiter.JobDescription%></td>
                 <td>
                   <a
                     href="/admin/recdetails/<%= recruiter._id %>?noAuditNeeded=true"
@@ -512,6 +516,7 @@
               <% }); %>
             </tbody>
           </table>
+
           <table
             class="table table-hover table-bordered"
             data-name="Verification Pending"
@@ -519,25 +524,53 @@
           >
             <thead>
               <tr class="headerrowPending">
-                <th scope="col">#</th>
+                <th scope="col">
+                  <input
+                    type="checkbox"
+                    id="selectallCompanyVerifytable"
+                    class="form-check-input"
+                  />
+                </th>
                 <th scope="col">Company Name</th>
-                <th scope="col">Job Type</th>
-                <th scope="col">Job Title</th>
-                <th scope="col">Job Location</th>
-                <th scope="col">Job Description</th>
-                <th scope="col">CTC</th>
+                <th scope="col">Nature of Business</th>
+                <th scope="col">Website Link</th>
+                <th scope="col">Postal Address</th>
+                <th scope="col">Category</th>
+                <th scope="col">HR Name</th>
+                <th scope="col">HR Mobile No.</th>
+                <th scope="col">HR Email</th>
+                <th scope="col">Delete Request</th>
+                <th scope="col">Verification</th>
               </tr>
             </thead>
             <tbody>
               <% allRecruitersPending.forEach((recruiter,index) => { %>
               <tr id="dataTablePending">
-                <td><%=index +1%></td>
+                <td>
+                  <input
+                    type="checkbox"
+                    class="form-check-input allCompanyVerificationCheck"
+                    name="<%=recruiter._id%>"
+                  />
+                </td>
                 <td><%= recruiter.companyname %></td>
-                <td><%= recruiter.jobtype %></td>
-                <td><%= recruiter.jobtitle %></td>
-                <td><%= recruiter.joblocation %></td>
-                <td><%=recruiter.jobdescription%></td>
-                <td><%= recruiter.ctc %></td>
+                <td><%= recruiter.natureofbusiness %></td>
+                <td><%= recruiter.websitelink %></td>
+                <td><%= recruiter.postaladdress %></td>
+                <td><%=recruiter.category%></td>
+                <td><%= recruiter.headhrname %></td>
+                <td><%= recruiter.headhrmobno %></td>
+                <td><%= recruiter.headhremail %></td>
+                <td>
+                  <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
+                    <button class="btn btn-danger">Delete Request</button>
+                  </a>
+                </td>
+                <td>
+                  <a href="/admin/recaudited/<%=recruiter._id%>">
+                    <button class="btn btn-success">Mark as Verified</button>
+                  </a>
+                </td>
               </tr>
               <% }); %>
             </tbody>
@@ -579,7 +612,7 @@
                 </td>
                 <td><%= recruiter.ctc %></td>
                 <td><%=recruiter.forCourse%></td>
-                <td><%=recruiter.lastdatetoapply%></td>
+                <td><%=recruiter.lastDateToApply%></td>
                 <td>
                   <a href="/admin/listingDetails/<%=recruiter._id%>">
                     <button class="btn btn-primary">Edit Listing</button>
@@ -597,12 +630,14 @@
               <tr class="headerrowVerifiedCompanies">
                 <th scope="col">#</th>
                 <th scope="col">Company Name</th>
-                <th scope="col">Job Type</th>
-                <th scope="col">Job Title</th>
-                <th scope="col">Job Location</th>
-                <th scope="col">Job Description</th>
-                <th scope="col">CTC</th>
-                <th scope="col">See Details</th>
+                <th scope="col">Nature of Business</th>
+                <th scope="col">Website Link</th>
+                <th scope="col">Postal Address</th>
+                <th scope="col">Category</th>
+                <th scope="col">HR Name</th>
+                <th scope="col">HR Mobile No.</th>
+                <th scope="col">HR Email</th>
+                <th scope="col">Details</th>
               </tr>
             </thead>
             <tbody>
@@ -610,11 +645,13 @@
               <tr id="dataTableVerifiedCompanies">
                 <td><%=index +1%></td>
                 <td><%= recruiter.companyname %></td>
-                <td><%= recruiter.jobtype %></td>
-                <td><%= recruiter.jobtitle %></td>
-                <td><%= recruiter.joblocation %></td>
-                <td><%=recruiter.jobdescription%></td>
-                <td><%= recruiter.ctc %></td>
+                <td><%= recruiter.natureofbusiness %></td>
+                <td><%= recruiter.websitelink %></td>
+                <td><%= recruiter.postaladdress %></td>
+                <td><%=recruiter.category%></td>
+                <td><%= recruiter.headhrname %></td>
+                <td><%= recruiter.headhrmobno %></td>
+                <td><%= recruiter.headhremail %></td>
                 <td>
                   <a
                     href="/admin/recdetails/<%= recruiter._id %>?noAuditNeeded=true"
@@ -622,11 +659,6 @@
                     <button class="btn btn-primary">See Details</button>
                   </a>
                 </td>
-                <!-- <td>
-                <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
-                  <button id="DeboardBtn">De-Board</button>
-                </a>
-              </td> -->
               </tr>
               <% }); %>
             </tbody>
@@ -743,17 +775,29 @@
                 <th scope="col">Course</th>
                 <th scope="col">Email</th>
                 <th scope="col">Mobile No.</th>
+                <th scope="col">Verification</th>
+                <th scope="col">Delete Request</th>
               </tr>
             </thead>
             <tbody>
               <% allStudentsPending.forEach((student,index) => { %>
               <tr class="dataTablePendingStudents">
                 <td><%=index +1%></td>
-                <td><%= student.fullname %></td>
-                <td><%= student.enrollmentNo %></td>
-                <td><%= student.course %></td>
-                <td><%= student.email %></td>
-                <td><%= student.mobileno%></td>
+                <td><%= student.bodyData.stuname %></td>
+                <td><%= student.bodyData.enrollnostu %></td>
+                <td><%= student.bodyData.coursename %></td>
+                <td><%= student.bodyData.email %></td>
+                <td><%= student.bodyData.stumobno%></td>
+                <td>
+                  <a href="/admin/markStuAudit/<%=student._id%>">
+                    <button class="btn btn-success">Mark as Verified</button></a
+                  >
+                </td>
+                <td>
+                  <a href="/admin/deboard/student/<%= student._id %>">
+                    <button class="btn btn-danger">Delete Request</button>
+                  </a>
+                </td>
               </tr>
               <% }); %>
             </tbody>
@@ -844,6 +888,38 @@
             style="place-items: centre"
           ></ul>
         </div>
+        <div class="dropdown dropdown-listingname-toshow">
+          <button
+            class="btn btn-light dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Companies to Show
+          </button>
+
+          <ul
+            data-name="Companies to Show"
+            class="dropdown-menu dropdownToShowCompanies"
+            id="dropdown"
+            style="place-items: centre"
+          >
+            <li
+              class="dropdown-item"
+              data-companyName="All"
+              style="cursor: pointer"
+            >
+              All
+            </li>
+            <%allListedRecruiters.forEach((recruiter,index)=>{%>
+            <li
+              class="dropdown-item"
+              style="cursor: pointer"
+              data-companyName="<%=recruiter.companyName%>"
+            ><%=(index+1) %>. <%=recruiter.companyName %></li>
+            <% })%>
+          </ul>
+        </div>
         <div class="tablesapplication">
           <table
             class="table table-hover table-bordered"
@@ -860,7 +936,7 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="applicationsBody">
               <% allApplications.forEach(function(appObj, index) { %>
               <tr class="dataTableApplicationReceived">
                 <td><%=index+1%></td>
@@ -877,8 +953,7 @@
                   <a
                     href="/admin/listingDetails/<%=appObj.listingId._id%>"
                     target="_blank"
-                  >
-                    <%=appObj.listingId.companyName%></a
+                    ><%=appObj.listingId.companyName%></a
                   >
                 </td>
                 <td><%=appObj.stuId.mobileno%></td>
@@ -1364,93 +1439,6 @@
                 </form>
               </tr>
               <% }); %>
-              <script>
-                document
-                  .getElementById("markselectedresolve")
-                  .addEventListener("click", () => {
-                    const selectedRows = [];
-                    document
-                      .querySelectorAll(".allQueryCheck")
-                      .forEach((checkbox) => {
-                        if (checkbox.checked) {
-                          const row = checkbox.closest("tr");
-                          const inputField = row.querySelector("textarea");
-
-                          const inputValue = inputField.value;
-
-                          const rowData = {
-                            queryId: checkbox.getAttribute("data-queryid"),
-                            response: inputValue,
-                          };
-                          selectedRows.push(rowData);
-                        }
-                      });
-
-                    // Send the selectedRows array to your route handler
-                    // You can use AJAX (e.g., fetch) to send the data to your backend
-                    // Example:
-                    const form = document.createElement("form");
-                    form.method = "POST";
-                    form.action = "/admin/arrayMarkAsResolved"; // Specify your route here
-
-                    // Create hidden input fields for each selected row
-                    selectedRows.forEach((rowData, index) => {
-                      // Create an input element for checkbox value
-                      const checkboxInput = document.createElement("input");
-                      checkboxInput.type = "hidden";
-                      checkboxInput.name = `selectedRows[${index}][queryId]`; // Adjust name based on your backend expectation
-                      checkboxInput.value = rowData.queryId;
-                      form.appendChild(checkboxInput);
-
-                      // Create an input element for input field value
-                      const inputFieldInput = document.createElement("input");
-                      inputFieldInput.type = "hidden";
-                      inputFieldInput.name = `selectedRows[${index}][response]`; // Adjust name based on your backend expectation
-                      inputFieldInput.value = rowData.response;
-                      form.appendChild(inputFieldInput);
-                    });
-
-                    // Append the form to the body and submit it
-                    document.body.appendChild(form);
-                    form.submit();
-                  });
-
-                // Add event listener to your "Select All" checkbox
-                document
-                  .getElementById("selectallQueriestable")
-                  .addEventListener("click", () => {
-                    const selectAllCheckbox = document.getElementById(
-                      "selectallQueriestable"
-                    );
-
-                    document.getElementById(
-                      "markselectedresolve"
-                    ).style.display = selectAllCheckbox.checked
-                      ? "inline"
-                      : "none";
-
-                    const checkboxes =
-                      document.querySelectorAll(".allQueryCheck");
-
-                    checkboxes.forEach((checkbox) => {
-                      checkbox.checked = selectAllCheckbox.checked;
-                    });
-                  });
-
-                document
-                  .querySelectorAll(".allQueryCheck")
-                  .forEach((checkbox) => {
-                    checkbox.addEventListener("click", () => {
-                      const anyChecked = Array.from(
-                        document.querySelectorAll(".allQueryCheck")
-                      ).some((checkbox) => checkbox.checked);
-                      // If any checkbox is checked, show the button; otherwise, hide it
-                      document.getElementById(
-                        "markselectedresolve"
-                      ).style.display = anyChecked ? "inline" : "none";
-                    });
-                  });
-              </script>
             </tbody>
           </table>
           <table
@@ -1484,7 +1472,201 @@
     </div>
   </div>
 </div>
+<!-- company to show option in application received  -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let allcompanyselectlis = document.querySelectorAll(
+      ".dropdownToShowCompanies li "
+    );
+    let allApplicationReceivedRows = document.querySelectorAll(
+      ".dataTableApplicationReceived"
+    );
+    allcompanyselectlis.forEach((li) => {
+      // Assuming `allApplicationReceivedRows` is a reference to all the table rows in your table
+      // and `allApplicationReceivedRows` is an array of those rows.
 
+      li.addEventListener("click", (event) => {
+        // Get the selected company name
+        const selectedCompany = event.target.getAttribute("data-companyName");
+
+        // If "All" is selected, toggle the display of all rows
+        if (selectedCompany == "All") {
+          allApplicationReceivedRows.forEach((row) => {
+            // Toggle the "hidden" class to show/hide the row
+            row.classList.remove("d-none");
+          });
+        } else {
+          // If a specific company is selected, show only the rows for that company
+          allApplicationReceivedRows.forEach((row) => {
+            // Check if the row's company name matches the selected company
+            const companyName = row
+              .querySelector("td:nth-child(4)")
+              .textContent.trim(); // Assuming the company name is in the 4th column
+            if (companyName == selectedCompany) {
+              // If it matches, show the row
+              row.classList.remove("d-none");
+            } else {
+              // If it doesn't match, hide the row
+              row.classList.add("d-none");
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
+<!-- multiple select companies verify pending -->
+<script>
+  document
+    .getElementById("markselectedverifiedCompany")
+    .addEventListener("click", () => {
+      const selectedRows = [];
+      document
+        .querySelectorAll(".allCompanyVerificationCheck")
+        .forEach((checkbox) => {
+          if (checkbox.checked) {
+            const rowData = {
+              recid: checkbox.getAttribute("name"),
+            };
+            selectedRows.push(rowData);
+          }
+        });
+
+      // Send the selectedRows array to your route handler
+      // You can use AJAX (e.g., fetch) to send the data to your backend
+      // Example:
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/admin/arrayMarkRecAudited"; // Specify your route here
+
+      // Create hidden input fields for each selected row
+      selectedRows.forEach((rowData, index) => {
+        // Create an input element for checkbox value
+        const checkboxInput = document.createElement("input");
+        checkboxInput.type = "hidden";
+        checkboxInput.name = `selectedRows[${index}][recid]`; // Adjust name based on your backend expectation
+        checkboxInput.value = rowData.recid;
+        form.appendChild(checkboxInput);
+      });
+
+      // Append the form to the body and submit it
+      document.body.appendChild(form);
+      form.submit();
+    });
+
+  // Add event listener to your "Select All" checkbox
+  document
+    .getElementById("selectallCompanyVerifytable")
+    .addEventListener("click", () => {
+      const selectAllCheckbox = document.getElementById(
+        "selectallCompanyVerifytable"
+      );
+
+      document.getElementById("markselectedverifiedCompany").style.display =
+        selectAllCheckbox.checked ? "inline" : "none";
+
+      const checkboxes = document.querySelectorAll(
+        ".allCompanyVerificationCheck"
+      );
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAllCheckbox.checked;
+      });
+    });
+
+  document
+    .querySelectorAll(".allCompanyVerificationCheck")
+    .forEach((checkbox) => {
+      checkbox.addEventListener("click", () => {
+        const anyChecked = Array.from(
+          document.querySelectorAll(".allCompanyVerificationCheck")
+        ).some((checkbox) => checkbox.checked);
+        // If any checkbox is checked, show the button; otherwise, hide it
+        document.getElementById("markselectedverifiedCompany").style.display =
+          anyChecked ? "inline" : "none";
+      });
+    });
+</script>
+<!-- multiple select queries -->
+<script>
+  document
+    .getElementById("markselectedresolve")
+    .addEventListener("click", () => {
+      const selectedRows = [];
+      document.querySelectorAll(".allQueryCheck").forEach((checkbox) => {
+        if (checkbox.checked) {
+          const row = checkbox.closest("tr");
+          const inputField = row.querySelector("textarea");
+
+          const inputValue = inputField.value;
+
+          const rowData = {
+            queryId: checkbox.getAttribute("data-queryid"),
+            response: inputValue,
+          };
+          selectedRows.push(rowData);
+        }
+      });
+
+      // Send the selectedRows array to your route handler
+      // You can use AJAX (e.g., fetch) to send the data to your backend
+      // Example:
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/admin/arrayMarkAsResolved"; // Specify your route here
+
+      // Create hidden input fields for each selected row
+      selectedRows.forEach((rowData, index) => {
+        // Create an input element for checkbox value
+        const checkboxInput = document.createElement("input");
+        checkboxInput.type = "hidden";
+        checkboxInput.name = `selectedRows[${index}][queryId]`; // Adjust name based on your backend expectation
+        checkboxInput.value = rowData.queryId;
+        form.appendChild(checkboxInput);
+
+        // Create an input element for input field value
+        const inputFieldInput = document.createElement("input");
+        inputFieldInput.type = "hidden";
+        inputFieldInput.name = `selectedRows[${index}][response]`; // Adjust name based on your backend expectation
+        inputFieldInput.value = rowData.response;
+        form.appendChild(inputFieldInput);
+      });
+
+      // Append the form to the body and submit it
+      document.body.appendChild(form);
+      form.submit();
+    });
+
+  // Add event listener to your "Select All" checkbox
+  document
+    .getElementById("selectallQueriestable")
+    .addEventListener("click", () => {
+      const selectAllCheckbox = document.getElementById(
+        "selectallQueriestable"
+      );
+
+      document.getElementById("markselectedresolve").style.display =
+        selectAllCheckbox.checked ? "inline" : "none";
+
+      const checkboxes = document.querySelectorAll(".allQueryCheck");
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAllCheckbox.checked;
+      });
+    });
+
+  document.querySelectorAll(".allQueryCheck").forEach((checkbox) => {
+    checkbox.addEventListener("click", () => {
+      const anyChecked = Array.from(
+        document.querySelectorAll(".allQueryCheck")
+      ).some((checkbox) => checkbox.checked);
+      // If any checkbox is checked, show the button; otherwise, hide it
+      document.getElementById("markselectedresolve").style.display = anyChecked
+        ? "inline"
+        : "none";
+    });
+  });
+</script>
 <!-- for queries -->
 <!-- table script only -->
 <script>
@@ -1883,17 +2065,7 @@
                 />
                 Job Description
               </li>
-              <li class="dropdown-item">
-                <input
-                  type="checkbox"
-                  class="form-check columnCheckboxRegistered"
-                  name="ctc"
-                  value="CTC"
-                  checked
-                  style="display: inline"
-                />
-                CTC
-              </li>`;
+             `;
         monitorAllRegisteredCheckboxes();
       } else if (companyCategoryName == "Verification Pending") {
         ul.innerHTML = `<li class="dropdown-item">
@@ -1911,56 +2083,76 @@
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
-                  name="jobtype"
-                  value="Job Type"
+                  name="Nature of Business"
+                  value="Nature of Business"
                   checked
                   style="display: inline"
                 />
-                Job Type
+                Nature of Business
               </li>
               <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
-                  name="jobtitle"
-                  value="Job Title"
+                  name="Website Link"
+                  value="Website Link"
                   checked
                   style="display: inline"
                 />
-                Job Title
+                Website Link
               </li>
               <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
-                  name="joblocation"
+                  name="Postal Address"
                   checked
-                  value="Job Location"
+                  value="Postal Address"
                   style="display: inline"
                 />
-                Job Location
+                Postal Address
               </li>
               <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
-                  name="jobdescription"
+                  name="Category"
                   checked
-                  value="Job Description"
+                  value="Category"
                   style="display: inline"
                 />
-                Job Description
+                Category
               </li>
               <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
-                  name="ctc"
-                  value="CTC"
+                  name="HR Name"
+                  value="HR Name"
                   checked
                   style="display: inline"
                 />
-                CTC
+                HR Name
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="HR Mobile No."
+                  value="HR Mobile No."
+                  checked
+                  style="display: inline"
+                />
+                HR Mobile No.
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxPending"
+                  name="HR Email"
+                  value="HR Email"
+                  checked
+                  style="display: inline"
+                />
+                HR Email
               </li>`;
         monitorAllPendingCheckboxes();
       } else if (companyCategoryName == "Listed Companies") {
@@ -2065,18 +2257,7 @@
         monitorAllListingCheckboxes();
       } else if (companyCategoryName == "Verified Companies") {
         ul.innerHTML = `
-    <li class="dropdown-item">
-                <input
-                  type="checkbox"
-                  class="form-check columnCheckboxVerifiedCompanies"
-                  name="See Details"
-                  checked
-                  value="See Details"
-                  style="display: inline"
-                />
-                See Details
-              </li>
-          <li class="dropdown-item">
+   <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -2091,57 +2272,78 @@
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
-                  name="jobtype"
-                  value="Job Type"
+                  name="Nature of Business"
+                  value="Nature of Business"
                   checked
                   style="display: inline"
                 />
-                Job Type
+                Nature of Business
               </li>
               <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
-                  name="jobtitle"
-                  value="Job Title"
+                  name="Website Link"
+                  value="Website Link"
                   checked
                   style="display: inline"
                 />
-                Job Title
+                Website Link
               </li>
               <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
-                  name="joblocation"
+                  name="Postal Address"
                   checked
-                  value="Job Location"
+                  value="Postal Address"
                   style="display: inline"
                 />
-                Job Location
+                Postal Address
               </li>
               <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
-                  name="jobdescription"
+                  name="Category"
                   checked
-                  value="Job Description"
+                  value="Category"
                   style="display: inline"
                 />
-                Job Description
+                Category
               </li>
               <li class="dropdown-item">
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
-                  name="ctc"
-                  value="CTC"
+                  name="HR Name"
+                  value="HR Name"
                   checked
                   style="display: inline"
                 />
-                CTC
-              </li>`;
+                HR Name
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="HR Mobile No."
+                  value="HR Mobile No."
+                  checked
+                  style="display: inline"
+                />
+                HR Mobile No.
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxVerifiedCompanies"
+                  name="HR Email"
+                  value="HR Email"
+                  checked
+                  style="display: inline"
+                />
+                HR Email
+              </li>
+             `;
       }
     });
 
@@ -2306,7 +2508,6 @@
 
   function toggleTableStudents(radio) {
     let studentCategoryName = radio.value;
-
     document.querySelector("#tableSelectorbtnStudents").innerHTML =
       studentCategoryName;
     let allUls = document.querySelectorAll(".dropdown-options-students ul");
