@@ -57,7 +57,7 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
     },
   });
   const mailOptions = {
-    from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+    from: "noreply@placementcell <noreply.spcweb@gmail.com>",
 
     to: stuDetails.email,
     subject: "2 Factor Authentication Request",
@@ -217,7 +217,7 @@ You can paste the above OTP in the <strong>Following Link</strong>:
     },
   });
   const mailOptions = {
-    from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+    from: "noreply@placementcell <noreply.spcweb@gmail.com>",
     to: email,
     subject: "OTP Verification Request",
     html: message,
@@ -515,7 +515,7 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
     },
   });
   const mailOptions = {
-    from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+    from: "noreply@placementcell <noreply.spcweb@gmail.com>",
 
     to: req.body.email,
     subject: "Password Reset Request",

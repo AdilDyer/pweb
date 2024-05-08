@@ -292,7 +292,7 @@ National Forensic Science University.
           },
         });
         const mailOptions = {
-          from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+          from: "noreply@placementcell <noreply.spcweb@gmail.com>",
 
           to: newRecruiter.headhremail,
           subject:
@@ -426,7 +426,3 @@ National Forensic Science University.
     res.send("Invalid URL");
   }
 };
-
-
-
-

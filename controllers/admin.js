@@ -168,7 +168,7 @@ You can paste the above Link in the Browser's address bar.
       },
     });
     const mailOptions = {
-      from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+      from: "noreply@placementcell <noreply.spcweb@gmail.com>",
 
       to: recDetails.headhremail,
       subject: "Registration Pending Information",
@@ -261,7 +261,7 @@ You can paste the above Link in the Browser's address bar.
         },
       });
       const mailOptions = {
-        from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+        from: "noreply@placementcell <noreply.spcweb@gmail.com>",
 
         to: recDetails.headhremail,
         subject: "Registration Pending Information",
@@ -487,7 +487,7 @@ module.exports.markStuAudit = async (req, res) => {
     },
   });
   const mailOptions = {
-    from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+    from: "noreply@placementcell <noreply.spcweb@gmail.com>",
 
     to: stuVerified.bodyData.email,
     subject:
@@ -665,7 +665,7 @@ module.exports.markStuArrayAudit = async (req, res) => {
         },
       });
       const mailOptions = {
-        from: "ThePlacementCell@NFSU <noreply.spcweb@gmail.com>",
+        from: "noreply@placementcell <noreply.spcweb@gmail.com>",
 
         to: stuVerified.bodyData.email,
         subject:

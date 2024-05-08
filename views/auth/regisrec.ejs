@@ -188,7 +188,7 @@
       /* recruiters form elements starts */
 
       .regis-big-div {
-        width: 100%;
+        width: fit-content;
         display: flex;
         flex-direction: column;
 
@@ -203,7 +203,7 @@
         width: fit-content;
       }
       .regis-logo {
-        width: 100%;
+        width: fit-content;
         height: 15rem;
 
         display: flex;
@@ -477,7 +477,10 @@
                       <hr />
                       <div class="comm-fields">
                         <div class="input-fields" style="overflow-x: scroll">
-                          <table class="table table-striped">
+                          <table
+                            class="table table-striped"
+                            style="border-radius: 1rem; overflow: hidden"
+                          >
                             <thead>
                               <tr>
                                 <th
@@ -518,7 +521,7 @@
                                     color: white;
                                   "
                                 >
-                                  Telephone Number
+                                  Alternate Number
                                 </th>
                                 <th
                                   style="
@@ -536,20 +539,12 @@
                                 >
                                   Official Address
                                 </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                ></th>
                               </tr>
                             </thead>
 
                             <tbody>
                               <tr>
-                                <td>
-                                  <h6 style="text-align: center">Head HR</h6>
-                                </td>
+                                <td>HEAD HR</td>
                                 <td>
                                   <input
                                     type="text"
@@ -618,9 +613,7 @@ dasdf</textarea
                                 </td>
                               </tr>
                               <tr>
-                                <td>
-                                  <h6 style="text-align: center">POC 1</h6>
-                                </td>
+                                <td>POC 1</td>
                                 <td>
                                   <input
                                     type="text"
@@ -674,9 +667,7 @@ dasdf</textarea
                                 </td>
                               </tr>
                               <tr>
-                                <td>
-                                  <h6 style="text-align: center">POC 2</h6>
-                                </td>
+                                <td>POC 2</td>
                                 <td>
                                   <input
                                     type="text"
