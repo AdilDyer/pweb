@@ -225,7 +225,7 @@ You can paste the above OTP in the <strong>Following Link</strong>:
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error(error);
-      res.status(500).send("Failed to send OTP");
+      res.status(500).send("Failed to send OTP",error);
     } else {
       req.session.bodyData = req.body;
 
