@@ -334,10 +334,11 @@ National Forensic Science University.
       // if (error) {
       //   return res.status(400).send(error.details[0].message);
       // }
-
+      // let profilePictureUrl = req.files.profilepicture[0].path;
       // let tenthMarksheetUrl = req.files.tenthmarksheet[0].path;
       // let twelthMarksheetUrl = req.files.twelthmarksheet[0].path;
       const newStudentDetails = {
+        profilePictureUrl: "",
         othermarksheetUrl: "",
         othermarks: req.body.othermarks,
         otheryearofpassing: req.body.otheryearofpassing,

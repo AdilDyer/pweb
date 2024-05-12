@@ -17,7 +17,7 @@
 
   <div class="down-regis">
     <div class="resources-student-big-div">
-      <div class="content-div regis-content-div">
+      <div class=" regis-content-div">
         <div class="content-title container">
           <br />
           <hr />
@@ -263,7 +263,7 @@
           </div>
         </div>
       </div>
-      <div class="content-div regis-content-div">
+      <div class=" regis-content-div">
         <div class="content-title container">
           <hr style="margin: 0;"/>
           <br />
@@ -555,317 +555,393 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
           </div>
         </div>
       </div>
-      <div class="content-div regis-content-div" id="procedure">
+
+      <div class=" regis-content-div" id="procedure">
         <div class="content-title container">
           <hr style="margin: 0;" />
           <br />
           <h2>Education Details</h2>
           <br />
-          <div class="comm-fields">
-            <div class="input-fields">
-              <div class="form-group">
-                <label for="10th">10th Result</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  required
-                  id="10th"
-                  name="tenth"
-                  placeholder="Percentage"
-                  value="<%=stuDetails.tenth%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="10th">10th Board</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  required
-                  id="10th"
-                  name="tenth"
-                  placeholder="Percentage"
-                  value="<%=stuDetails.ttenthboardenth%>"
-                />
-              </div>
-                    <div class="form-group">
-                <label for="10th">10th Passing Year</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  required
-                  id="10th"
-                  name="tenth"
-                  placeholder="Percentage"
-                  value="<%=stuDetails.tenthyearofpassing%>"
-                />
-              </div>
-                     <div class="form-group">
-                <label for="10th">10th Joining Year</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  required
-                  id="10th"
-                  name="tenth"
-                  placeholder="Percentage"
-                  value="<%=stuDetails.tenthyearofjoining%>"
-                />
-              </div>  <div class="form-group">
-                <label for="10th">10th Institute</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  required
-                  id="10th"
-                  name="tenth"
-                  placeholder="Percentage"
+           <div class="comm-fields">
+                        <div class="input-fields" style="overflow-x: scroll">
+                          <table
+                            class="table table-striped"
+                            style="border-radius: 1rem; overflow: hidden"
+                          >
+                            <thead>
+                              <tr>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Course
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Board/University
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Institute Name
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Year of Joining
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Year of Passing
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  % marks /CGPA
+                                </th>
+                                <th
+                                  style="
+                                    background-color: #163269;
+                                    color: white;
+                                  "
+                                >
+                                  Uploaded Marksheet
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <tr>
+                                <td>Class X</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenthboard"
+                                    readonly=""
+                                    placeholder="Percentage"
+                 value="<%=stuDetails.ttenthboardenth%>"
+
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    value="3"
+                                    name="tenthintitutename"
+                                    placeholder="Intitute Name"
+                                    required=""
                   value="<%=stuDetails.tenthintitutename%>"
-                />
-              </div>
 
+                                  />
+                                </td>
 
-              <div class="form-group">
-                <label for="10thupload"> 10th Marksheet</label>
-               <a href="<%=stuDetails.tenthMarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
-              </div>
-              <div class="form-group">
-                <label for="12th">12th Result</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="12th"
-                  name="twelth"
-                  required
-                  placeholder="Percentage"
-                  value="<%=stuDetails.twelth%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="12th">12th Board</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="12th"
-                  name="twelth"
-                  required
-                  placeholder="Percentage"
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    readonly=""
+                                    name="tenthyearofjoining"
+                                    placeholder="Year Of Joining"
+                                    required=""
+                  value="<%=stuDetails.tenthyearofjoining%>"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    value="3"
+                                    name="tenthyearofpassing"
+                                    placeholder="Year Of Passing"
+                                    required=""
+                  value="<%=stuDetails.tenthyearofpassing%>"
+
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    required=""
+                                    id="10th"
+                                    name="tenth"
+                                    placeholder="Percentage"
+                  value="<%=stuDetails.tenth%>"
+
+                                  />
+                                </td>
+                                <td>
+
+               <a href="<%=stuDetails.tenthMarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn   btn-dark form-control">Show File</button></a>
+
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Class XII/Diploma</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="twelthBoard"
+                                    value="a"
+                                    placeholder="Board / University"
                   value="<%=stuDetails.twelthBoard%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="12th">12th Institute</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="12th"
-                  name="twelth"
-                  required
-                  placeholder="Percentage"
+
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="twelthintitutename"
+                                    placeholder="Institute Name"
                   value="<%=stuDetails.twelthintitutename%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="12th">12th Joining Year</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="12th"
-                  name="twelth"
-                  required
-                  placeholder="Percentage"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="twelthyrofjoining"
+                                    placeholder="Year Of Joining"
                   value="<%=stuDetails.twelthyrofjoining%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="12th">12th Passing Year</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="12th"
-                  name="twelth"
-                  required
-                  placeholder="Percentage"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="twelthyearofpassing"
+                                    placeholder="Year Of Passing"
                   value="<%=stuDetails.twelthyearofpassing%>"
-                />
-              </div>
 
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    id="12th"
+                                    name="twelth"
+                                    required=""
+                                    placeholder="Percentage"
 
+                  value="<%=stuDetails.twelth%>"
 
-              <div class="form-group">
-                <label for="12thupload"> 12th Marksheet</label>
-                <a href="<%=stuDetails.twelthMarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
-              </div>
-
-               <div class="form-group">
-                <label for="GraduationUniversity">Graduation University</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversity"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+                                  />
+                                </td>
+                                <td>
+                                  <a href="<%=stuDetails.twelthMarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Graduation</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="graduationuniversity"
                   value="<%=stuDetails.graduationuniversity%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="GraduationUniversity2">Graduation Institute Name</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversity2"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                    placeholder="University"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="graduationintitutename"
+                                    placeholder="Institute Name"
                   value="<%=stuDetails.graduationintitutename%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="GraduationUniversity3">Graduation Year of Joining</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversity3"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="graduationyrofjoining"
+                                    placeholder="Year Of Joining"
                   value="<%=stuDetails.graduationyrofjoining%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="GraduationUniversityf">Graduation Year of Passing</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversityf"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="graduationyearofpassing"
+                                    placeholder="Year Of Passing"
                   value="<%=stuDetails.graduationyearofpassing%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="GraduationUniversityd">Graduation Marks</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    id="graduation"
+                                    name="graduation"
+                                    placeholder="Graduation Percentage"
                   value="<%=stuDetails.graduation%>"
-                />
-              </div>
-              <div class="form-group">
-                <label for="12thuploaddd"> Graduation Marksheet</label>
-                <a href="<%=stuDetails.graduationmarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
-              </div>
-                <div class="form-group">
-                <label for="GraduationUnidvedrsityd">Post-Graduation University</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUnidversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+                                <td>
+                                  <a href="<%=stuDetails.graduationmarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Post Graduation</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="postgraduationuniversity"
+
+                                    placeholder="Board/University"
                   value="<%=stuDetails.postgraduationuniversity%>"
-                />
-              </div>  <div class="form-group">
-                <label for="GraduastionUniversityd">Post-Graduation Institute</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUsniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="postgraduationintitutename"
+                                    placeholder="Institute Name"
                   value="<%=stuDetails.postgraduationintitutename%>"
-                />
-              </div>  <div class="form-group">
-                <label for="GraduationUniversityd">Post-Graduation Year of Joining</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraaduationUniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="postgraduationyrofjoining"
+                                    placeholder="Year Of Joining"
                   value="<%=stuDetails.postgraduationyrofjoining%>"
-                />
-              </div>  <div class="form-group">
-                <label for="GraduationUniversityd">Post-Graduation  Passing Year</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="postgraduationyearofpassing"
+                                    placeholder="Year Of Passing"
                   value="<%=stuDetails.postgraduationyearofpassing%>"
-                />
-              </div>  <div class="form-group">
-                <label for="GraduationUniversityd">Post-Graduation Marks</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    id="postgraduation"
+                                    name="postgraduation"
+                                    placeholder="Percentage"
                   value="<%=stuDetails.postgraduation%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="12thuploaddd"> Post-Graduation Marksheet</label>
-                <a href="<%=stuDetails.postgraduationmarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
-              </div>
-                <div class="form-group">
-                <label for="GraduationUnidvedrsityd">Other University</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUnidversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+                                <td>
+                                   <a href="<%=stuDetails.postgraduationmarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Other Certificates</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="otheruniversity"
+                                    value="a"
+                                    placeholder="University"
                   value="<%=stuDetails.otheruniversity%>"
-                />
-              </div>  <div class="form-group">
-                <label for="GraduastionUniversityd">Other Institute</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUsniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="otherintitutename"
+                                    placeholder="Institute Name"
                   value="<%=stuDetails.otherintitutename%>"
-                />
-              </div>  <div class="form-group">
-                <label for="GraduationUniversityd">Other  Year of Joining</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraaduationUniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="otheryrofjoining"
+                                    placeholder="Year Of Joining"
                   value="<%=stuDetails.otheryrofjoining%>"
-                />
-              </div>  <div class="form-group">
-                <label for="GraduationUniversityd">Other  Year of Passing</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="otheryearofpassing"
+                                    placeholder="Year Of Passing"
                   value="<%=stuDetails.otheryearofpassing%>"
-                />
-              </div>  <div class="form-group">
-                <label for="GraduationUniversityd">Other  Marks</label>
-                <input readonly
-                  type="number"
-                  class="form-control"
-                  id="GraduationUniversityd"
-                  name="Graduation University"
-                  placeholder="Graduation University"
+
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="othermarks"
                   value="<%=stuDetails.othermarks%>"
-                />
-              </div>
-               <div class="form-group">
-                <label for="12thuploaddd"> Other Marksheet</label>
-                <a href="<%=stuDetails.othermarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
-              </div>
-              <div class="form-group">
+
+                                  />
+                                </td>
+                                <td>
+                                  <a href="<%=stuDetails.othermarksheetUrl%>"><button style="margin: 0;height: fit-content;" class="btn btn-dark form-control">Show File</button></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                           <div class="form-group">
                 <label for="lastsemcgpa">Last Sem CGPA</label>
                 <input readonly
                   type="number"
@@ -876,11 +952,19 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                   value="<%=stuDetails.lastsemcgpa%>"
                 />
               </div>
-            </div>
-          </div>
+<div style="display: flex;flex-direction: column;">
+   Profile Picture
+              <img
+              srcset="https://cdn.hswstatic.com/gif/gettyimages-1440563250.jpg" src="<%=stuDetails.profilePictureUrl%>" width="100" height="100" alt="">
+</div>
+              </div>
+
+
+                      </div>
+
         </div>
       </div>
-      <div class="content-div regis-content-div" id="procedure">
+      <div class="regis-content-div" id="procedure">
         <div class="content-title container">
           <hr style="margin: 0;"/>
           <br />

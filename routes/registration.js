@@ -24,6 +24,7 @@ router
       { name: "tenthmarksheet", maxCount: 1 },
       { name: "twelthmarksheet", maxCount: 1 },
       { name: "attachedFile", maxCount: 1 },
+      { name: "profilepicture", maxCount: 1 },
     ]),
     wrapAsync(registrationController.registerTheUser)
   );

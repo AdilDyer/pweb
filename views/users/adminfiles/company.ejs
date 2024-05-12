@@ -1,4 +1,36 @@
 <div id="Companies" class="sectiondiv">
+  <div class="companycards">
+    <div class="card">
+      <div class="card__content">
+        <h5>Total Registered Companies</h5>
+        <hr />
+        <h6><%=countAllRegisteredRecruiters%></h6>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__content">
+        <h5>Total Requests Pending</h5>
+        <hr />
+        <h6><%=countAllRecruitersPending%></h6>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__content">
+        <h5>Total Listed Companies</h5>
+        <hr />
+        <h6><%=countAllListedRecruiters%></h6>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__content">
+        <a href="/admin/export/company" style="text-decoration: none">
+          <h5>Export Data Recruiters</h5>
+          <br />
+          <i style="color: white" class="fa-solid fa-download"></i>
+        </a>
+      </div>
+    </div>
+  </div>
   <div class="addlisting">
     <h3>Add a New Listing</h3>
     <br />
@@ -187,38 +219,6 @@
         Add Listing
       </button>
     </form>
-  </div>
-  <div class="companycards">
-    <div class="card">
-      <div class="card__content">
-        <h5>Total Registered Companies</h5>
-        <hr />
-        <h6><%=countAllRegisteredRecruiters%></h6>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card__content">
-        <h5>Total Requests Pending</h5>
-        <hr />
-        <h6><%=countAllRecruitersPending%></h6>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card__content">
-        <h5>Total Listed Companies</h5>
-        <hr />
-        <h6><%=countAllListedRecruiters%></h6>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card__content">
-        <a href="/admin/export/company" style="text-decoration: none">
-          <h5>Export Data Recruiters</h5>
-          <br />
-          <i style="color: white" class="fa-solid fa-download"></i>
-        </a>
-      </div>
-    </div>
   </div>
   <div class="companytable dash-table-format">
     <div class="dropdown">

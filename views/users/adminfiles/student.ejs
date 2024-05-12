@@ -95,6 +95,7 @@
             <th scope="col">Course</th>
             <th scope="col">Email</th>
             <th scope="col">Mobile No.</th>
+            <th scope="col">Show Details</th>
             <th scope="col" style="display: none">Disable Option</th>
           </tr>
         </thead>
@@ -115,6 +116,14 @@
             <td><%= student.course %></td>
             <td><%= student.email %></td>
             <td><%= student.mobileno%></td>
+            <td>
+              <a
+                href="/account/sturegisdetails/?stuId=<%=student._id%>"
+                target="_blank"
+              >
+                <button class="btn btn-primary">See Details</button></a
+              >
+            </td>
             <td style="display: none">
               <a href="/admin/deboard/student/<%= student._id %>">
                 <button class="btn btn-danger">Disable Account</button>

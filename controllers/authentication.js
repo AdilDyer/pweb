@@ -26,7 +26,7 @@ module.exports.sendTwoFactor = async (req, res) => {
     email: stuDetails.email,
     code: newOtp,
   });
-  message = `<p style="color: red;">Hey Dear Student !</p>
+  message = `<p style="color: red;">Hey Student !</p>
     <br/>
 We have received a request to OTP Verification associated with your account. If you did not make this request, you can safely ignore this email.
 <br/><br/>
@@ -74,18 +74,21 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
   //     res.redirect(`/auth/login-student/verifyotp`);
   //   }
   // });
-  transporter.sendMail(mailOptions, () => {
+  transporter.sendMail(mailOptions, async () => {
     req.session.username = req.body.username;
     req.session.password = req.body.password;
     req.session.email = stuDetails.email;
     req.flash("success", "OTP sent successfully");
-    req.session.save();
+    await req.session.save();
     res.redirect(`/auth/login-student/verifyotp`);
   });
 };
 
 module.exports.renderVerifyTwoFactor = (req, res) => {
-  let startingFourLettersOfEmail = req.session.email.substring(0, 4);
+  let startingFourLettersOfEmail = "";
+  req.session.email
+    ? (startingFourLettersOfEmail = req.session.email.substring(0, 4))
+    : null;
   startingFourLettersOfEmail += "************";
   res.render("auth/twofactorverify.ejs", {
     email: startingFourLettersOfEmail,
@@ -222,10 +225,10 @@ You can paste the above OTP in the <strong>Following Link</strong>:
     subject: "OTP Verification Request",
     html: message,
   };
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, async (error, info) => {
     if (error) {
       console.error(error);
-      res.status(500).send("Failed to send OTP",error);
+      res.status(500).send("Failed to send OTP", error);
     } else {
       req.session.bodyData = req.body;
 
@@ -235,7 +238,7 @@ You can paste the above OTP in the <strong>Following Link</strong>:
         req.flash("success", "OTP sent successfully");
       }
 
-      req.session.save();
+      await req.session.save();
       res.redirect(`/auth/otp-verify-page`);
     }
   });
@@ -432,7 +435,7 @@ module.exports.verifyOtp = async (req, res) => {
             `Email Verification Successfull ! <br> We will soon Reach out to You on Provided Details. <br> Please wait for further Email Updates on approval of the Admin.`
           );
 
-          req.session.save();
+          await req.session.save();
           res.redirect("/");
         }
       } else {

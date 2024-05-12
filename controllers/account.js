@@ -38,6 +38,7 @@ module.exports.showAccount = async (req, res) => {
     res.render("users/youraccountstu.ejs", {
       isRegistered: isRegistered,
       stuId: _id,
+      profilePictureUrl: req.user.profilePictureUrl,
       availableListings: availableListings,
       appliedListings: appliedListings,
       updatesToShow: updatesToShow,
@@ -59,6 +60,7 @@ module.exports.showStuPlacementProfile = async (req, res) => {
   res.render("resources/studentDetails.ejs", {
     stuDetails: stuDetails,
     isRegistered: stuDetails.isRegistered,
+    profilePictureUrl: req.user.profilePictureUrl,
     stuId: stuDetails._id,
   });
 };
@@ -120,6 +122,7 @@ module.exports.renderQueryForm = async (req, res) => {
 
   res.render("resources/askquery.ejs", {
     isRegistered: true,
+    profilePictureUrl: req.user.profilePictureUrl,
     stuId: req.user._id,
     allQueries: allQueries,
   });

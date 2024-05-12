@@ -15,7 +15,7 @@
       }
 
       body {
-        width: 100%;
+        width: 100% !important;
         overflow-x: hidden;
       }
 
@@ -188,10 +188,9 @@
       /* recruiters form elements starts */
 
       .regis-big-div {
-        width: fit-content;
+        width: 100%;
         display: flex;
         flex-direction: column;
-
         align-items: center;
         overflow: hidden;
       }
@@ -205,13 +204,11 @@
       .regis-logo {
         width: fit-content;
         height: 15rem;
-
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
         background-color: powderblue;
       }
       .regis-logo-img {
@@ -275,9 +272,9 @@
       }
     </style>
   </head>
+
   <body>
     <div
-      class="regis-big-div"
       style="
         background: linear-gradient(to left, white, rgba(179, 241, 255, 0.4));
         border-top-left-radius: 0rem;
@@ -285,516 +282,558 @@
         border-bottom-left-radius: 3rem;
         border-bottom-right-radius: 3rem;
         margin-top: 2rem;
-        z-index: -5;
+        z-index: -50;
+        height: fit-content;
+        min-height: 190vh;
         overflow: visible;
       "
     >
-      <div
-        class="left-login"
-        style="width: 100%; display: flex; justify-content: center"
-      >
-        <div class="pop-out">
-          <a href="/"
-            ><img
-              loading="lazy"
-              src="https://res.cloudinary.com/ddxv0iwcs/image/upload/v1710502741/emblem_e7gmxn.png"
-              width="250"
-              style="padding: 1rem"
-              alt=""
-          /></a>
+      <div class="regis-big-div" style="z-index: 0">
+        <div
+          class="left-login"
+          style="width: 100%; display: flex; justify-content: center"
+        >
+          <div class="pop-out">
+            <a href="/"
+              ><img
+                loading="lazy"
+                src="https://res.cloudinary.com/ddxv0iwcs/image/upload/v1710502741/emblem_e7gmxn.png"
+                width="250"
+                style="padding: 1rem"
+                alt=""
+            /></a>
+          </div>
         </div>
-      </div>
-      <form
-        novalidate=""
-        class="needs-validation"
-        action="/register/rec"
-        method="post"
-        enctype="multipart/form-data"
-      >
-        <div class="down-regis">
-          <div class="resources-student-big-div">
-            <h3
-              style="
-                text-align: center;
-                padding-top: o.7rem;
-                padding-bottom: 3rem;
-                margin-bottom: 0;
-                color: #163269;
-              "
-            >
-              Job Announcement Form
-            </h3>
-            <br />
-            <div class="process-wrapper">
-              <div id="progress-bar-container">
-                <ul>
-                  <li class="step step01 active">
-                    <div class="step-inner">
-                      <img
-                        src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992420/one_m4duss.svg"
-                        alt=""
-                        width="40px"
-                        height="40px"
-                      /><br />Company Details
-                    </div>
-                  </li>
-                  <li class="step step02">
-                    <div class="step-inner">
-                      <img
-                        src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992421/two_wowyxr.svg"
-                        alt=""
-                        width="40px"
-                        height="40px"
-                      /><br />Offering Details
-                    </div>
-                  </li>
-                  <li class="step step03">
-                    <div class="step-inner">
-                      <img
-                        src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992420/three_kdx4je.svg"
-                        alt=""
-                        width="40px"
-                        height="40px"
-                      /><br />Selection Details
-                    </div>
-                  </li>
-                  <li class="step step04">
-                    <div class="step-inner">
-                      <img
-                        src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992419/four_t1yszz.svg"
-                        alt=""
-                        width="40px"
-                        height="40px"
-                      /><br />Declaration
-                    </div>
-                  </li>
-                  <!-- <li class="step step05"><div class="step-inner">OUR LOCATIONS</div></li> -->
-                </ul>
-
-                <div id="line">
-                  <div id="line-progress"></div>
-                </div>
-              </div>
-
-              <div id="progress-content-section">
-                <div class="section-content discovery active">
-                  <div class="content-div regis-content-div">
-                    <div class="content-title container">
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Company's Information
-                      </h2>
-                      <hr />
-
-                      <div class="input-fields">
-                        <div class="form-group">
-                          <label for="CompanyName">Company Name</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="companyname"
-                            value="<%=companyname%>"
-                            id="CompanyName"
-                            placeholder="Company Name"
-                            readonly=""
-                          />
-                        </div>
-                        <div class="form-group">
-                          <label for="NatureofBusiness"
-                            >Nature of Business</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            readonly=""
-                            name="natureofbusiness"
-                            id="NatureofBusiness"
-                            placeholder="Nature of Business"
-                            value="<%=natureofbusiness%>"
-                          />
-                        </div>
-                        <div class="form-group">
-                          <label for="Website">Website Link</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="websitelink"
-                            id="Website"
-                            placeholder="Website Link"
-                            readonly=""
-                            value="<%=websitelink%>"
-                          />
-                        </div>
-                        <div class="form-group">
-                          <label for="PostalAddress">Postal Address</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="postaladdress"
-                            id="PostalAddress"
-                            placeholder="Postal Address"
-                            readonly=""
-                            value="<%=postaladdress%>"
-                          />
-                        </div>
-                        <div class="form-group">
-                          <label for="Category">Category of Business</label>
-                          <input
-                            type="text"
-                            name="category"
-                            class="form-control"
-                            id="Category"
-                            placeholder="Category of Business"
-                            readonly=""
-                            value="<%=category%>"
-                          />
-                        </div>
+        <form
+          novalidate=""
+          class="needs-validation"
+          action="/register/rec"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="down-regis">
+            <div class="resources-student-big-div">
+              <h3
+                style="
+                  text-align: center;
+                  padding-top: o.7rem;
+                  padding-bottom: 3rem;
+                  margin-bottom: 0;
+                  color: #163269;
+                "
+              >
+                Job Announcement Form
+              </h3>
+              <br />
+              <div class="process-wrapper">
+                <div id="progress-bar-container">
+                  <ul>
+                    <li class="step step01 active">
+                      <div class="step-inner">
+                        <img
+                          src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992420/one_m4duss.svg"
+                          alt=""
+                          width="40px"
+                          height="40px"
+                        /><br />Company Details
                       </div>
-                    </div>
-                  </div>
-
-                  <div class="content-div regis-content-div">
-                    <div class="content-title container">
-                      <hr />
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Communication Details
-                      </h2>
-                      <hr />
-                      <div class="comm-fields">
-                        <div class="input-fields" style="overflow-x: scroll">
-                          <table
-                            class="table table-striped"
-                            style="border-radius: 1rem; overflow: hidden"
-                          >
-                            <thead>
-                              <tr>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Position
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Name
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Designation
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Mobile Number
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Alternate Number
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Email Id
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Official Address
-                                </th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-                              <tr>
-                                <td>HEAD HR</td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    name="headhrname"
-                                    readonly=""
-                                    value="<%=headhrname%>"
-                                    placeholder="Name"
-                                    required=""
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    value="3"
-                                    name="headhrdesignation"
-                                    placeholder="Designation"
-                                    required=""
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="tel"
-                                    class="form-control"
-                                    value="<%=headhrmobno%>"
-                                    readonly=""
-                                    name="headhrmobno"
-                                    placeholder="Mobile no"
-                                    required=""
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="tel"
-                                    class="form-control"
-                                    value="3"
-                                    name="headhraltmobno"
-                                    placeholder="Alternate Mobile no"
-                                    required=""
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="email"
-                                    class="form-control"
-                                    name="headhremail"
-                                    value="<%=headhremail%>"
-                                    readonly=""
-                                    placeholder="Email Id"
-                                    required=""
-                                  />
-                                </td>
-                                <td>
-                                  <textarea
-                                    type="text"
-                                    class="form-control"
-                                    name="headhraddress"
-                                    placeholder="Address"
-                                    required=""
-                                  >
-dasdf</textarea
-                                  >
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>POC 1</td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    name="poc1name"
-                                    value="a"
-                                    placeholder="Name"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    name="poc1designation"
-                                    placeholder="Designation"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="tel"
-                                    class="form-control"
-                                    name="poc1mobno"
-                                    placeholder="Mobile no"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="tel"
-                                    class="form-control"
-                                    name="poc1altmobno"
-                                    placeholder="Alternate Mobile no"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="email"
-                                    class="form-control"
-                                    name="poc1email"
-                                    placeholder="Email Id"
-                                  />
-                                </td>
-                                <td>
-                                  <textarea
-                                    type="text"
-                                    class="form-control"
-                                    name="poc1address"
-                                    placeholder="Address"
-                                  ></textarea>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>POC 2</td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    name="poc2name"
-                                    value="a"
-                                    placeholder="Name"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    name="poc2designation"
-                                    placeholder="Designation"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="tel"
-                                    class="form-control"
-                                    name="poc2mobno"
-                                    placeholder="Mobile no"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="tel"
-                                    class="form-control"
-                                    name="poc2altmobno"
-                                    placeholder="Alternate Mobile no"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="email"
-                                    class="form-control"
-                                    name="poc2email"
-                                    placeholder="Email Id"
-                                  />
-                                </td>
-                                <td>
-                                  <textarea
-                                    type="text"
-                                    class="form-control"
-                                    name="poc2address"
-                                    placeholder="Address"
-                                  ></textarea>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                    </li>
+                    <li class="step step02">
+                      <div class="step-inner">
+                        <img
+                          src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992421/two_wowyxr.svg"
+                          alt=""
+                          width="40px"
+                          height="40px"
+                        /><br />Offering Details
                       </div>
-                    </div>
+                    </li>
+                    <li class="step step03">
+                      <div class="step-inner">
+                        <img
+                          src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992420/three_kdx4je.svg"
+                          alt=""
+                          width="40px"
+                          height="40px"
+                        /><br />Selection Details
+                      </div>
+                    </li>
+                    <li class="step step04">
+                      <div class="step-inner">
+                        <img
+                          src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992419/four_t1yszz.svg"
+                          alt=""
+                          width="40px"
+                          height="40px"
+                        /><br />Declaration
+                      </div>
+                    </li>
+                    <!-- <li class="step step05"><div class="step-inner">OUR LOCATIONS</div></li> -->
+                  </ul>
+
+                  <div id="line">
+                    <div id="line-progress"></div>
                   </div>
-                  <button
-                    type="button"
-                    class="step02 btn btn-primary my-3"
-                    style="position: relative; align-items: center"
-                  >
-                    Save &amp; Next
-                  </button>
                 </div>
 
-                <div class="section-content strategy">
-                  <div class="content-div regis-content-div" id="procedure">
-                    <div class="content-title container">
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Offering Details
-                      </h2>
-                      <hr />
-                      <div class="comm-fields">
+                <div id="progress-content-section">
+                  <div class="section-content discovery active">
+                    <div class="content-div regis-content-div">
+                      <div class="content-title container">
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Company's Information
+                        </h2>
+                        <hr />
+
                         <div class="input-fields">
                           <div class="form-group">
-                            <label for="JobTitle"> Job Title </label>
+                            <label for="CompanyName">Company Name</label>
                             <input
                               type="text"
                               class="form-control"
-                              value="a"
-                              required=""
-                              name="jobtitle"
-                              id="JobTitle"
-                              placeholder="Job Title"
+                              name="companyname"
+                              value="<%=companyname%>"
+                              id="CompanyName"
+                              placeholder="Company Name"
+                              readonly=""
                             />
                           </div>
                           <div class="form-group">
-                            <label for="JobType"> Job Type </label>
-                            <select
-                              type="select"
-                              class="form-select"
-                              value="a"
-                              required=""
-                              name="jobtype"
-                              placeholder="Job Type"
+                            <label for="NatureofBusiness"
+                              >Nature of Business</label
                             >
-                              <option
-                                id="JobType"
-                                value="Internship + FTE (I+F)"
-                              >
-                                Internship + FTE (I+F)
-                              </option>
-                              <option id="JobType" value="FTE (F) only">
-                                FTE (F) only
-                              </option>
-                              <option id="JobType" value="Internship (I) only">
-                                Internship (I) only
-                              </option>
-                              <option
-                                id="JobType"
-                                value="Internship&nbsp;with&nbsp;PPO&nbsp;(I+P)"
-                              >
-                                Internship&nbsp;with&nbsp;PPO&nbsp;(I+P)
-                              </option>
-                            </select>
+                            <input
+                              type="text"
+                              class="form-control"
+                              readonly=""
+                              name="natureofbusiness"
+                              id="NatureofBusiness"
+                              placeholder="Nature of Business"
+                              value="<%=natureofbusiness%>"
+                            />
                           </div>
-                          <!-- <div class="form-group">
+                          <div class="form-group">
+                            <label for="Website">Website Link</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="websitelink"
+                              id="Website"
+                              placeholder="Website Link"
+                              readonly=""
+                              value="<%=websitelink%>"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="PostalAddress">Postal Address</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="postaladdress"
+                              id="PostalAddress"
+                              placeholder="Postal Address"
+                              readonly=""
+                              value="<%=postaladdress%>"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="Category">Category of Business</label>
+                            <input
+                              type="text"
+                              name="category"
+                              class="form-control"
+                              id="Category"
+                              placeholder="Category of Business"
+                              readonly=""
+                              value="<%=category%>"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="content-div regis-content-div">
+                      <div class="content-title container">
+                        <hr />
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Communication Details
+                        </h2>
+                        <hr />
+                        <div class="comm-fields">
+                          <div class="input-fields" style="overflow-x: scroll">
+                            <table
+                              class="table table-striped"
+                              style="border-radius: 1rem; overflow: hidden"
+                            >
+                              <thead>
+                                <tr>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Position
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Name
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Designation
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Mobile Number
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Alternate Number
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Email Id
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Official Address
+                                  </th>
+                                  <th
+                                    id="addpocheader"
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Add Point of Contact
+                                  </th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <tr>
+                                  <td>HEAD HR</td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="headhrname"
+                                      readonly=""
+                                      value="<%=headhrname%>"
+                                      placeholder="Name"
+                                      required=""
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      value="3"
+                                      name="headhrdesignation"
+                                      placeholder="Designation"
+                                      required=""
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="tel"
+                                      class="form-control"
+                                      value="<%=headhrmobno%>"
+                                      readonly=""
+                                      name="headhrmobno"
+                                      placeholder="Mobile no"
+                                      required=""
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="tel"
+                                      class="form-control"
+                                      value="3"
+                                      name="headhraltmobno"
+                                      placeholder="Alternate Mobile no"
+                                      required=""
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="email"
+                                      class="form-control"
+                                      name="headhremail"
+                                      value="<%=headhremail%>"
+                                      readonly=""
+                                      placeholder="Email Id"
+                                      required=""
+                                    />
+                                  </td>
+                                  <td>
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      name="headhraddress"
+                                      placeholder="Address"
+                                      required=""
+                                    >
+dasdf</textarea
+                                    >
+                                  </td>
+                                  <td>
+                                    <button
+                                      class="btn btn-primary"
+                                      id="addmore1"
+                                      type="button"
+                                    >
+                                      Add More
+                                    </button>
+                                  </td>
+                                </tr>
+                                <tr style="display: none">
+                                  <td>POC 1</td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="poc1name"
+                                      value="a"
+                                      placeholder="Name"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="poc1designation"
+                                      placeholder="Designation"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="tel"
+                                      class="form-control"
+                                      name="poc1mobno"
+                                      placeholder="Mobile no"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="tel"
+                                      class="form-control"
+                                      name="poc1altmobno"
+                                      placeholder="Alternate Mobile no"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="email"
+                                      class="form-control"
+                                      name="poc1email"
+                                      placeholder="Email Id"
+                                    />
+                                  </td>
+                                  <td>
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      name="poc1address"
+                                      placeholder="Address"
+                                    ></textarea>
+                                  </td>
+                                  <td>
+                                    <button
+                                      class="btn btn-primary"
+                                      id="addmore2"
+                                      type="button"
+                                    >
+                                      Add More
+                                    </button>
+                                  </td>
+                                </tr>
+                                <tr style="display: none">
+                                  <td>POC 2</td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="poc2name"
+                                      value="a"
+                                      placeholder="Name"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="poc2designation"
+                                      placeholder="Designation"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="tel"
+                                      class="form-control"
+                                      name="poc2mobno"
+                                      placeholder="Mobile no"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="tel"
+                                      class="form-control"
+                                      name="poc2altmobno"
+                                      placeholder="Alternate Mobile no"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="email"
+                                      class="form-control"
+                                      name="poc2email"
+                                      placeholder="Email Id"
+                                    />
+                                  </td>
+                                  <td>
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      name="poc2address"
+                                      placeholder="Address"
+                                    ></textarea>
+                                  </td>
+                                  <td>
+                                    <button
+                                      class="btn btn-primary"
+                                      id="addmore3"
+                                      type="button"
+                                    >
+                                      Add More
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="step02 btn btn-primary my-3"
+                      style="position: relative; align-items: center"
+                    >
+                      Save &amp; Next
+                    </button>
+                  </div>
+
+                  <div class="section-content strategy">
+                    <div class="content-div regis-content-div" id="procedure">
+                      <div class="content-title container">
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Offering Details
+                        </h2>
+                        <hr />
+                        <div class="comm-fields">
+                          <div class="input-fields">
+                            <div class="form-group">
+                              <label for="JobTitle"> Job Title </label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                value="a"
+                                required=""
+                                name="jobtitle"
+                                id="JobTitle"
+                                placeholder="Job Title"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="JobType"> Job Type </label>
+                              <select
+                                type="select"
+                                class="form-select"
+                                value="a"
+                                required=""
+                                name="jobtype"
+                                placeholder="Job Type"
+                              >
+                                <option
+                                  id="JobType"
+                                  value="Internship + FTE (I+F)"
+                                >
+                                  Internship + FTE (I+F)
+                                </option>
+                                <option id="JobType" value="FTE (F) only">
+                                  FTE (F) only
+                                </option>
+                                <option
+                                  id="JobType"
+                                  value="Internship (I) only"
+                                >
+                                  Internship (I) only
+                                </option>
+                                <option
+                                  id="JobType"
+                                  value="Internship&nbsp;with&nbsp;PPO&nbsp;(I+P)"
+                                >
+                                  Internship&nbsp;with&nbsp;PPO&nbsp;(I+P)
+                                </option>
+                              </select>
+                            </div>
+                            <!-- <div class="form-group">
                             <label for="JobDesignation"> Job Designation </label>
                             <input
                               type="text"
@@ -806,65 +845,65 @@ dasdf</textarea
                               placeholder=" Job Designation"
                             />
                           </div> -->
-                          <div class="form-group">
-                            <label for="Sector">Sector</label>
-                            <select
-                              name="sector"
-                              class="form-control"
-                              id="Sector"
-                              required=""
-                            >
-                              <option value="Software/Coding/IT">
-                                Software/Coding/IT
-                              </option>
-                              <option value="Analytics">Analytics</option>
-                              <option value="Core(Technical)">
-                                Core(Technical)
-                              </option>
-                              <option value="Consulting">Consulting</option>
-                              <option value="Product Management">
-                                Product Management
-                              </option>
-                              <option value="Finance">Finance</option>
-                              <option value="Data Science/ AI/ ML">
-                                Data Science/ AI/ ML
-                              </option>
-                              <option value="Research Teaching">
-                                Research Teaching
-                              </option>
-                              <option value="Others">Others</option>
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="TentativenoofHires"
-                              >Tentative no. of Hires</label
-                            >
-                            <input
-                              type="number"
-                              class="form-control"
-                              value="1"
-                              id="TentativenoofHires"
-                              name="tentativenoofhires"
-                              required=""
-                              placeholder="Tentative no. of Hires"
-                            />
-                          </div>
-                          <div class="form-group">
-                            <label for="TentativeJobLocation">
-                              Tentative Job Location
-                            </label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              required=""
-                              value="a"
-                              name="tentativejoblocation"
-                              id="TentativeJobLocation"
-                              placeholder=" Tentative Job Location"
-                            />
-                          </div>
-                          <div class="form-group">
-                            <!-- <label for="JobDescription">Job Description</label>
+                            <div class="form-group">
+                              <label for="Sector">Sector</label>
+                              <select
+                                name="sector"
+                                class="form-control"
+                                id="Sector"
+                                required=""
+                              >
+                                <option value="Software/Coding/IT">
+                                  Software/Coding/IT
+                                </option>
+                                <option value="Analytics">Analytics</option>
+                                <option value="Core(Technical)">
+                                  Core(Technical)
+                                </option>
+                                <option value="Consulting">Consulting</option>
+                                <option value="Product Management">
+                                  Product Management
+                                </option>
+                                <option value="Finance">Finance</option>
+                                <option value="Data Science/ AI/ ML">
+                                  Data Science/ AI/ ML
+                                </option>
+                                <option value="Research Teaching">
+                                  Research Teaching
+                                </option>
+                                <option value="Others">Others</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="TentativenoofHires"
+                                >Tentative no. of Hires</label
+                              >
+                              <input
+                                type="number"
+                                class="form-control"
+                                value="1"
+                                id="TentativenoofHires"
+                                name="tentativenoofhires"
+                                required=""
+                                placeholder="Tentative no. of Hires"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="TentativeJobLocation">
+                                Tentative Job Location
+                              </label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                required=""
+                                value="a"
+                                name="tentativejoblocation"
+                                id="TentativeJobLocation"
+                                placeholder=" Tentative Job Location"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <!-- <label for="JobDescription">Job Description</label>
                             <textarea
                               type="text"
                               class="form-control"
@@ -876,188 +915,200 @@ dasdf</textarea
                               a
                               </textarea
                             > -->
-                            <label for="AttachFile"> Job Description </label>
-                            <input
-                              type="file"
-                              class="form-control"
-                              name="attachedFile"
-                              id="AttachFile"
-                            />
+                              <label for="AttachFile"> Job Description </label>
+                              <input
+                                type="file"
+                                class="form-control"
+                                name="attachedFile"
+                                id="AttachFile"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="content-div regis-content-div" id="procedure">
-                    <div class="content-title container">
-                      <hr />
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Eligibility Matrix
-                      </h2>
-                      <hr />
-                      <div class="comm-fields">
-                        <div class="input-fields">
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Discipline
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  MTech
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  MSc
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Choose</td>
-                                <td>
-                                  <input
-                                    class="form-check-input courseInputCheck"
-                                    type="checkbox"
-                                    value="yes"
-                                    name="checkmtechcs"
-                                    id="checkmtechcs"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    class="form-check-input courseInputCheck"
-                                    type="checkbox"
-                                    value="yes"
-                                    name="checkmsccs"
-                                    id="checkmsccs"
-                                  />
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                    <div class="content-div regis-content-div" id="procedure">
+                      <div class="content-title container">
+                        <hr />
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Eligibility Matrix
+                        </h2>
+                        <hr />
+                        <div
+                          class="comm-fields"
+                          style="display: flex; justify-content: center"
+                        >
+                          <div class="input-fields">
+                            <table
+                              class="table table-striped"
+                              style="border-radius: 1rem; overflow: hidden"
+                            >
+                              <thead>
+                                <tr>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Discipline
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    MTech
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    MSc
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Choose</td>
+                                  <td>
+                                    <input
+                                      class="form-check-input courseInputCheck"
+                                      type="checkbox"
+                                      value="yes"
+                                      name="checkmtechcs"
+                                      id="checkmtechcs"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      class="form-check-input courseInputCheck"
+                                      type="checkbox"
+                                      value="yes"
+                                      name="checkmsccs"
+                                      id="checkmsccs"
+                                    />
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <br />
-                  <div class="content-div regis-content-div">
-                    <div class="content-title container">
-                      <hr />
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Compensation Details
-                      </h2>
-                      <hr />
-                      <div class="comm-fields">
-                        <div class="input-fields" style="overflow-x: scroll">
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Course
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Basic
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  PF &amp; Gratuity
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  HRA
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Joining Bonus
-                                </th>
+                    <br />
+                    <div class="content-div regis-content-div">
+                      <div class="content-title container">
+                        <hr />
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Compensation Details
+                        </h2>
+                        <hr />
+                        <div
+                          class="comm-fields"
+                          style="display: flex; justify-content: center"
+                        >
+                          <div class="input-fields" style="overflow-x: scroll">
+                            <table
+                              class="table table-striped"
+                              style="border-radius: 1rem; overflow: hidden"
+                            >
+                              <thead>
+                                <tr>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Course
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Basic
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    PF &amp; Gratuity
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    HRA
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Joining Bonus
+                                  </th>
 
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Relocation Bonus
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Stocks<br />(with vesting plan)
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Take Home
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  CTC (LPA)
-                                </th>
-                                <!-- <th
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Relocation Bonus
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Stocks<br />(with vesting plan)
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Take Home
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    CTC (LPA)
+                                  </th>
+                                  <!-- <th
                                   style="
                                     background-color: #163269;
                                     color: white;
@@ -1065,317 +1116,323 @@ dasdf</textarea
                                 >
                                   Stipend<br />(if applicable)
                                 </th> -->
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Others
-                                </th>
-                              </tr>
-                            </thead>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Others
+                                  </th>
+                                </tr>
+                              </thead>
 
-                            <tbody>
-                              <tr class="forcheckmtechcs forcheck">
-                                <td>MTech</td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="basicmtechcs"
-                                    placeholder="Basic"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="pfmtechcs"
-                                    placeholder="PF"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="hramtechcs"
-                                    placeholder="HRA"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="joiningbonusmtechcs"
-                                    placeholder="Joining Bonus"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="relocationbonusmtechcs"
-                                    placeholder="Relocation Bonus"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="stocksmtechcs"
-                                    placeholder="Stocks(with vesting plan)"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="takehomemtechcs"
-                                    placeholder="Take Home"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="ctcmtechcs"
-                                    placeholder="CTC"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    name="othersmtechcs"
-                                    placeholder="Other"
-                                    style="display: none"
-                                  />
-                                </td>
-                              </tr>
+                              <tbody>
+                                <tr class="forcheckmtechcs forcheck">
+                                  <td>MTech</td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="basicmtechcs"
+                                      placeholder="Basic"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="pfmtechcs"
+                                      placeholder="PF"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="hramtechcs"
+                                      placeholder="HRA"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="joiningbonusmtechcs"
+                                      placeholder="Joining Bonus"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="relocationbonusmtechcs"
+                                      placeholder="Relocation Bonus"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="stocksmtechcs"
+                                      placeholder="Stocks(with vesting plan)"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="takehomemtechcs"
+                                      placeholder="Take Home"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="ctcmtechcs"
+                                      placeholder="CTC"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="othersmtechcs"
+                                      placeholder="Other"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                </tr>
 
-                              <tr class="forcheckmsccs forcheck">
-                                <td>MSc</td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="basicmsccs"
-                                    placeholder="Basic"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="pfmsccs"
-                                    placeholder="PF"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="hramsccs"
-                                    placeholder="HRA"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="joiningbonusmsccs"
-                                    placeholder="Joining Bonus"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="relocationbonusmsccs"
-                                    placeholder="Relocation Bonus"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="stocksmsccs"
-                                    placeholder="Stocks(with vesting plan)"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="takehomemsccs"
-                                    placeholder="Take Home"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="ctcmsccs"
-                                    placeholder="CTC"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    name="othersmsccs"
-                                    placeholder="Other"
-                                    style="display: none"
-                                  />
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                <tr class="forcheckmsccs forcheck">
+                                  <td>MSc</td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="basicmsccs"
+                                      placeholder="Basic"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="pfmsccs"
+                                      placeholder="PF"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="hramsccs"
+                                      placeholder="HRA"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="joiningbonusmsccs"
+                                      placeholder="Joining Bonus"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="relocationbonusmsccs"
+                                      placeholder="Relocation Bonus"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="stocksmsccs"
+                                      placeholder="Stocks(with vesting plan)"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="takehomemsccs"
+                                      placeholder="Take Home"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="ctcmsccs"
+                                      placeholder="CTC"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="othersmsccs"
+                                      placeholder="Other"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- eligibility cretiria -->
+                    <!-- eligibility cretiria -->
 
-                  <div class="content-div regis-content-div">
-                    <div class="content-title container">
-                      <hr />
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Eligibility Criteria
-                      </h2>
-                      <hr />
-                      <div class="comm-fields">
-                        <div class="input-fields" style="overflow-x: scroll">
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Course
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  CGPA(on Scale of 10)
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Graduation
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  12th / Diploma %
-                                </th>
+                    <div class="content-div regis-content-div">
+                      <div class="content-title container">
+                        <hr />
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Eligibility Criteria
+                        </h2>
+                        <hr />
+                        <div
+                          class="comm-fields"
+                          style="display: flex; justify-content: center"
+                        >
+                          <div class="input-fields" style="overflow-x: scroll">
+                            <table
+                              class="table table-striped"
+                              style="border-radius: 1rem; overflow: hidden"
+                            >
+                              <thead>
+                                <tr>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Course
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    CGPA(on Scale of 10)
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Graduation
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    12th / Diploma %
+                                  </th>
 
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  10 %
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Age Limit( If Any )
-                                </th>
-                              </tr>
-                            </thead>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    10 %
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Age Limit( If Any )
+                                  </th>
+                                </tr>
+                              </thead>
 
-                            <tbody>
-                              <tr class="forcheckmtechcs forcheck">
-                                <td>Mtech Cybersecurity</td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="CGPAmtechcs"
-                                    placeholder="CGPA"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="Graduationmtechcs"
-                                    placeholder="Graduation"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="twelthmtechcs"
-                                    placeholder="Percentage"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="tenthmtechcs"
-                                    placeholder="Percentage"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="agelimitmtechcs"
-                                    placeholder="Age limit"
-                                    style="display: none"
-                                  />
-                                </td>
-                              </tr>
-                              <tr class="forcheckmtechadsai forcheck">
+                              <tbody>
+                                <tr class="forcheckmtechcs forcheck">
+                                  <td>Mtech</td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="CGPAmtechcs"
+                                      placeholder="CGPA"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="Graduationmtechcs"
+                                      placeholder="Graduation"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="twelthmtechcs"
+                                      placeholder="Percentage"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="tenthmtechcs"
+                                      placeholder="Percentage"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="agelimitmtechcs"
+                                      placeholder="Age limit"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                </tr>
+                                <!-- <tr class="forcheckmtechadsai forcheck">
                                 <td>Mtech ADSAI</td>
                                 <td>
                                   <input
@@ -1422,56 +1479,56 @@ dasdf</textarea
                                     style="display: none"
                                   />
                                 </td>
-                              </tr>
-                              <tr class="forcheckmsccs forcheck">
-                                <td>MSc Cybersecurity</td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="CGPAmsccs"
-                                    placeholder="CGPA"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="Graduationmsccs"
-                                    placeholder="Graduation"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="msccs12th"
-                                    placeholder="Percentage"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="msccs10th"
-                                    placeholder="Percentage"
-                                    style="display: none"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    name="agelimitmsccs"
-                                    placeholder="Age Limit"
-                                    style="display: none"
-                                  />
-                                </td>
-                              </tr>
-                              <tr class="forcheckmscdfis forcheck">
+                              </tr> -->
+                                <tr class="forcheckmsccs forcheck">
+                                  <td>MSc</td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="CGPAmsccs"
+                                      placeholder="CGPA"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="Graduationmsccs"
+                                      placeholder="Graduation"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="msccs12th"
+                                      placeholder="Percentage"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="msccs10th"
+                                      placeholder="Percentage"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="agelimitmsccs"
+                                      placeholder="Age Limit"
+                                      style="display: none"
+                                    />
+                                  </td>
+                                </tr>
+                                <!-- <tr class="forcheckmscdfis forcheck">
                                 <td>MSc DFIS</td>
                                 <td>
                                   <input
@@ -1518,170 +1575,168 @@ dasdf</textarea
                                     style="display: none"
                                   />
                                 </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    class="step01 btn btn-primary my-3"
-                    style="position: relative; align-items: center"
-                  >
-                    Previous
-                  </button>
-                  <button
-                    type="button"
-                    class="step03 btn btn-primary my-3"
-                    style="position: relative; align-items: center"
-                  >
-                    Save &amp; Next
-                  </button>
-                </div>
-
-                <div class="section-content creative">
-                  <div class="content-div regis-content-div" id="procedure">
-                    <div class="content-title container">
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Campus Process Mode
-                      </h2>
-                      <hr />
-                      <div class="comm-fields">
-                        <div class="input-fields">
-                          <div class="form-check">
-                            <label
-                              class="form-check-label"
-                              for="CampusProcessMode"
-                            >
-                              <span style="font-size: 19px">Virtual</span> – All
-                              processes are conducted online
-                            </label>
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              value="virtual"
-                              checked=""
-                              name="isvirtual"
-                              id="CampusProcessMode"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="comm-fields">
-                        <div class="input-fields">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              name="isvirtual"
-                              value="nonVirtual"
-                              id="CampusProcessMode2"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="CampusProcessMode2"
-                            >
-                              <span style="font-size: 19px"> In-campus </span> –
-                              All processes are conducted in campus
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="comm-fields">
-                        <div class="input-fields">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              value="hybrid"
-                              name="isvirtual"
-                              id="CampusProcessMode3"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="CampusProcessMode3"
-                            >
-                              <span style="font-size: 19px"> Hybrid </span> –
-                              Some processes are conducted online while some in
-                              campus
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="comm-fields">
-                        <div class="input-fields">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              value="notdecided"
-                              name="isvirtual"
-                              id="CampusProcessMode4"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="CampusProcessMode4"
-                            >
-                              <span style="font-size: 19px"> Undecided </span>
-                            </label>
+                              </tr> -->
+                              </tbody>
+                            </table>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <button
+                      type="button"
+                      class="step01 btn btn-primary my-3"
+                      style="position: relative; align-items: center"
+                    >
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      class="step03 btn btn-primary my-3"
+                      style="position: relative; align-items: center"
+                    >
+                      Save &amp; Next
+                    </button>
                   </div>
 
-                  <!-- bond contract -->
-                  <div class="content-div regis-content-div">
-                    <div class="content-title container">
-                      <hr />
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Bonds/ Contracts and Medical Requirements
-                      </h2>
-                      <hr />
-                      <div class="row">
-                        <div class="col-6">
-                          <label for="servicebond"
-                            >1. If there is a service bond/contract, what will
-                            be the duration, amount, and stipulated
-                            conditions?</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="servicebonddetails"
-                            id="servicebond"
-                            placeholder="Enter Details"
-                          />
-                        </div>
-
-                        <div class="col-6">
-                          <h6>2. Medical Requirements:</h6>
-
+                  <div class="section-content creative">
+                    <div class="content-div regis-content-div" id="procedure">
+                      <div class="content-title container">
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Campus Process Mode
+                        </h2>
+                        <hr />
+                        <div class="comm-fields">
                           <div class="input-fields">
-                            <div class="form-group"></div>
+                            <div class="form-check">
+                              <label
+                                class="form-check-label"
+                                for="CampusProcessMode"
+                              >
+                                <span style="font-size: 19px">Virtual</span> –
+                                All processes are conducted online
+                              </label>
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                value="virtual"
+                                checked=""
+                                name="isvirtual"
+                                id="CampusProcessMode"
+                                required=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="comm-fields">
+                          <div class="input-fields">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="isvirtual"
+                                value="nonVirtual"
+                                id="CampusProcessMode2"
+                                required=""
+                              />
+                              <label
+                                class="form-check-label"
+                                for="CampusProcessMode2"
+                              >
+                                <span style="font-size: 19px"> In-campus </span>
+                                – All processes are conducted in campus
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="comm-fields">
+                          <div class="input-fields">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                value="hybrid"
+                                name="isvirtual"
+                                id="CampusProcessMode3"
+                                required=""
+                              />
+                              <label
+                                class="form-check-label"
+                                for="CampusProcessMode3"
+                              >
+                                <span style="font-size: 19px"> Hybrid </span> –
+                                Some processes are conducted online while some
+                                in campus
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="comm-fields">
+                          <div class="input-fields">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                value="notdecided"
+                                name="isvirtual"
+                                id="CampusProcessMode4"
+                                required=""
+                              />
+                              <label
+                                class="form-check-label"
+                                for="CampusProcessMode4"
+                              >
+                                <span style="font-size: 19px"> Undecided </span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
+                    <!-- bond contract -->
+                    <div class="content-div regis-content-div">
+                      <div class="content-title container">
+                        <hr />
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Bonds/ Contracts and Medical Requirements
+                        </h2>
+                        <hr />
+                        <div class="row">
+                          <div class="col-6">
+                            <label for="servicebond"
+                              >1. If there is a service bond/contract, what will
+                              be the duration, amount, and stipulated
+                              conditions?</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="servicebonddetails"
+                              id="servicebond"
+                              placeholder="Enter Details"
+                            />
+                          </div>
+
+                          <div class="col-6">
+                            <label>2. Medical Requirements: </label>
+
+                            <br /><br />
                             <input
                               type="text"
                               class="form-control"
@@ -1695,516 +1750,515 @@ dasdf</textarea
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- selection process -->
+                    <!-- selection process -->
 
-                  <div class="content-div regis-content-div">
-                    <div class="content-title container">
-                      <hr />
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Selection Process
-                      </h2>
-                      <hr />
+                    <div class="content-div regis-content-div">
+                      <div class="content-title container">
+                        <hr />
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Selection Process
+                        </h2>
+                        <hr />
 
-                      <div class="row">
-                        <div class="col-6">
-                          <h6>
-                            1. Shortlist from Resumes:
-                            <label class="form-check-label" for="yesselection">
-                              YES
-                            </label>
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              name="shortlistfromresume"
-                              value="yes"
-                              id="yesselection"
-                            />
-                          </h6>
+                        <div class="row">
+                          <div class="col-6">
+                            <h6>
+                              1. Shortlist from Resumes:
+                              <label
+                                class="form-check-label"
+                                for="yesselection"
+                              >
+                                YES
+                              </label>
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                name="shortlistfromresume"
+                                value="yes"
+                                id="yesselection"
+                              />
+                            </h6>
 
-                          <label for="selectionbond "
-                            >If applicable, specify the criteria below:</label
-                          >
-                          <textarea
-                            type="text"
-                            class="form-control"
-                            id="selectionbond"
-                            name="selectioncriteriadetails"
-                            placeholder="..."
-                          >
-                          </textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- selection process futher rounds table -->
-                  <div class="content-div regis-content-div" id="procedure">
-                    <div class="content-title container">
-                      <div class="comm-fields mt-3">
-                        <!-- <h2 style="padding-top: 1rem; padding-bottom: 2rem">HEAD HR</h2> -->
-                        <h6>
-                          2. Further Rounds for the shortlisted students ( As
-                          Applicable ):
-                        </h6>
-                        <div class="input-fields" style="overflow-x: scroll">
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Serial No.
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Stage Name
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Duration( in mins )
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  No. of Rounds
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Mode( Online/Offline )
-                                </th>
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                >
-                                  Other Details( if any )
-                                </th>
-
-                                <th
-                                  style="
-                                    background-color: #163269;
-                                    color: white;
-                                  "
-                                ></th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <h3 style="text-align: center">1</h3>
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="stagename"
-                                    name="stagename1"
-                                    placeholder="Stage Name"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="duration"
-                                    name="stageduration1"
-                                    placeholder="Duration (in min)"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="roundsno"
-                                    name="noofrounds1"
-                                    placeholder=" No. of rounds"
-                                  />
-                                </td>
-                                <td>
-                                  <select
-                                    type="text"
-                                    class="form-control"
-                                    id="mode"
-                                    name="modeofstage1"
-                                    placeholder="Mode"
-                                  >
-                                    <option value="Offline">Offline</option>
-                                    <option value="Online">Online</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <textarea
-                                    type="text"
-                                    class="form-control"
-                                    id="otherdetails"
-                                    name="otherdetails1"
-                                    placeholder="Other Details"
-                                  ></textarea>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <h3 style="text-align: center">2</h3>
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="stagename"
-                                    name="stagename2"
-                                    placeholder="Stage Name"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="duration"
-                                    name="stageduration2"
-                                    placeholder="Duration (in min)"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="roundsno"
-                                    name="noofrounds2"
-                                    placeholder=" No. of rounds"
-                                  />
-                                </td>
-                                <td>
-                                  <select
-                                    type="text"
-                                    class="form-control"
-                                    id="mode"
-                                    name="modeofstage2"
-                                    placeholder="Mode"
-                                  >
-                                    <option value="Offline">Offline</option>
-                                    <option value="Online">Online</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <textarea
-                                    type="text"
-                                    class="form-control"
-                                    id="otherdetails"
-                                    name="otherdetails2"
-                                    placeholder="Other Details"
-                                  ></textarea>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <h3 style="text-align: center">3</h3>
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="stagename"
-                                    name="stagename3"
-                                    placeholder="Stage Name"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="duration"
-                                    name="stageduration3"
-                                    placeholder="Duration (in min)"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="roundsno"
-                                    name="noofrounds3"
-                                    placeholder=" No. of rounds"
-                                  />
-                                </td>
-                                <td>
-                                  <select
-                                    type="text"
-                                    class="form-control"
-                                    id="mode"
-                                    name="modeofstage3"
-                                    placeholder="Mode"
-                                  >
-                                    <option value="Offline">Offline</option>
-                                    <option value="Online">Online</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <textarea
-                                    type="text"
-                                    class="form-control"
-                                    id="otherdetails"
-                                    name="otherdetails3"
-                                    placeholder="Other Details"
-                                  ></textarea>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <h3 style="text-align: center">4</h3>
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="stagename"
-                                    name="stagename4"
-                                    placeholder="Stage Name"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="duration"
-                                    name="stageduration4"
-                                    placeholder="Duration (in min)"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="roundsno"
-                                    name="noofrounds4"
-                                    placeholder=" No. of rounds"
-                                  />
-                                </td>
-                                <td>
-                                  <select
-                                    type="text"
-                                    class="form-control"
-                                    id="mode"
-                                    name="modeofstage4"
-                                    placeholder="Mode"
-                                  >
-                                    <option value="Offline">Offline</option>
-                                    <option value="Online">Online</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <textarea
-                                    type="text"
-                                    class="form-control"
-                                    id="otherdetails"
-                                    name="otherdetails4"
-                                    placeholder="Other Details"
-                                  ></textarea>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <h3 style="text-align: center">5</h3>
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="stagename"
-                                    name="stagename5"
-                                    placeholder="Stage Name"
-                                  />
-                                </td>
-
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="duration"
-                                    name="stageduration5"
-                                    placeholder="Duration (in min)"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="roundsno"
-                                    name="noofrounds5"
-                                    placeholder=" No. of rounds"
-                                  />
-                                </td>
-                                <td>
-                                  <select
-                                    type="text"
-                                    class="form-control"
-                                    id="mode"
-                                    name="modeofstage5"
-                                    placeholder="Mode"
-                                  >
-                                    <option value="Offline">Offline</option>
-                                    <option value="Online">Online</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <textarea
-                                    type="text"
-                                    class="form-control"
-                                    id="otherdetails"
-                                    name="otherdetails5"
-                                    placeholder="Other Details"
-                                  ></textarea>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-
-                          <h6>
-                            For queries Please Click:
-                            <a href="/placement-team/contact" target="_blank"
-                              >Contact Here</a
+                            <label for="selectionbond "
+                              >If applicable, specify the criteria below:</label
                             >
-                          </h6>
+                            <textarea
+                              type="text"
+                              class="form-control"
+                              id="selectionbond"
+                              name="selectioncriteriadetails"
+                              placeholder="..."
+                            >
+                            </textarea>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <button
-                    type="button"
-                    class="step02 btn btn-primary my-3"
-                    style="position: relative; align-items: center"
-                  >
-                    Previous
-                  </button>
-                  <button
-                    type="button"
-                    class="step04 btn btn-primary my-3"
-                    style="position: relative; align-items: center"
-                  >
-                    Save &amp; Next
-                  </button>
-                </div>
 
-                <div class="section-content production">
-                  <div class="content-div regis-content-div" id="procedure">
-                    <div class="content-title container">
-                      <h2
-                        style="
-                          border-left-style: solid;
-                          border-width: 3px;
-                          padding-left: 5px;
-                          color: #163269;
-                          font-weight: 700;
-                        "
-                      >
-                        Declaration
-                      </h2>
-                      <hr />
-                      1. As a representative of above company, I hereby declare
-                      that all information provided in the registration form for
-                      participation in the campus placement session 2024-25 is
-                      true and accurate to the best of my knowledge. <br />
-                      2. I understand that any false information provided may
-                      result in the disqualification of our company from
-                      participating in the placement session. I also acknowledge
-                      and agree to abide by all rules, policies, and guidelines
-                      set forth by the Placement Cell and the educational
-                      institution hosting the placement session.
-                      <br />
-                      3. Furthermore, I understand that the Placement Cell
-                      reserves the right to conduct background checks on our
-                      company, including but not limited to verifying our
-                      credentials and reputation in the industry. I authorize
-                      the Placement Cell to share relevant information about our
-                      company with students for the purpose of recruitment
-                      during the placement session 2024-25. <br />
-                      4. I understand that any violation of the rules and
-                      policies may lead to the termination of our company's
-                      participation in the placement session, and I agree to
-                      accept any disciplinary actions deemed appropriate by the
-                      Placement Cell. <br />
-                      5. I further declare that any student data or information
-                      obtained during the recruitment process will be used
-                      solely for the purpose of recruitment and will not be
-                      shared with any third parties or used for any other
-                      purposes without explicit consent from the student or the
-                      educational institution. I understand that any
-                      unauthorized sharing or misuse of student data may result
-                      in legal action and disqualification from future
-                      participation in campus placement sessions.
-                      <br /><br />
-                      <div class="form-check">
-                        <label
-                          class="form-check-label"
-                          for="flexCheckDefault11"
-                        >
-                          I Agree
-                        </label>
-                        <input
-                          class="form-check-input"
-                          required=""
-                          type="checkbox"
-                          checked=""
-                          id="flexCheckDefault11"
-                        />
-                      </div>
-                      <br />
-                      <div class="submit-btn">
-                        <button
-                          class="btn btn-lg btn-success"
-                          id="form-btn-regisrec"
-                          style="margin-bottom: 5rem"
-                        >
-                          SUBMIT
-                        </button>
+                    <!-- selection process futher rounds table -->
+                    <div class="content-div regis-content-div" id="procedure">
+                      <div class="content-title container">
+                        <div class="comm-fields mt-3">
+                          <!-- <h2 style="padding-top: 1rem; padding-bottom: 2rem">HEAD HR</h2> -->
+                          <h6>
+                            2. Further Rounds for the shortlisted students ( As
+                            Applicable ):
+                          </h6>
+                          <div class="input-fields" style="overflow-x: scroll">
+                            <table
+                              class="table table-striped"
+                              style="border-radius: 1rem; overflow: hidden"
+                            >
+                              <thead>
+                                <tr>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Serial No.
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Stage Name
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Duration( in mins )
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    No. of Rounds
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Mode( Online/Offline )
+                                  </th>
+                                  <th
+                                    style="
+                                      background-color: #163269;
+                                      color: white;
+                                    "
+                                  >
+                                    Other Details( if any )
+                                  </th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <h3 style="text-align: center">1</h3>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="stagename"
+                                      name="stagename1"
+                                      placeholder="Stage Name"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="duration"
+                                      name="stageduration1"
+                                      placeholder="Duration (in min)"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="roundsno"
+                                      name="noofrounds1"
+                                      placeholder=" No. of rounds"
+                                    />
+                                  </td>
+                                  <td>
+                                    <select
+                                      type="text"
+                                      class="form-control"
+                                      id="mode"
+                                      name="modeofstage1"
+                                      placeholder="Mode"
+                                    >
+                                      <option value="Offline">Offline</option>
+                                      <option value="Online">Online</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      id="otherdetails"
+                                      name="otherdetails1"
+                                      placeholder="Other Details"
+                                    ></textarea>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <h3 style="text-align: center">2</h3>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="stagename"
+                                      name="stagename2"
+                                      placeholder="Stage Name"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="duration"
+                                      name="stageduration2"
+                                      placeholder="Duration (in min)"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="roundsno"
+                                      name="noofrounds2"
+                                      placeholder=" No. of rounds"
+                                    />
+                                  </td>
+                                  <td>
+                                    <select
+                                      type="text"
+                                      class="form-control"
+                                      id="mode"
+                                      name="modeofstage2"
+                                      placeholder="Mode"
+                                    >
+                                      <option value="Offline">Offline</option>
+                                      <option value="Online">Online</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      id="otherdetails"
+                                      name="otherdetails2"
+                                      placeholder="Other Details"
+                                    ></textarea>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <h3 style="text-align: center">3</h3>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="stagename"
+                                      name="stagename3"
+                                      placeholder="Stage Name"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="duration"
+                                      name="stageduration3"
+                                      placeholder="Duration (in min)"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="roundsno"
+                                      name="noofrounds3"
+                                      placeholder=" No. of rounds"
+                                    />
+                                  </td>
+                                  <td>
+                                    <select
+                                      type="text"
+                                      class="form-control"
+                                      id="mode"
+                                      name="modeofstage3"
+                                      placeholder="Mode"
+                                    >
+                                      <option value="Offline">Offline</option>
+                                      <option value="Online">Online</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      id="otherdetails"
+                                      name="otherdetails3"
+                                      placeholder="Other Details"
+                                    ></textarea>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <h3 style="text-align: center">4</h3>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="stagename"
+                                      name="stagename4"
+                                      placeholder="Stage Name"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="duration"
+                                      name="stageduration4"
+                                      placeholder="Duration (in min)"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="roundsno"
+                                      name="noofrounds4"
+                                      placeholder=" No. of rounds"
+                                    />
+                                  </td>
+                                  <td>
+                                    <select
+                                      type="text"
+                                      class="form-control"
+                                      id="mode"
+                                      name="modeofstage4"
+                                      placeholder="Mode"
+                                    >
+                                      <option value="Offline">Offline</option>
+                                      <option value="Online">Online</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      id="otherdetails"
+                                      name="otherdetails4"
+                                      placeholder="Other Details"
+                                    ></textarea>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <h3 style="text-align: center">5</h3>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="stagename"
+                                      name="stagename5"
+                                      placeholder="Stage Name"
+                                    />
+                                  </td>
+
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="duration"
+                                      name="stageduration5"
+                                      placeholder="Duration (in min)"
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      id="roundsno"
+                                      name="noofrounds5"
+                                      placeholder=" No. of rounds"
+                                    />
+                                  </td>
+                                  <td>
+                                    <select
+                                      type="text"
+                                      class="form-control"
+                                      id="mode"
+                                      name="modeofstage5"
+                                      placeholder="Mode"
+                                    >
+                                      <option value="Offline">Offline</option>
+                                      <option value="Online">Online</option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <textarea
+                                      type="text"
+                                      class="form-control"
+                                      id="otherdetails"
+                                      name="otherdetails5"
+                                      placeholder="Other Details"
+                                    ></textarea>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                            <h6>
+                              For queries Please Click:
+                              <a href="/placement-team/contact" target="_blank"
+                                >Contact Here</a
+                              >
+                            </h6>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    <button
+                      type="button"
+                      class="step02 btn btn-primary my-3"
+                      style="position: relative; align-items: center"
+                    >
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      class="step04 btn btn-primary my-3"
+                      style="position: relative; align-items: center"
+                    >
+                      Save &amp; Next
+                    </button>
                   </div>
 
-                  <button
-                    type="button"
-                    class="step03 btn btn-primary my-3"
-                    style="position: relative; align-items: center"
-                  >
-                    Previous
-                  </button>
-                </div>
+                  <div class="section-content production">
+                    <div class="content-div regis-content-div" id="procedure">
+                      <div class="content-title container">
+                        <h2
+                          style="
+                            border-left-style: solid;
+                            border-width: 3px;
+                            padding-left: 5px;
+                            color: #163269;
+                            font-weight: 700;
+                          "
+                        >
+                          Declaration
+                        </h2>
+                        <hr />
+                        1. As a representative of above company, I hereby
+                        declare that all information provided in the
+                        registration form for participation in the campus
+                        placement session 2024-25 is true and accurate to the
+                        best of my knowledge. <br />
+                        2. I understand that any false information provided may
+                        result in the disqualification of our company from
+                        participating in the placement session. I also
+                        acknowledge and agree to abide by all rules, policies,
+                        and guidelines set forth by the Placement Cell and the
+                        educational institution hosting the placement session.
+                        <br />
+                        3. Furthermore, I understand that the Placement Cell
+                        reserves the right to conduct background checks on our
+                        company, including but not limited to verifying our
+                        credentials and reputation in the industry. I authorize
+                        the Placement Cell to share relevant information about
+                        our company with students for the purpose of recruitment
+                        during the placement session 2024-25. <br />
+                        4. I understand that any violation of the rules and
+                        policies may lead to the termination of our company's
+                        participation in the placement session, and I agree to
+                        accept any disciplinary actions deemed appropriate by
+                        the Placement Cell. <br />
+                        5. I further declare that any student data or
+                        information obtained during the recruitment process will
+                        be used solely for the purpose of recruitment and will
+                        not be shared with any third parties or used for any
+                        other purposes without explicit consent from the student
+                        or the educational institution. I understand that any
+                        unauthorized sharing or misuse of student data may
+                        result in legal action and disqualification from future
+                        participation in campus placement sessions.
+                        <br /><br />
+                        <div class="form-check">
+                          <label
+                            class="form-check-label"
+                            for="flexCheckDefault11"
+                          >
+                            I Agree
+                          </label>
+                          <input
+                            class="form-check-input"
+                            required=""
+                            type="checkbox"
+                            checked=""
+                            id="flexCheckDefault11"
+                          />
+                        </div>
+                        <br />
+                        <div class="submit-btn">
+                          <button
+                            class="btn btn-lg btn-success"
+                            id="form-btn-regisrec"
+                            style="margin-bottom: 5rem"
+                          >
+                            SUBMIT
+                          </button>
+                        </div>
+                      </div>
+                    </div>
 
-                <!-- internship if appicable -->
-                <!-- <div class="content-div regis-content-div">
+                    <button
+                      type="button"
+                      class="step03 btn btn-primary my-3"
+                      style="position: relative; align-items: center"
+                    >
+                      Previous
+                    </button>
+                  </div>
+
+                  <!-- internship if appicable -->
+                  <!-- <div class="content-div regis-content-div">
               <div class="content-title container">
                 <hr />
                 <h2  >
@@ -2368,14 +2422,31 @@ dasdf</textarea
               </div>
             </div> -->
 
-                <!--campus mode details  -->
+                  <!--campus mode details  -->
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
 
+    <script>
+      let btn1 = document.getElementById("addmore1");
+      let btn2 = document.getElementById("addmore2");
+      let btn3 = document.getElementById("addmore3");
+      let addpocheader = document.getElementById("addpocheader");
+      btn1.addEventListener("click", () => {
+        btn2.closest("tr").style.display = "table-row";
+        btn1.closest("td").style.display = "none";
+      });
+      btn2.addEventListener("click", () => {
+        btn3.closest("tr").style.display = "table-row";
+        btn2.closest("td").style.display = "none";
+        btn3.closest("td").style.display = "none";
+        addpocheader.style.display = "none";
+      });
+    </script>
     <script>
       // JavaScript for form validation
       (function () {

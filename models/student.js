@@ -2,6 +2,10 @@ const { string } = require("joi");
 const passportLocalMongoose = require("passport-local-mongoose");
 const mongoose = require("mongoose");
 const studentSchema = new mongoose.Schema({
+  profilePictureUrl: {
+    type: String,
+    default: "",
+  },
   isDeboarded: {
     type: Boolean,
     default: false,
