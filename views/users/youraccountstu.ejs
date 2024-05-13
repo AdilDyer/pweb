@@ -136,9 +136,12 @@
           </td>
           <td scope="row"><%=listing.ctc%>/-</td>
           <td scope="row">
+            <% studentApplications.forEach((application)=>{
+            if(application.listingId.toString() == listing._id.toString()){%>
             <button class="btn btn-outline-warning">
-              Application Status Shown Here
+              <%=application.applicationStatus%>
             </button>
+            <%}})%>
           </td>
         </tr>
         <%});%>

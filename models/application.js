@@ -18,6 +18,7 @@ const applicationSchema = new mongoose.Schema({
     required: true,
   },
   createdAt: { type: Date, default: Date.now },
+  applicationStatus: { type: String, default: "In Progress" },
 });
 
 const Application = mongoose.model("Application", applicationSchema);

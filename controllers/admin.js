@@ -904,3 +904,43 @@ module.exports.arrayMarkQueryResolved = async (req, res) => {
   req.session.save();
   res.redirect("/admin");
 };
+
+module.exports.updateApplicationStatus = async (req, res) => {
+  let { applicationStatus } = req.body;
+  if (!applicationStatus) applicationStatus = "In Progress";
+
+  let application = await Application.findOne({
+    _id: req.params.applicationId,
+  });
+
+  application.applicationStatus = applicationStatus;
+  await application.save();
+
+  req.flash("success", "Application Status Updated !");
+  req.session.save();
+  res.redirect("/admin");
+};
+
+module.exports.arrayUpdateApplicationStatus = async (req, res) => {
+  const selectedRows = req.body.selectedRows;
+
+  // Assuming Query is a Mongoose model
+  for (const selectedRow of selectedRows) {
+    const { applicationId, updatedStatus } = selectedRow;
+
+    if (!updatedStatus) updatedStatus = "In Progress";
+
+    // Find the query by ID
+    let application = await Application.findOne({ _id: applicationId });
+
+    // Update query properties
+    application.applicationStatus = updatedStatus;
+
+    // Save the updated query
+    await application.save();
+  }
+
+  req.flash("success", "Applications Updated !");
+  req.session.save();
+  res.redirect("/admin");
+};

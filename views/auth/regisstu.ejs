@@ -742,6 +742,17 @@
                       <hr />
 
                       <div class="comm-fields">
+                        <div
+                          style="
+                            border-left-style: solid;
+                            border-width: 4px;
+                            border-color: black;
+                            padding: 0.5rem;
+                            vertical-align: middle;
+                          "
+                        >
+                          <h2 style="margin: 0">Present Details</h2>
+                        </div>
                         <div class="input-fields">
                           <div class="form-group">
                             <label for="presentcountry">Present Country</label>
@@ -893,87 +904,102 @@ Near Swarnim Park, 101, Sector 10, Gandhinagar </textarea
                           </label>
                         </div>
 
-                        <div class="input-fields">
-                          <div class="form-group">
-                            <label for="presentcountryp"
-                              >Permanent Country</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              required=""
-                              name="permanentCountry"
-                              value="France"
-                              id="presentcountryp"
-                              placeholder="Permanent Country"
-                            />
+                        <div>
+                          <br>
+                          <div
+                            style="
+                              display: block;
+                              border-left-style: solid;
+                              border-width: 4px;
+                              border-color: black;
+                              padding: 0.5rem;
+                              vertical-align: middle;
+                            "
+                          >
+                            <h2 style="margin: 0">Permanent Details</h2>
                           </div>
-                          <div class="form-group">
-                            <label for="presentstatep">Permanent State</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              required=""
-                              id="presentstatep"
-                              value="Brittany"
-                              name="permanentState"
-                              placeholder="Permanent State"
-                            />
-                          </div>
-                          <div class="form-group">
-                            <label for="presentdistrictp"
-                              >Permanent District</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="presentdistrictp"
-                              value="Cest la ville "
-                              name="permanentDistrict"
-                              required=""
-                              placeholder="Permanent District"
-                            />
-                          </div>
-                          <div class="form-group">
-                            <label for="Landmarkp">Landmark</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              name="permanentLandmark"
-                              id="Landmarkp"
-                              value="Le Parc Petit"
-                              placeholder="Landmark"
-                              required=""
-                            />
-                          </div>
+                          <div class="input-fields">
+                            <div class="form-group">
+                              <label for="presentcountryp"
+                                >Permanent Country</label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                required=""
+                                name="permanentCountry"
+                                value="France"
+                                id="presentcountryp"
+                                placeholder="Permanent Country"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="presentstatep">Permanent State</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                required=""
+                                id="presentstatep"
+                                value="Brittany"
+                                name="permanentState"
+                                placeholder="Permanent State"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="presentdistrictp"
+                                >Permanent District</label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="presentdistrictp"
+                                value="Cest la ville "
+                                name="permanentDistrict"
+                                required=""
+                                placeholder="Permanent District"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="Landmarkp">Landmark</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="permanentLandmark"
+                                id="Landmarkp"
+                                value="Le Parc Petit"
+                                placeholder="Landmark"
+                                required=""
+                              />
+                            </div>
 
-                          <div class="form-group">
-                            <label for="presentaddressp"
-                              >Permanent Address</label
-                            >
-                            <textarea
-                              type="text"
-                              class="form-control"
-                              required=""
-                              name="permanentAddress"
-                              id="presentaddressp"
-                              placeholder="Permanent Address"
-                            >
+                            <div class="form-group">
+                              <label for="presentaddressp"
+                                >Permanent Address</label
+                              >
+                              <textarea
+                                type="text"
+                                class="form-control"
+                                required=""
+                                name="permanentAddress"
+                                id="presentaddressp"
+                                placeholder="Permanent Address"
+                              >
 Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
-                            >
-                          </div>
+                              >
+                            </div>
 
-                          <div class="form-group">
-                            <label for="Pincodep">Pincode/Zipcode</label>
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="Pincodep"
-                              name="permanentPincode"
-                              value="120021"
-                              placeholder="Pincode"
-                              required=""
-                            />
+                            <div class="form-group">
+                              <label for="Pincodep">Pincode/Zipcode</label>
+                              <input
+                                type="number"
+                                class="form-control"
+                                id="Pincodep"
+                                name="permanentPincode"
+                                value="120021"
+                                placeholder="Pincode"
+                                required=""
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1473,10 +1499,9 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                           <input
                             type="text"
                             class="form-control"
-                            id="Enrollment"
+                            id="reviewEnrollment"
                             readonly=""
                             disabled=""
-                            value="<%=enroll%>"
                             placeholder="Enrollment No."
                           />
                         </div>
@@ -1486,7 +1511,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                             type="text"
                             value="<%=username%>"
                             class="form-control"
-                            id="username"
+                            id="reviewusername"
                             placeholder="username"
                             readonly=""
                             disabled=""
@@ -1497,7 +1522,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                           <input
                             type="text"
                             class="form-control"
-                            id="firstname"
+                            id="reviewfirstname"
                             placeholder="First Name"
                             disabled=""
                             readonly=""
@@ -1520,7 +1545,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                           <input
                             type="text"
                             class="form-control"
-                            id="fathername"
+                            id="reviewfathername"
                             placeholder="Father's Name"
                             required=""
                             value="Jetha Lal Gada"
@@ -1531,7 +1556,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                           <input
                             type="text"
                             class="form-control"
-                            id="mothername"
+                            id="reviewmothername"
                             placeholder="Mother's Name"
                             required=""
                             value="Daya Gada "
@@ -1683,7 +1708,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                             class="form-control"
                             disabled=""
                             readonly=""
-                            id="mobno"
+                            id="reviewmobno"
                             placeholder="Mobile Number"
                             value="<%=mobno%>"
                           />
@@ -1693,7 +1718,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                           <input
                             type="tel"
                             class="form-control"
-                            id="altmob"
+                            id="reviewaltmob"
                             required=""
                             placeholder="Alternate Mobile No"
                             value="9252180504"
@@ -1704,7 +1729,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                           <input
                             type="email"
                             class="form-control"
-                            id="email"
+                            id="reviewemail"
                             readonly=""
                             disabled=""
                             placeholder="Email"
@@ -1716,7 +1741,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                           <input
                             type="email"
                             class="form-control"
-                            id="altemail"
+                            id="reviewaltemail"
                             placeholder="Alternate  Email "
                             required=""
                             value="smile.itsadil@gmail.com"
@@ -1743,7 +1768,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                           <input
                             type="text"
                             class="form-control"
-                            id="nationality"
+                            id="reviewnationality"
                             required=""
                             placeholder="Nationality"
                             value="India"
@@ -1785,7 +1810,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                               type="text"
                               class="form-control"
                               required=""
-                              id="presentcountry"
+                              id="reviewpresentcountry"
                               placeholder="Present Country"
                               value="India"
                             />
@@ -1866,7 +1891,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                             <input
                               type="text"
                               class="form-control"
-                              id="presentdistrict"
+                              id="reviewpresentdistrict"
                               value="Gandhinagar"
                               required=""
                               placeholder="Present District"
@@ -1877,7 +1902,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                             <input
                               type="text"
                               class="form-control"
-                              id="Landmark"
+                              id="reviewLandmark"
                               required=""
                               value="Kudasan"
                               placeholder="Landmark"
@@ -1890,7 +1915,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                               type="text"
                               value="hehe"
                               class="form-control"
-                              id="presentaddress"
+                              id="reviewpresentaddress"
                               required=""
                               placeholder="Present Address"
                             >
@@ -1904,7 +1929,7 @@ Near Swarnim Park, 101, Sector 10, Gandhinagar </textarea
                               type="number"
                               class="form-control"
                               value="110011"
-                              id="Pincode"
+                              id="reviewPincode"
                               required=""
                               placeholder="Pincode"
                             />
@@ -1933,7 +1958,7 @@ Near Swarnim Park, 101, Sector 10, Gandhinagar </textarea
                               class="form-control"
                               required=""
                               value="France"
-                              id="presentcountryp"
+                              id="reviewpresentcountryp"
                               placeholder="Permanent Country"
                             />
                           </div>
@@ -1943,7 +1968,7 @@ Near Swarnim Park, 101, Sector 10, Gandhinagar </textarea
                               type="text"
                               class="form-control"
                               required=""
-                              id="presentstatep"
+                              id="reviewpresentstatep"
                               value="Brittany"
                               placeholder="Permanent State"
                             />
@@ -1955,7 +1980,7 @@ Near Swarnim Park, 101, Sector 10, Gandhinagar </textarea
                             <input
                               type="text"
                               class="form-control"
-                              id="presentdistrictp"
+                              id="reviewpresentdistrictp"
                               value="Cest la ville "
                               required=""
                               placeholder="Permanent District"
@@ -1966,7 +1991,7 @@ Near Swarnim Park, 101, Sector 10, Gandhinagar </textarea
                             <input
                               type="text"
                               class="form-control"
-                              id="Landmarkp"
+                              id="reviewLandmarkp"
                               value="Le Parc Petit"
                               placeholder="Landmark"
                               required=""
@@ -1981,7 +2006,7 @@ Near Swarnim Park, 101, Sector 10, Gandhinagar </textarea
                               type="text"
                               class="form-control"
                               required=""
-                              id="presentaddressp"
+                              id="reviewpresentaddressp"
                               placeholder="Permanent Address"
                             >
 Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
@@ -1993,7 +2018,7 @@ Dans ma Voiture, 112, Cest la Ville, Brittany</textarea
                             <input
                               type="number"
                               class="form-control"
-                              id="Pincodep"
+                              id="reviewPincodep"
                               value="120021"
                               placeholder="Pincode"
                               required=""

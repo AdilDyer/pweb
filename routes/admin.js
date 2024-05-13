@@ -90,7 +90,15 @@ router
   .post(wrapAsync(adminController.markQueryResolved));
 
 router
-  .route("/arrayMarkAsResolved")
+  .route("/arrayMarkAsResolved/:applicationId")
   .post(wrapAsync(adminController.arrayMarkQueryResolved));
+
+router
+  .route("/updateApplicationStatus/:applicationId")
+  .post(wrapAsync(adminController.updateApplicationStatus));
+
+router
+  .route("/arrayUpdateApplicationStatus/:applicationId")
+  .post(wrapAsync(adminController.arrayUpdateApplicationStatus));
 
 module.exports = router;

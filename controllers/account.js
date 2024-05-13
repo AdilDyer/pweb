@@ -46,6 +46,7 @@ module.exports.showAccount = async (req, res) => {
       isDeboarded: req.user.isDeboarded,
       countAppliedListings: countAppliedListings,
       countAvailableListings: countAvailableListings,
+      studentApplications: studentApplications,
     });
   } catch (err) {
     console.error("Error retrieving student applications:", err);
