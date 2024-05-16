@@ -132,7 +132,7 @@
               <br />
               <form
                 action="/admin/updateListing/<%=listingDetails._id%>"
-                method="post"
+                method="post" enctype="multipart/form-data"
               >
                 <div class="input-fields">
                   <div class="form-group">
@@ -281,14 +281,20 @@
 
                    <div class="form-group">
                     <label for="jobdescriptionFile" class="form-label">Job Description</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="jobDescriptionFile"
-                      value="<%=listingDetails.jobDescriptionFile%>"
+                    <a
+          target="_blank"
+                      class="form-control btn btn-primary"
+                      href="<%=listingDetails.jobDescriptionFile%>"
+
+
                       id="jobdescriptionFile"
-                      placeholder="jobLocation"
-                    />
+
+                    >Show file</a>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="newfileupload">Upload new Job Description</label>
+                    <input id="newfileupload" class="form-control " type="file" name="jobDescriptionFile" >
                   </div>
 
 
@@ -327,6 +333,18 @@
                     />
                   </div>
 
+
+                  <div style="margin-left: 1rem;">
+                    <label for="dreamoffer" class="form-label">Is Dream Offer?</label>
+                    <input
+                      type="checkbox"
+                      class="form-control form-check-input"
+                      name="isDreamOffer"
+                      <%= listingDetails.isDreamOffer ? "checked":""%>
+                      id="dreamoffer"
+                      placeholder="Is Dream Offer?"
+                    />
+                  </div>
 
 
 

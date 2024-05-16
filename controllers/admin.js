@@ -290,6 +290,7 @@ You can paste the above Link in the Browser's address bar.
 module.exports.addCompanyListing = async (req, res) => {
   console.log(req.file.path);
   let newListing = new Listing({
+    isDreamOffer: req.body.isDreamOffer,
     jobDescriptionFile: req.file.path,
     companyName: req.body.companyName,
     jobLocation: req.body.jobLocation,
@@ -318,7 +319,11 @@ module.exports.showListingDetails = async (req, res) => {
 module.exports.updateListing = async (req, res) => {
   let { listingId } = req.params;
   let query = { _id: listingId };
-  let update = { $set: req.body };
+  let update = {
+    $set: req.body,
+    isDreamOffer: req.body.isDreamOffer == "on" ? true : false,
+    jobDescriptionFile: req.file ? req.file.path : req.body.jobDescriptionFile,
+  };
   let options = { new: true };
   let result = await Listing.findOneAndUpdate(query, update, options);
 
@@ -856,6 +861,7 @@ module.exports.markPlacedStudent = async (req, res) => {
   student.placedJobLocation = req.body.joblocation;
   student.placedJobDescription = req.body.jobdescription;
   student.placedOtherDetails = req.body.otherdetails;
+  student.placedJobType = req.body.jobtype;
 
   await student.save();
 

@@ -10,6 +10,10 @@ const studentSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  placedJobType: {
+    type: String,
+    default: "",
+  },
   placedCompany: {
     type: String,
     default: "",

@@ -203,6 +203,15 @@
           required
         />
       </div>
+      <div style="margin-left: 1rem">
+        <h6>Is Dream Offer ?</h6>
+        <input
+          type="checkbox"
+          class="form-check-input form-control"
+          name="isDreamOffer"
+          value="true"
+        />
+      </div>
 
       <button
         type="submit"
@@ -499,12 +508,27 @@
             <th scope="col">For Course</th>
             <th scope="col">Last Date to Apply</th>
             <th scope="col">Edit Listing</th>
+            <th scope="col">Applications</th>
           </tr>
         </thead>
         <tbody>
           <% allListedRecruiters.forEach((recruiter,index) => { %>
           <tr id="dataTableListing">
-            <td><%=index +1%></td>
+            <%if(recruiter.isDreamOffer == true){%>
+            <td scope="row">
+              <p
+                style="
+                  color: gold;
+                  font-weight: 600;
+                  text-shadow: goldenrod 0 0 10px;
+                "
+              >
+                Dream Offer
+              </p>
+            </td>
+            <%}else{%>
+            <td scope="row"><%=index +1%></td>
+            <%}%>
             <td><%= recruiter.companyName %></td>
             <td><%= recruiter.jobType %></td>
             <td><%= recruiter.jobTitle %></td>
@@ -527,6 +551,11 @@
               >
                 <button class="btn btn-primary">Edit Listing</button>
               </a>
+            </td>
+            <td>
+              <button class="btn btn-danger showapplicationbtn">
+                Show Applications
+              </button>
             </td>
           </tr>
           <% }); %>
@@ -584,6 +613,38 @@
   </div>
 </div>
 
+<!-- show applications btn -->
+<script>
+  let showapplicationbtns = document.querySelectorAll(".showapplicationbtn");
+  showapplicationbtns.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      var sections = document.querySelectorAll(".sectiondiv");
+      sections.forEach(function (section) {
+        section.style.display = "none";
+      });
+      document.querySelector("#Application").style.display = "block";
+      let btnCompanyName = btn
+        .closest("tr")
+        .querySelector("td:nth-child(2)").innerHTML;
+      let allcompanyselectlis = document.querySelectorAll(
+        ".dropdownToShowCompanies li "
+      );
+      allcompanyselectlis.forEach((li) => {
+        if (li.getAttribute("data-companyName") == btnCompanyName) {
+          li.click();
+        }
+      });
+
+      var links = document
+        .querySelector(".sectionslinksadmin")
+        .querySelectorAll('a[href^="#"]');
+      links.forEach(function (link) {
+        if (link.getAttribute("href").substring(1) == "Application")
+          link.click();
+      });
+    });
+  });
+</script>
 <!-- company to show option in application received  -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -925,17 +986,6 @@
         monitorAllPendingCheckboxes();
       } else if (companyCategoryName == "Listed Companies") {
         ul.innerHTML = `
-    <li class="dropdown-item">
-                <input
-                  type="checkbox"
-                  class="form-check columnCheckboxListing"
-                  name="EditListing"
-                  checked
-                  value="Edit Listing"
-                  style="display: inline"
-                />
-                Edit Listing
-              </li>
           <li class="dropdown-item">
                 <input
                   type="checkbox"
@@ -1021,6 +1071,16 @@
                   style="display: inline"
                 />
                 Last Date to Apply
+              </li> <li class="dropdown-item">
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="EditListing"
+                  checked
+                  value="Edit Listing"
+                  style="display: inline"
+                />
+                Edit Listing
               </li>`;
         monitorAllListingCheckboxes();
       } else if (companyCategoryName == "Verified Companies") {

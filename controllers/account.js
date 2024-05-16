@@ -22,10 +22,46 @@ module.exports.showAccount = async (req, res) => {
         appliedListingId.equals(listing._id)
       );
     });
-    const availableListings = filteredOnAppliedListings.filter(
-      (listing) =>
-        listing.forCourse.includes(course) || listing.forCourse.includes("All")
-    );
+
+    //conditions on available listings accor to placement status of the student
+    let availableListings = "";
+    if (req.user.isPlaced) {
+      if (req.user.placedJobType == "Internship") {
+        availableListings = filteredOnAppliedListings.filter(
+          (listing) =>
+            (listing.forCourse.includes(course) ||
+              listing.forCourse.includes("All")) &&
+            (listing.jobType == "FTE" || listing.isDreamOffer == true)
+        );
+      } else if (req.user.placedJobType == "Intern FTE") {
+        availableListings = filteredOnAppliedListings.filter(
+          (listing) =>
+            (listing.forCourse.includes(course) ||
+              listing.forCourse.includes("All")) &&
+            (listing.jobType != "Internship" || listing.isDreamOffer == true)
+        );
+      } else if (req.user.placedJobType == "FTE") {
+        availableListings = filteredOnAppliedListings.filter(
+          (listing) =>
+            (listing.forCourse.includes(course) ||
+              listing.forCourse.includes("All")) &&
+            (listing.jobType == "Internship" || listing.isDreamOffer == true)
+        );
+      } else if (req.user.placedJobType == "Internship PPO") {
+        availableListings = filteredOnAppliedListings.filter(
+          (listing) =>
+            (listing.forCourse.includes(course) ||
+              listing.forCourse.includes("All")) &&
+            (listing.jobType == "NULL" || listing.isDreamOffer == true)
+        );
+      }
+    } else {
+      availableListings = filteredOnAppliedListings.filter(
+        (listing) =>
+          listing.forCourse.includes(course) ||
+          listing.forCourse.includes("All")
+      );
+    }
 
     let allUpdates = await Update.find({});
     let updatesToShow = allUpdates.filter(
@@ -47,6 +83,7 @@ module.exports.showAccount = async (req, res) => {
       countAppliedListings: countAppliedListings,
       countAvailableListings: countAvailableListings,
       studentApplications: studentApplications,
+      stuDetails: req.user,
     });
   } catch (err) {
     console.error("Error retrieving student applications:", err);
@@ -71,10 +108,10 @@ module.exports.renderApplyForm = async (req, res) => {
   let stuDetails = await Student.findOne({ _id: stuId });
   let listingDetails = await Listing.findOne({ _id: listingId });
 
-  if (stuDetails.isPlaced) {
-    req.flash("error", "Placed Students cant apply for the Companies !");
-    res.redirect("/account");
-  }
+  // if (stuDetails.isPlaced && listingDetails.isDreamOffer == false) {
+  //   req.flash("error", "Placed Students cant apply for Non-Dream Companies !");
+  //   res.redirect("/account");
+  // }
   if (stuDetails.isDeboarded) {
     req.flash(
       "error",
@@ -95,6 +132,7 @@ module.exports.submitApply = async (req, res) => {
   let { listingId, stuId } = req.body;
   //let resumeLink = upload file
   let resumeLink = req.file.path;
+  let listingDetails = await Listing.findOne({ _id: listingId });
 
   let prevapp = await Application.find({
     stuId: stuId,
@@ -104,6 +142,20 @@ module.exports.submitApply = async (req, res) => {
     req.flash("error", "Already Applied !");
     res.redirect("/account");
   } else {
+    // if (req.user.isPlaced && listingDetails.isDreamOffer == false) {
+    //   req.flash(
+    //     "error",
+    //     "Placed Students cant apply for Non-Dream Companies !"
+    //   );
+    //   res.redirect("/account");
+    // }
+    if (req.user.isDeboarded) {
+      req.flash(
+        "error",
+        "Your Account has been Disabled by the Admin. Please Contact the Administration for further Information."
+      );
+      res.redirect("/account");
+    }
     let newApplication = new Application({
       stuId: stuId,
       listingId: listingId,

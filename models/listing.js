@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const listingSchema = new mongoose.Schema({
+  isDreamOffer: {
+    type: Boolean,
+    default: false,
+  },
   jobDescriptionFile: {
     type: String,
     required: true,

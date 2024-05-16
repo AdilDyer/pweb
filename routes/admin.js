@@ -40,7 +40,11 @@ router
 
 router
   .route("/updateListing/:listingId")
-  .post(isThisAdmin, wrapAsync(adminController.updateListing));
+  .post(
+    isThisAdmin,
+    upload.single("jobDescriptionFile"),
+    wrapAsync(adminController.updateListing)
+  );
 router
   .route("/removefromlisting/:listingId")
   .get(isThisAdmin, wrapAsync(adminController.removeCompanyListing));
