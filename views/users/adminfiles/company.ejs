@@ -38,7 +38,7 @@
       class="needs-validation"
       validate=""
       method="post"
-      action="/admin/addcompanylisting"
+      action="/admin/addcompanylisting?currentAdminSection=Companies"
       enctype="multipart/form-data"
     >
       <div>
@@ -115,7 +115,7 @@
               type="checkbox"
               style="width: 1rem"
               name="forCourse"
-              value="MtechCs"
+              value="MTech Cs"
               id="MTechCS"
             />
             <label class="form-check-label" for="MTechCS">MTech CS </label>
@@ -131,7 +131,7 @@
               style="width: 1rem"
               name="forCourse"
               id="MScCS"
-              value="MscCs"
+              value="MSc Cs"
             />
             <label class="form-check-label" for="MScCS">MSc CS</label>
           </div>
@@ -146,7 +146,7 @@
               style="width: 1rem"
               name="forCourse"
               id="MScDFIS"
-              value="MscDfis"
+              value="MSc Dfis"
             />
             <label class="form-check-label" for="MScDFIS">MSc DFIS</label>
           </div>
@@ -161,7 +161,7 @@
               style="width: 1rem"
               name="forCourse"
               id="Mtechadsai"
-              value="MtechAdsai"
+              value="MTech Adsai"
             />
             <label class="form-check-label" for="Mtechadsai">
               MTech ADSAI</label
@@ -366,7 +366,9 @@
               </a>
             </td>
             <td style="display: none">
-              <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
+              <a
+                href="/admin/deboard/recruiter/<%= recruiter._id %>?currentAdminSection=Companies"
+              >
                 <button class="btn btn-danger">Disable Company</button>
               </a>
             </td>
@@ -416,7 +418,9 @@
             <td><%= recruiter.headhrmobno %></td>
             <td><%= recruiter.headhremail %></td>
             <td>
-              <a href="/admin/onboard/recruiter/<%=recruiter._id%>">
+              <a
+                href="/admin/onboard/recruiter/<%=recruiter._id%>?currentAdminSection=Companies"
+              >
                 <button class="btn btn-success">Enable Company</button>
               </a>
             </td>
@@ -478,12 +482,16 @@
             <td><%= recruiter.headhrmobno %></td>
             <td><%= recruiter.headhremail %></td>
             <td>
-              <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
+              <a
+                href="/admin/deboard/recruiter/<%= recruiter._id %>?currentAdminSection=Companies"
+              >
                 <button class="btn btn-danger">Delete Request</button>
               </a>
             </td>
             <td>
-              <a href="/admin/recaudited/<%=recruiter._id%>">
+              <a
+                href="/admin/recaudited/<%=recruiter._id%>?currentAdminSection=Companies"
+              >
                 <button class="btn btn-success">Mark as Verified</button>
               </a>
             </td>
@@ -509,6 +517,7 @@
             <th scope="col">Last Date to Apply</th>
             <th scope="col">Edit Listing</th>
             <th scope="col">Applications</th>
+            <th scope="col" style="display: none">Down Listing</th>
           </tr>
         </thead>
         <tbody>
@@ -524,6 +533,18 @@
                 "
               >
                 Dream Offer
+              </p>
+            </td>
+            <%}else if(recruiter.isDown == true){%>
+            <td scope="row">
+              <p
+                style="
+                  color: red;
+                  font-weight: 600;
+                  text-shadow: palevioletred 0 0 10px;
+                "
+              >
+                Downed
               </p>
             </td>
             <%}else{%>
@@ -543,7 +564,10 @@
             </td>
             <td><%= recruiter.ctc %></td>
             <td><%=recruiter.forCourse%></td>
-            <td><%=recruiter.lastDateToApply%></td>
+            <td>
+              <%=recruiter.lastDateToApply.toLocaleString('en-US', { timeZone:
+              'IST' })%>
+            </td>
             <td>
               <a
                 href="/admin/listingDetails/<%=recruiter._id%>"
@@ -553,9 +577,16 @@
               </a>
             </td>
             <td>
-              <button class="btn btn-danger showapplicationbtn">
+              <button class="btn btn-info text-white showapplicationbtn">
                 Show Applications
               </button>
+            </td>
+            <td style="display: none">
+              <a
+                href="/admin/removefromlisting/<%=recruiter._id%>"
+                class="btn btn-danger"
+                >Down Listing</a
+              >
             </td>
           </tr>
           <% }); %>
@@ -593,7 +624,9 @@
             <td><%= recruiter.headhrmobno %></td>
             <td><%= recruiter.headhremail %></td>
             <td style="display: none">
-              <a href="/admin/deboard/recruiter/<%= recruiter._id %>">
+              <a
+                href="/admin/deboard/recruiter/<%= recruiter._id %>?currentAdminSection=Companies"
+              >
                 <button class="btn btn-danger">Disable Company</button>
               </a>
             </td>
@@ -710,7 +743,7 @@
       // Example:
       const form = document.createElement("form");
       form.method = "POST";
-      form.action = "/admin/arrayMarkRecAudited"; // Specify your route here
+      form.action = "/admin/arrayMarkRecAudited?currentAdminSection=Companies"; // Specify your route here
 
       // Create hidden input fields for each selected row
       selectedRows.forEach((rowData, index) => {
@@ -817,7 +850,88 @@
     allUls.forEach((ul) => {
       if ("Registered Companies" == companyCategoryName) {
         ul.innerHTML = `
-  <li class="dropdown-item">
+
+          <li class="dropdown-item">
+             <label style="display:flex;align-items:centre;">
+
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobtype"
+                  value="Company Name"
+                  checked
+                  style="display: inline"
+                />
+
+                 <p style="margin:auto auto;">Company Name</p>
+              </label>
+              </li>
+              <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobtype"
+                  value="Job Type"
+                  checked
+                  style="display: inline"
+                />
+
+                 <p style="margin:auto auto;">Job Type</p>
+              </label>
+              </li>
+              <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobtitle"
+                  value="Job Title"
+                  checked
+                  style="display: inline"
+                />
+                 <p style="margin:auto auto;">Job Title</p>
+              </label>
+              </li>
+              <li class="dropdown-item">
+  <label style="display:flex;align-items:centre;">
+
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="joblocation"
+                  checked
+                  value="Job Location"
+                  style="display: inline"
+                />
+
+
+                <p style="margin:auto auto;"> Job Location</p>
+                   </label>
+              </li>
+              <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxRegistered"
+                  name="jobdescription"
+                  checked
+                  value="Job Description"
+                  style="display: inline"
+                />
+
+
+                <p style="margin:auto auto;">Job Description</p>
+                   </label>
+              </li>
+
+
+                <li class="dropdown-item">
+     <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxRegistered"
@@ -826,65 +940,13 @@
                   checked
                   style="display: inline"
                 />
-                See Details
-              </li>
 
-          <li class="dropdown-item">
-                <input
-                  type="checkbox"
-                  class="form-check columnCheckboxRegistered"
-                  name="jobtype"
-                  value="Company Name"
-                  checked
-                  style="display: inline"
-                />
-                Company Name
-              </li>
-              <li class="dropdown-item">
-                <input
-                  type="checkbox"
-                  class="form-check columnCheckboxRegistered"
-                  name="jobtype"
-                  value="Job Type"
-                  checked
-                  style="display: inline"
-                />
-                Job Type
-              </li>
-              <li class="dropdown-item">
-                <input
-                  type="checkbox"
-                  class="form-check columnCheckboxRegistered"
-                  name="jobtitle"
-                  value="Job Title"
-                  checked
-                  style="display: inline"
-                />
-                Job Title
-              </li>
-              <li class="dropdown-item">
-                <input
-                  type="checkbox"
-                  class="form-check columnCheckboxRegistered"
-                  name="joblocation"
-                  checked
-                  value="Job Location"
-                  style="display: inline"
-                />
-                Job Location
-              </li>
-              <li class="dropdown-item">
-                <input
-                  type="checkbox"
-                  class="form-check columnCheckboxRegistered"
-                  name="jobdescription"
-                  checked
-                  value="Job Description"
-                  style="display: inline"
-                />
-                Job Description
+                  <p style="margin:auto auto;">See Details</p>
+              </label>
               </li>
                 <li class="dropdown-item">
+                   <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxRegistered"
@@ -892,12 +954,19 @@
                   value="Disable Company"
                   style="display: inline"
                 />
-                Disable Company
+
+                 <p style="margin:auto auto;"> Disable Company</p>
+              </label>
               </li>
+
+
+
              `;
         monitorAllRegisteredCheckboxes();
       } else if (companyCategoryName == "Verification Pending") {
         ul.innerHTML = `<li class="dropdown-item">
+           <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
@@ -906,9 +975,13 @@
                   checked
                   style="display: inline"
                 />
-                Company Name
+
+                 <p style="margin:auto auto;"> Company Name</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
@@ -917,9 +990,13 @@
                   checked
                   style="display: inline"
                 />
-                Nature of Business
+
+                 <p style="margin:auto auto;"> Nature of Business</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
@@ -928,9 +1005,13 @@
                   checked
                   style="display: inline"
                 />
-                Website Link
+
+                 <p style="margin:auto auto;"> Website Link</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
@@ -939,9 +1020,13 @@
                   value="Postal Address"
                   style="display: inline"
                 />
-                Postal Address
+
+                   <p style="margin:auto auto;">Postal Address</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
@@ -950,9 +1035,13 @@
                   value="Category"
                   style="display: inline"
                 />
-                Category
+
+                <p style="margin:auto auto;">Category</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
@@ -961,8 +1050,12 @@
                   checked
                   style="display: inline"
                 />
-                HR Name
+
+                 <p style="margin:auto auto;">  HR Name</p>
+              </label>
               </li> <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
@@ -971,8 +1064,12 @@
                   checked
                   style="display: inline"
                 />
-                HR Mobile No.
+
+                <p style="margin:auto auto;"> HR Mobile No.</p>
+              </label>
               </li> <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxPending"
@@ -981,12 +1078,16 @@
                   checked
                   style="display: inline"
                 />
-                HR Email
+
+                 <p style="margin:auto auto;">   HR Email</p>
+              </label>
               </li>`;
         monitorAllPendingCheckboxes();
       } else if (companyCategoryName == "Listed Companies") {
         ul.innerHTML = `
           <li class="dropdown-item">
+             <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -995,9 +1096,13 @@
                   checked
                   style="display: inline"
                 />
-                Company Name
+
+                 <p style="margin:auto auto;">   Company Name</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -1006,9 +1111,13 @@
                   checked
                   style="display: inline"
                 />
-                Job Type
+
+                <p style="margin:auto auto;"> Job Type</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -1017,9 +1126,13 @@
                   checked
                   style="display: inline"
                 />
-                Job Title
+
+                 <p style="margin:auto auto;"> Job Title</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -1028,9 +1141,14 @@
                   value="Job Location"
                   style="display: inline"
                 />
+                 <p style="margin:auto auto;">
                 Job Location
+                  </p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -1039,9 +1157,13 @@
                   value="Job Description"
                   style="display: inline"
                 />
-                Job Description
+
+                 <p style="margin:auto auto;"> Job Description</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -1050,8 +1172,12 @@
                   checked
                   style="display: inline"
                 />
-                CTC
+
+                <p style="margin:auto auto;">CTC</p>
+              </label>
               </li><li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -1060,8 +1186,12 @@
                   checked
                   style="display: inline"
                 />
-                For Course
+
+                <p style="margin:auto auto;"> For Course</p>
+              </label>
               </li><li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -1070,8 +1200,14 @@
                   checked
                   style="display: inline"
                 />
-                Last Date to Apply
-              </li> <li class="dropdown-item">
+
+                 <p style="margin:auto auto;"> Last Date to Apply</p>
+              </label>
+              </li>
+
+              <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxListing"
@@ -1080,12 +1216,27 @@
                   value="Edit Listing"
                   style="display: inline"
                 />
-                Edit Listing
+                <p style="margin:auto auto;">Edit Listing </p>
+              </label>
+              </li>   <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="DownListing"
+                  value="Down Listing"
+                  style="display: inline"
+                />
+                <p style="margin:auto auto;">Down Listing </p>
+              </label>
               </li>`;
         monitorAllListingCheckboxes();
       } else if (companyCategoryName == "Verified Companies") {
         ul.innerHTML = `
    <li class="dropdown-item">
+     <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1094,9 +1245,13 @@
                   checked
                   style="display: inline"
                 />
-                Company Name
+
+                  <p style="margin:auto auto;">Company Name</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1105,9 +1260,13 @@
                   checked
                   style="display: inline"
                 />
-                Nature of Business
+
+                 <p style="margin:auto auto;">Nature of Business</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1116,9 +1275,13 @@
                   checked
                   style="display: inline"
                 />
-                Website Link
+
+                 <p style="margin:auto auto;">  Website Link</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1127,9 +1290,13 @@
                   value="Postal Address"
                   style="display: inline"
                 />
-                Postal Address
+
+                <p style="margin:auto auto;"> Postal Address</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1138,9 +1305,12 @@
                   value="Category"
                   style="display: inline"
                 />
-                Category
+                 <p style="margin:auto auto;">Category</p>
+              </label>
               </li>
               <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1149,8 +1319,11 @@
                   checked
                   style="display: inline"
                 />
-                HR Name
+                <p style="margin:auto auto;"> HR Name</p>
+              </label>
               </li> <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1159,8 +1332,11 @@
                   checked
                   style="display: inline"
                 />
-                HR Mobile No.
+                <p style="margin:auto auto;"> HR Mobile No.</p>
+              </label>
               </li> <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1169,9 +1345,12 @@
                   checked
                   style="display: inline"
                 />
-                HR Email
+                <p style="margin:auto auto;"> HR Email</p>
+              </label>
               </li>
          <li class="dropdown-item">
+           <label style="display:flex;align-items:centre;">
+
                 <input
                   type="checkbox"
                   class="form-check columnCheckboxVerifiedCompanies"
@@ -1180,7 +1359,8 @@
 
                   style="display: inline"
                 />
-                Disable Company
+                <p style="margin:auto auto;"> Disable Company</p>
+              </label>
               </li>
              `;
         monitorAllVerifiedCompaniesCheckboxes();

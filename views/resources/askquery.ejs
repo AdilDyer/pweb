@@ -51,7 +51,7 @@
             <td scope="row"><%=query.subject%></td>
             <td scope="row"><%=query.query%></td>
             <td scope="row"><%=query.reply%></td>
-            <td scope="row"><%=query.createdAt%></td>
+            <td scope="row"><%=query.createdAt.toLocaleString('en-US', { timeZone: 'IST' })%></td>
           </tr>
           <%});%>
         </tbody>

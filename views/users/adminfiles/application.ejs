@@ -91,6 +91,24 @@
     >
       Update all Status
     </button>
+
+    <div>
+      <button
+        class="btn btn-warning templateStatusChange"
+        data-templatestatus="Shortlisted"
+        style="display: none; margin-bottom: 1rem; margin-left: 0.5rem"
+      >
+        Status: Shortlisted
+      </button>
+
+      <button
+        class="btn btn-warning templateStatusChange"
+        data-templatestatus="Not-shortlisted"
+        style="display: none; margin-bottom: 1rem; margin-left: 0.5rem"
+      >
+        Status: Not-shortlisted
+      </button>
+    </div>
     <div class="tablesapplication">
       <table
         class="table table-hover table-bordered"
@@ -144,14 +162,17 @@
               >
             </td>
             <td><%=appObj.stuId.mobileno%></td>
-            <td><%=appObj.createdAt%></td>
             <td>
-              <a href="/admin/placedstudent/<%=appObj._id%>"
+              <%=appObj.createdAt.toLocaleString('en-US', { timeZone: 'IST' })%>
+            </td>
+            <td>
+              <a
+                href="/admin/placedstudent/<%=appObj._id%>?currentAdminSection=Application"
                 ><button class="btn btn-primary">Mark as Placed</button></a
               >
             </td>
             <form
-              action="/admin/updateApplicationStatus/<%=appObj._id%>"
+              action="/admin/updateApplicationStatus/<%=appObj._id%>?currentAdminSection=Application"
               method="post"
             >
               <td>
@@ -197,7 +218,10 @@
             <td><%=student.course%></td>
             <td><%=student.placedCompany%></td>
             <td><%=student.email%></td>
-            <td><%=student.placedDate%></td>
+            <td>
+              <%=student.placedDate.toLocaleString('en-US', { timeZone: 'IST'
+              })%>
+            </td>
           </tr>
           <% }); %>
         </tbody>
@@ -231,7 +255,8 @@
       // Example:
       const form = document.createElement("form");
       form.method = "POST";
-      form.action = "/admin/arrayUpdateApplicationStatus/1334"; // Specify your route here
+      form.action =
+        "/admin/arrayUpdateApplicationStatus/1334?currentAdminSection=<%=currentAdminSection%>"; // Specify your route here
 
       // Create hidden input fields for each selected row
       selectedRows.forEach((rowData, index) => {
@@ -265,6 +290,9 @@
 
       document.getElementById("updateselectedapplications").style.display =
         selectAllCheckbox.checked ? "inline" : "none";
+      document.querySelectorAll(".templateStatusChange").forEach((btn) => {
+        btn.style.display = selectAllCheckbox.checked ? "inline" : "none";
+      });
 
       const checkboxes = document.querySelectorAll(".allApplicationsCheck");
 
@@ -281,6 +309,21 @@
       // If any checkbox is checked, show the button; otherwise, hide it
       document.getElementById("updateselectedapplications").style.display =
         anyChecked ? "inline" : "none";
+      document.querySelectorAll(".templateStatusChange").forEach((btn) => {
+        btn.style.display = anyChecked ? "inline" : "none";
+      });
+    });
+  });
+
+  document.querySelectorAll(".templateStatusChange").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const checkboxes = document.querySelectorAll(".allApplicationsCheck");
+      checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+          checkbox.closest("tr").querySelector("textarea").innerHTML =
+            btn.getAttribute("data-templatestatus");
+        }
+      });
     });
   });
 </script>
@@ -317,6 +360,8 @@
     allUls.forEach((ul) => {
       if ("Application Received" == ApplicationCategoryName) {
         ul.innerHTML = `<li class="dropdown-item">
+
+           <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkApplicationReceived"
@@ -325,9 +370,11 @@
                 checked
                 style="display: inline"
               />
-              Student Name
+              <p style="margin:auto auto;"> Student Name </p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkApplicationReceived"
@@ -336,9 +383,11 @@
                 checked
                 style="display: inline"
               />
-              Course
+            <p style="margin:auto auto;">    Course</p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkApplicationReceived"
@@ -347,9 +396,11 @@
                 checked
                 style="display: inline"
               />
-              Company Name
+          <p style="margin:auto auto;">      Company Name</p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkApplicationReceived"
@@ -358,9 +409,11 @@
                 value="Mobile No."
                 style="display: inline"
               />
-              Mobile No.
+          <p style="margin:auto auto;">     Mobile No. </p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkApplicationReceived"
@@ -369,12 +422,14 @@
                 value="Date Applied"
                 style="display: inline"
               />
-              Date Applied
+      <p style="margin:auto auto;">         Date Applied </p>
+              </label>
             </li>
            `;
         monitorAllApplicationsReceived();
       } else if (ApplicationCategoryName == "Placed Students") {
         ul.innerHTML = `<li class="dropdown-item">
+           <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkPlacedStudents"
@@ -383,9 +438,11 @@
                 checked
                 style="display: inline"
               />
-              Student Name
+            <p style="margin:auto auto;">    Student Name</p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkPlacedStudents"
@@ -394,9 +451,11 @@
                 checked
                 style="display: inline"
               />
-              Course
+               <p style="margin:auto auto;"> Course</p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkPlacedStudents"
@@ -405,9 +464,11 @@
                 checked
                 style="display: inline"
               />
-              Company name
+          <p style="margin:auto auto;">     Company name </p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkPlacedStudents"
@@ -416,9 +477,11 @@
                 value="Email"
                 style="display: inline"
               />
-              Email
+               <p style="margin:auto auto;"> Email</p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkPlacedStudents"
@@ -427,7 +490,8 @@
                 value="Date Placed"
                 style="display: inline"
               />
-              Date Placed
+          <p style="margin:auto auto;">      Date Placed</p>
+              </label>
             </li>
            `;
         monitorAllPlacedStudents();

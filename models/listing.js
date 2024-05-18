@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const listingSchema = new mongoose.Schema({
+  isDown: {
+    type: Boolean,
+    default: false,
+  },
   isDreamOffer: {
     type: Boolean,
     default: false,

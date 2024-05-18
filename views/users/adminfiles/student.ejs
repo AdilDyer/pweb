@@ -125,7 +125,7 @@
               >
             </td>
             <td style="display: none">
-              <a href="/admin/deboard/student/<%= student._id %>">
+              <a href="/admin/deboard/student/<%= student._id %>?currentAdminSection=Students">
                 <button class="btn btn-danger">Disable Account</button>
               </a>
             </td>
@@ -172,12 +172,12 @@
             <td><%= student.bodyData.email %></td>
             <td><%= student.bodyData.stumobno%></td>
             <td>
-              <a href="/admin/markStuAudit/<%=student._id%>">
+              <a href="/admin/markStuAudit/<%=student._id%>?currentAdminSection=Students">
                 <button class="btn btn-success">Mark as Verified</button></a
               >
             </td>
             <td>
-              <a href="/admin/deboard/student/<%= student._id %>">
+              <a href="/admin/deboard/student/<%= student._id %>?currentAdminSection=Students">
                 <button class="btn btn-danger">Delete Request</button>
               </a>
             </td>
@@ -211,7 +211,7 @@
             <td><%= student.email %></td>
             <td><%= student.mobileno%></td>
             <td style="display: none">
-              <a href="/admin/deboard/student/<%= student._id %>">
+              <a href="/admin/deboard/student/<%= student._id %>?currentAdminSection=Students">
                 <button class="btn btn-danger">Disable Account</button>
               </a>
             </td>
@@ -254,7 +254,7 @@
               >
             </td>
             <td>
-              <a href="/admin/onboard/student/<%=student._id%>">
+              <a href="/admin/onboard/student/<%=student._id%>?currentAdminSection=Students">
                 <button class="btn btn-success">Enable Account</button>
               </a>
             </td>
@@ -288,7 +288,7 @@
       // Example:
       const form = document.createElement("form");
       form.method = "POST";
-      form.action = "/admin/markStuAudit/1221"; // Specify your route here
+      form.action = "/admin/markStuAudit/1221?currentAdminSection=Students"; // Specify your route here
 
       // Create hidden input fields for each selected row
       selectedRows.forEach((rowData, index) => {
@@ -383,6 +383,7 @@
     allUls.forEach((ul) => {
       if ("Registered Students" == studentCategoryName) {
         ul.innerHTML = `<li class="dropdown-item">
+          <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkregisstu"
@@ -391,9 +392,11 @@
                 checked
                 style="display: inline"
               />
-              Students Name
+              <p style="margin:auto auto;">Students Name</p>
+              </label>
             </li>
             <li class="dropdown-item">
+                     <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkregisstu"
@@ -402,9 +405,12 @@
                 checked
                 style="display: inline"
               />
-Enroll No.
+
+<p style="margin:auto auto;">Enroll No.</p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkregisstu"
@@ -413,9 +419,13 @@ Enroll No.
                 checked
                 style="display: inline"
               />
-              Course
+
+              <p style="margin:auto auto;">Course</p>
+              </label>
             </li>
             <li class="dropdown-item">
+
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkregisstu"
@@ -424,9 +434,12 @@ Enroll No.
                 value="Email"
                 style="display: inline"
               />
-              Email
+
+              <p style="margin:auto auto;">Email</p>
+              </label>
             </li>
             <li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkregisstu"
@@ -435,8 +448,10 @@ Enroll No.
                 value="Mobile No."
                 style="display: inline"
               />
-              Mobile No.
+              <p style="margin:auto auto;">Mobile No.</p>
+              </label>
             </li><li class="dropdown-item">
+               <label style="display:flex;align-items:centre;">
               <input
                 type="checkbox"
                 class="form-check checkregisstu"
@@ -444,7 +459,9 @@ Enroll No.
                 value="Disable Option"
                 style="display: inline"
               />
-              Disable Option
+
+              <p style="margin:auto auto;">Disable Option</p>
+              </label>
             </li>`;
         monitorAllRegisteredCheckboxesStudents();
       } else if (studentCategoryName == "Verification Pending Students") {

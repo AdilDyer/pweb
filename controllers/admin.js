@@ -16,11 +16,15 @@ module.exports.showAdmin = async (req, res) => {
     "bodyData.username": "Student",
   });
   let countallStudentsPending = allStudentsPending.length;
-  let allRegisteredRecruiters = await Recruiter.find({ isRegistered: true });
+  let allRegisteredRecruiters = await Recruiter.find({
+    isRegistered: true,
+    isDeboarded: false,
+  });
   let countAllRegisteredRecruiters = allRegisteredRecruiters.length;
   let allAuditedRecruiters = await Recruiter.find({
     isAudited: true,
     isRegistered: false,
+    isDeboarded: false,
   });
   let allAuditedStudents = await Student.find({
     isAudited: true,
@@ -87,6 +91,7 @@ module.exports.showAdmin = async (req, res) => {
     allUnresolvedQueries: allUnresolvedQueries,
     allResolvedQueries: allResolvedQueries,
     allDisabledCompanies: allDisabledCompanies,
+    currentAdminSection: req.query.currentAdminSection || "Dashboard",
   });
 };
 
@@ -118,6 +123,8 @@ module.exports.showRecDetails = async (req, res) => {
 module.exports.markRecAudit = async (req, res) => {
   let { recid } = req.params;
   try {
+    let { currentAdminSection } = req.query;
+
     let recDetails = await Recruiter.findOne({ _id: recid });
 
     if (!recDetails) {
@@ -180,7 +187,7 @@ You can paste the above Link in the Browser's address bar.
         res.status(500).send("Failed to send Registration Mail");
       } else {
         req.flash("success", "Recruiter Updated Successfully !");
-        res.redirect("/admin");
+        res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
       }
     });
 
@@ -195,6 +202,8 @@ You can paste the above Link in the Browser's address bar.
 
 module.exports.arrayMarkRecAudit = async (req, res) => {
   try {
+    let { currentAdminSection } = req.query;
+
     let { selectedRows } = req.body;
     console.log(selectedRows);
     if (
@@ -273,7 +282,7 @@ You can paste the above Link in the Browser's address bar.
           res.status(500).send("Failed to send Registration Mail");
         } else {
           req.flash("success", "Recruiter Updated Successfully !");
-          res.redirect("/admin");
+          res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
         }
       });
 
@@ -288,7 +297,9 @@ You can paste the above Link in the Browser's address bar.
 };
 
 module.exports.addCompanyListing = async (req, res) => {
-  console.log(req.file.path);
+  let { currentAdminSection } = req.query;
+  let dateObject = new Date(req.body.lastDateToApply);
+  dateObject.setHours(23, 59, 0, 0);
   let newListing = new Listing({
     isDreamOffer: req.body.isDreamOffer,
     jobDescriptionFile: req.file.path,
@@ -298,13 +309,12 @@ module.exports.addCompanyListing = async (req, res) => {
     jobTitle: req.body.jobTitle,
     forCourse: req.body.forCourse,
     ctc: req.body.ctc,
-    lastDateToApply: req.body.lastDateToApply,
+    lastDateToApply: dateObject,
   });
 
   await newListing.save();
   req.flash("success", "Listing Added Successfully !");
-  res.redirect("/admin");
-  // console.log("newlisting: " + newListing);
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.showListingDetails = async (req, res) => {
@@ -332,14 +342,20 @@ module.exports.updateListing = async (req, res) => {
     res.redirect(`/admin/listingDetails/${listingId}`);
   }
   req.flash("success", "Listing Updated Successfully !");
-  res.redirect(`/admin/listingDetails/${listingId}`);
+
+  res.redirect(
+    `/admin/listingDetails/${listingId}?currentAdminSection=Updates`
+  );
 };
 
 module.exports.removeCompanyListing = async (req, res) => {
   let { listingId } = req.params;
-  await Listing.deleteMany({ _id: listingId });
-  req.flash("success", "Listing Removed Successfully !");
-  res.redirect("/admin");
+  let listing = await Listing.findOne({ _id: listingId });
+  listing.isDown = true;
+  await listing.save();
+  req.flash("success", "Listing Down Successfully !");
+  req.session.save();
+  res.redirect("/admin?currentAdminSection=Companies");
 };
 
 module.exports.markStuAudit = async (req, res) => {
@@ -351,16 +367,16 @@ module.exports.markStuAudit = async (req, res) => {
   function generatePID(courseName, twoDigitNo) {
     let prefix = "";
     switch (courseName) {
-      case "MscCs":
+      case "MSc Cs":
         prefix = "PL-MSCS-";
         break;
-      case "MscDfis":
+      case "MSc Dfis":
         prefix = "PL-MSDF-";
         break;
-      case "MtechCs":
+      case "MTech Cs":
         prefix = "PL-MTCS-";
         break;
-      case "MtechAdsai":
+      case "MTech Adsai":
         prefix = "PL-MTADSAI-";
         break;
       default:
@@ -506,7 +522,7 @@ module.exports.markStuAudit = async (req, res) => {
       res.redirect("/admin");
     } else {
       req.flash("success", "Student marked as Audited. ");
-      res.redirect("/admin");
+      res.redirect("/admin?currentAdminSection=Students");
     }
   });
 };
@@ -529,16 +545,16 @@ module.exports.markStuArrayAudit = async (req, res) => {
       function generatePID(courseName, twoDigitNo) {
         let prefix = "";
         switch (courseName) {
-          case "MscCs":
+          case "MSc Cs":
             prefix = "PL-MSCS-";
             break;
-          case "MscDfis":
+          case "MSc Dfis":
             prefix = "PL-MSDF-";
             break;
-          case "MtechCs":
+          case "MTech Cs":
             prefix = "PL-MTCS-";
             break;
-          case "MtechAdsai":
+          case "MTech Adsai":
             prefix = "PL-MTADSAI-";
             break;
           default:
@@ -697,18 +713,20 @@ module.exports.markStuArrayAudit = async (req, res) => {
     }
   }
   req.flash("success", "All Marked Students Verified !");
-  res.redirect("/admin");
+  res.redirect("/admin?currentAdminSection=Students");
 };
 
 module.exports.deboardRecruiter = async (req, res) => {
   let { recid } = req.params;
+  let { currentAdminSection } = req.query;
+
   let result = await Recruiter.findOne({ _id: recid });
   result.isDeboarded = true;
   await Application.deleteMany({ listingId: recid });
   await result.save();
   req.flash("success", "Recruiter Desabled Successfully !");
   req.session.save();
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.deboardStudent = async (req, res) => {
@@ -734,7 +752,7 @@ module.exports.deboardStudent = async (req, res) => {
 
   req.flash("success", "Student Account Disabled Successfully !");
   req.session.save();
-  res.redirect("/admin");
+  res.redirect("/admin?currentAdminSection=Students");
 };
 
 module.exports.onboardStudent = async (req, res) => {
@@ -746,17 +764,19 @@ module.exports.onboardStudent = async (req, res) => {
   await stu.save();
 
   req.flash("success", "Student Enabled Successfully !");
-  res.redirect("/admin");
+  res.redirect("/admin?currentAdminSection=Students");
 };
 
 module.exports.onboardRecruiter = async (req, res) => {
+  let { currentAdminSection } = req.query;
+
   let { recid } = req.params;
   let result = await Recruiter.findOne({ _id: recid });
   result.isDeboarded = false;
   await result.save();
   req.flash("success", "Recruiter Enabled Successfully !");
   req.session.save();
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.exportAllStudentData = async (req, res) => {
@@ -826,31 +846,34 @@ module.exports.exportAllCompanyData = async (req, res) => {
   }
 };
 
-module.exports.renderSendUpdateForm = (req, res) => {
-  res.render("resources/sendupdate.ejs");
-};
-
 module.exports.pushUpdateToStudents = async (req, res) => {
+  let { currentAdminSection } = req.query;
+
   let newUpdate = new Update(req.body);
   await newUpdate.save();
   req.flash("Update sent Successfully !");
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.deleteUpdate = async (req, res) => {
+  let { currentAdminSection } = req.query;
+
   let { updateId } = req.params;
   await Update.deleteMany({ _id: updateId });
   req.flash("success", "Update Deleted Successfully !");
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.renderPlacedStudentForm = (req, res) => {
+  let { currentAdminSection } = req.query;
   res.render("resources/placedstudent.ejs", {
     applicationId: req.params.applicationId,
+    currentAdminSection: currentAdminSection,
   });
 };
 
 module.exports.markPlacedStudent = async (req, res) => {
+  let { currentAdminSection } = req.query;
   let application = await Application.findOne({
     _id: req.params.applicationId,
   });
@@ -867,10 +890,11 @@ module.exports.markPlacedStudent = async (req, res) => {
 
   await Application.deleteMany({ stuId: student._id });
   req.flash("success", "Marked as Placed Successfully !");
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.markQueryResolved = async (req, res) => {
+  let { currentAdminSection } = req.query;
   let { reply } = req.body;
   if (!reply) reply = "Marked as Resolved";
 
@@ -882,10 +906,12 @@ module.exports.markQueryResolved = async (req, res) => {
 
   req.flash("success", "Query Marked as Resolved");
   req.session.save();
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.arrayMarkQueryResolved = async (req, res) => {
+  let { currentAdminSection } = req.query;
+
   const selectedRows = req.body.selectedRows;
 
   // Assuming Query is a Mongoose model
@@ -908,10 +934,12 @@ module.exports.arrayMarkQueryResolved = async (req, res) => {
 
   req.flash("success", "Queries Marked as Resolved");
   req.session.save();
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.updateApplicationStatus = async (req, res) => {
+  let { currentAdminSection } = req.query;
+
   let { applicationStatus } = req.body;
   if (!applicationStatus) applicationStatus = "In Progress";
 
@@ -924,11 +952,12 @@ module.exports.updateApplicationStatus = async (req, res) => {
 
   req.flash("success", "Application Status Updated !");
   req.session.save();
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.arrayUpdateApplicationStatus = async (req, res) => {
   const selectedRows = req.body.selectedRows;
+  let { currentAdminSection } = req.query;
 
   // Assuming Query is a Mongoose model
   for (const selectedRow of selectedRows) {
@@ -948,5 +977,5 @@ module.exports.arrayUpdateApplicationStatus = async (req, res) => {
 
   req.flash("success", "Applications Updated !");
   req.session.save();
-  res.redirect("/admin");
+  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };

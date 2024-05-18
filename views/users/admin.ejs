@@ -80,6 +80,12 @@
         this.querySelector("li").classList.add("selected");
       });
     });
+    var currentAdminSection = "<%= currentAdminSection %>";
+    links.forEach(function (link) {
+      if (link.getAttribute("href").substring(1) == currentAdminSection) {
+        link.click();
+      }
+    });
   });
 </script>
 <!-- chart js -->

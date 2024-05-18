@@ -7,7 +7,7 @@ const Query = require("../models/query");
 module.exports.showAccount = async (req, res) => {
   let { isRegistered, _id, course } = req.user;
 
-  const allListings = await Listing.find({});
+  const allListings = await Listing.find({ isDown: false });
 
   try {
     const studentApplications = await Application.find({ stuId: _id });

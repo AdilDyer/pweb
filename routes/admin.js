@@ -26,13 +26,12 @@ router
   .route("/arrayMarkRecAudited")
   .post(wrapAsync(adminController.arrayMarkRecAudit));
 
-router
-  .route("/addcompanylisting")
-  .post(
-    isThisAdmin,
-    upload.single("jobDescriptionFile"),
-    wrapAsync(adminController.addCompanyListing)
-  );
+router.route("/addcompanylisting").post(
+  isThisAdmin,
+  upload.single("jobDescriptionFile"),
+  // upload.fields([{ name: "jobDescriptionFile", maxCount: 5 }]),
+  wrapAsync(adminController.addCompanyListing)
+);
 
 router
   .route("/listingDetails/:listingId")
@@ -77,7 +76,6 @@ router
 
 router
   .route("/sendupdate")
-  .get(isThisAdmin, adminController.renderSendUpdateForm)
   .post(isThisAdmin, wrapAsync(adminController.pushUpdateToStudents));
 
 router

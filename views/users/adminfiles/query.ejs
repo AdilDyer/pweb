@@ -1,140 +1,145 @@
 <div id="Queries" class="sectiondiv">
-      <div class="queriestable dash-table-format">
-        <div class="dropdown">
-          <button
-            class="btn btn-light dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            id="tableSelectorbtnqueries"
-          >
-            Pending Queries
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <input
-                type="radio"
-                class="form-check tableRadioQueries"
-                data-name="Pending Queries"
-                name="tableRadioQueries"
-                checked
-                value="Pending Queries"
-                style="display: inline"
-                id="radiopendqueries"
-              />
-              <label for="radiopendqueries">Pending Queries</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                class="form-check tableRadioQueries"
-                name="tableRadioQueries"
-                value="Resolved Queries"
-                data-name="Resolved Queries"
-                style="display: inline"
-                id="radioresolvedqueries"
-              />
-              <label for="radioresolvedqueries">Resolved Queries</label>
-            </li>
-          </ul>
-        </div>
-
-        <button
-          class="btn btn-success"
-          id="markselectedresolve"
-          style="display: none; margin-bottom: 1rem; margin-left: 0.5rem"
-        >
-          Marked as Resolved
-        </button>
-
-        <div class="tablesqueries">
-          <table
-            class="table table-hover table-bordered"
+  <div class="queriestable dash-table-format">
+    <div class="dropdown">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        id="tableSelectorbtnqueries"
+      >
+        Pending Queries
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioQueries"
             data-name="Pending Queries"
-          >
-            <thead>
-              <tr class="headerrowPendingQueries">
-                <th scope="col">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    name="selectall"
-                    id="selectallQueriestable"
-                  />
-                </th>
-                <th scope="col">Subject</th>
-                <th scope="col">Query</th>
-                <th scope="col">Created at</th>
-                <th scope="col">Response</th>
-                <th scope="col">Resolve Query</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% allUnresolvedQueries.forEach((query,index) => { %>
-              <tr class="dataTablePendingQueries">
-                <td>
-                  <input
-                    type="checkbox"
-                    class="form-check-input allQueryCheck"
-                    data-queryid="<%=query._id%>"
-                  />
-                </td>
-                <td><%= query.subject %></td>
-                <td><%= query.query %></td>
-                <td><%= query.createdAt %></td>
-                <form
-                  action="/admin/markqueryresolved/<%=query._id%>"
-                  method="post"
-                >
-                  <td>
-                    <textarea
-                      type="text"
-                      name="reply"
-                      class="form-control"
-                      placeholder="Send a Response"
-                    ></textarea>
-                  </td>
-                  <td>
-                    <button class="btn btn-success">Mark as Resolved</button>
-                  </td>
-                </form>
-              </tr>
-              <% }); %>
-            </tbody>
-          </table>
-          <table
-            class="table table-hover table-bordered"
+            name="tableRadioQueries"
+            checked
+            value="Pending Queries"
+            style="display: inline"
+            id="radiopendqueries"
+          />
+          <label for="radiopendqueries">Pending Queries</label>
+        </li>
+        <li>
+          <input
+            type="radio"
+            class="form-check tableRadioQueries"
+            name="tableRadioQueries"
+            value="Resolved Queries"
             data-name="Resolved Queries"
-            style="display: none"
-          >
-            <thead>
-              <tr class="headerrowResolvedQueries">
-                <th scope="col">#</th>
-                <th scope="col">Subject</th>
-                <th scope="col">Query</th>
-                <th scope="col">Created at</th>
-                <th scope="col">Response</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% allResolvedQueries.forEach((query,index) => { %>
-              <tr class="dataTableResolvedQueries">
-                <td><%=index +1%></td>
-                <td><%= query.subject %></td>
-                <td><%= query.query %></td>
-                <td><%= query.createdAt %></td>
-                <td><%= query.reply %></td>
-              </tr>
-              <% }); %>
-            </tbody>
-          </table>
-        </div>
-      </div>
+            style="display: inline"
+            id="radioresolvedqueries"
+          />
+          <label for="radioresolvedqueries">Resolved Queries</label>
+        </li>
+      </ul>
     </div>
 
+    <button
+      class="btn btn-success"
+      id="markselectedresolve"
+      style="display: none; margin-bottom: 1rem; margin-left: 0.5rem"
+    >
+      Marked as Resolved
+    </button>
 
-    <!-- multiple select queries -->
+    <div class="tablesqueries">
+      <table
+        class="table table-hover table-bordered"
+        data-name="Pending Queries"
+      >
+        <thead>
+          <tr class="headerrowPendingQueries">
+            <th scope="col">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                name="selectall"
+                id="selectallQueriestable"
+              />
+            </th>
+            <th scope="col">Subject</th>
+            <th scope="col">Query</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Response</th>
+            <th scope="col">Resolve Query</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% allUnresolvedQueries.forEach((query,index) => { %>
+          <tr class="dataTablePendingQueries">
+            <td>
+              <input
+                type="checkbox"
+                class="form-check-input allQueryCheck"
+                data-queryid="<%=query._id%>"
+              />
+            </td>
+            <td><%= query.subject %></td>
+            <td><%= query.query %></td>
+            <td>
+              <%= query.createdAt.toLocaleString('en-US', { timeZone: 'IST' })
+              %>
+            </td>
+            <form
+              action="/admin/markqueryresolved/<%=query._id%>?currentAdminSection=Queries"
+              method="post"
+            >
+              <td>
+                <textarea
+                  type="text"
+                  name="reply"
+                  class="form-control"
+                  placeholder="Send a Response"
+                ></textarea>
+              </td>
+              <td>
+                <button class="btn btn-success">Mark as Resolved</button>
+              </td>
+            </form>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <table
+        class="table table-hover table-bordered"
+        data-name="Resolved Queries"
+        style="display: none"
+      >
+        <thead>
+          <tr class="headerrowResolvedQueries">
+            <th scope="col">#</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Query</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Response</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allResolvedQueries.forEach((query,index) => { %>
+          <tr class="dataTableResolvedQueries">
+            <td><%=index +1%></td>
+            <td><%= query.subject %></td>
+            <td><%= query.query %></td>
+            <td>
+              <%= query.createdAt.toLocaleString('en-US', { timeZone: 'IST' })
+              %>
+            </td>
+            <td><%= query.reply %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- multiple select queries -->
 <script>
   document
     .getElementById("markselectedresolve")
@@ -160,7 +165,7 @@
       // Example:
       const form = document.createElement("form");
       form.method = "POST";
-      form.action = "/admin/arrayMarkAsResolved"; // Specify your route here
+      form.action = "/admin/arrayMarkAsResolved/1232?currentAdminSection=Queries"; // Specify your route here
 
       // Create hidden input fields for each selected row
       selectedRows.forEach((rowData, index) => {

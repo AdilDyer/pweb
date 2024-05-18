@@ -6,7 +6,7 @@
       class="needs-validation"
       validate=""
       method="post"
-      action="/admin/sendupdate"
+      action="/admin/sendupdate?currentAdminSection=Updates"
     >
       <div>
         <h6>Title</h6>
@@ -59,7 +59,7 @@
               type="checkbox"
               style="width: 1rem"
               name="forCourse"
-              value="MtechCs"
+              value="MTech Cs"
               id="MTechCS"
             />
             <label class="form-check-label" for="MTechCS">MTech CS </label>
@@ -75,7 +75,7 @@
               style="width: 1rem"
               name="forCourse"
               id="MScCS"
-              value="MscCs"
+              value="MSc Cs"
             />
             <label class="form-check-label" for="MScCS">MSc CS</label>
           </div>
@@ -90,7 +90,7 @@
               style="width: 1rem"
               name="forCourse"
               id="MScDFIS"
-              value="MscDfis"
+              value="MSc Dfis"
             />
             <label class="form-check-label" for="MScDFIS">MSc DFIS</label>
           </div>
@@ -105,7 +105,7 @@
               style="width: 1rem"
               name="forCourse"
               id="Mtechadsai"
-              value="MtechAdsai"
+              value="MTech Adsai"
             />
             <label class="form-check-label" for="Mtechadsai">
               MTech ADSAI</label
@@ -227,10 +227,10 @@
             <td><%=index +1%></td>
             <td><%= update.title %></td>
             <td><%= update.description %></td>
-            <td><%= update.createdAt %></td>
+            <td><%= update.createdAt.toLocaleString('en-US', { timeZone: 'IST' }) %></td>
 
             <td>
-              <a href="/admin/deleteupdate/<%=update._id%>"
+              <a href="/admin/deleteupdate/<%=update._id%>?currentAdminSection=Updates"
                 ><button class="btn btn-danger">Delete</button></a
               >
             </td>
@@ -259,10 +259,10 @@
             <td><%=index +1%></td>
             <td><%= update.title %></td>
             <td><%= update.description %></td>
-            <td><%= update.createdAt %></td>
+            <td><%= update.createdAt.toLocaleString('en-US', { timeZone: 'IST' }) %></td>
 
             <td>
-              <a href="/admin/deleteupdate/<%=update._id%>"
+              <a href="/admin/deleteupdate/<%=update._id%>?currentAdminSection=Updates"
                 ><button class="btn btn-danger">Delete</button></a
               >
             </td>
@@ -291,10 +291,10 @@
             <td><%=index +1%></td>
             <td><%= update.title %></td>
             <td><%= update.description %></td>
-            <td><%= update.createdAt %></td>
+            <td><%= update.createdAt.toLocaleString('en-US', { timeZone: 'IST' }) %></td>
 
             <td>
-              <a href="/admin/deleteupdate/<%=update._id%>"
+              <a href="/admin/deleteupdate/<%=update._id%>?currentAdminSection=Updates"
                 ><button class="btn btn-danger">Delete</button></a
               >
             </td>
@@ -323,10 +323,10 @@
             <td><%=index +1%></td>
             <td><%= update.title %></td>
             <td><%= update.description %></td>
-            <td><%= update.createdAt %></td>
+            <td><%= update.createdAt.toLocaleString('en-US', { timeZone: 'IST' }) %></td>
 
             <td>
-              <a href="/admin/deleteupdate/<%=update._id%>"
+              <a href="/admin/deleteupdate/<%=update._id%>?currentAdminSection=Updates"
                 ><button class="btn btn-danger">Delete</button></a
               >
             </td>
@@ -355,10 +355,10 @@
             <td><%=index +1%></td>
             <td><%= update.title %></td>
             <td><%= update.description %></td>
-            <td><%= update.createdAt %></td>
+            <td><%= update.createdAt.toLocaleString('en-US', { timeZone: 'IST' }) %></td>
 
             <td>
-              <a href="/admin/deleteupdate/<%=update._id%>"
+              <a href="/admin/deleteupdate/<%=update._id%>?currentAdminSection=Updates"
                 ><button class="btn btn-danger">Delete</button></a
               >
             </td>

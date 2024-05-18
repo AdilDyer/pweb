@@ -30,7 +30,7 @@
     <div class="updateDiv">
       <h3># <%=update.title%></h3>
       <h5><%=update.description%></h5>
-      <h6><%=update.createdAt%></h6>
+      <h6><%=update.createdAt.toLocaleString('en-US', { timeZone: 'IST' })%></h6>
     </div>
     <br />
     <%});%>
@@ -103,7 +103,7 @@
           </td>
 
           <td scope="row"><%=listing.ctc%>/-</td>
-          <td scope="row"><%=listing.lastDateToApply%></td>
+          <td scope="row"><%=listing.lastDateToApply.toLocaleString('en-US', { timeZone: 'IST' })%></td>
           <td scope="row" class="buttonTd">
             <a
               href="/account/apply?listingId=<%=listing._id%>&stuId=<%=stuId%>"
