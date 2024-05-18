@@ -28,8 +28,8 @@ router
 
 router.route("/addcompanylisting").post(
   isThisAdmin,
-  upload.single("jobDescriptionFile"),
   // upload.fields([{ name: "jobDescriptionFile", maxCount: 5 }]),
+  upload.any(),
   wrapAsync(adminController.addCompanyListing)
 );
 
@@ -39,11 +39,7 @@ router
 
 router
   .route("/updateListing/:listingId")
-  .post(
-    isThisAdmin,
-    upload.single("jobDescriptionFile"),
-    wrapAsync(adminController.updateListing)
-  );
+  .post(isThisAdmin, upload.any(), wrapAsync(adminController.updateListing));
 router
   .route("/removefromlisting/:listingId")
   .get(isThisAdmin, wrapAsync(adminController.removeCompanyListing));

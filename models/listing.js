@@ -8,8 +8,8 @@ const listingSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  jobDescriptionFile: {
-    type: String,
+  jobDescriptionFiles: {
+    type: Object,
     required: true,
   },
   companyName: {
@@ -24,8 +24,8 @@ const listingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  jobTitle: {
-    type: String,
+  jobTitles: {
+    type: Object,
     required: true,
   },
   forCourse: {

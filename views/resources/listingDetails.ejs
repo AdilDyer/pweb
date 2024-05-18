@@ -184,15 +184,19 @@
 
 
                    <div class="form-group">
-                    <label for="jobTitle" class="form-label">Job Title</label>
-                    <input
+                    <label for="jobTitle" class="form-label">Job Titles</label>
+
+                       <% Object.keys(listingDetails.jobTitles).forEach((key, index) => { %>
+                <input
                       type="text"
                       class="form-control"
-                      name="jobTitle"
-                      value="<%=listingDetails.jobLocation%>"
+                      name="<%=key%>"
+                      value="<%= listingDetails.jobTitles[key] %>"
                       id="jobTitle"
                       placeholder="jobLocation"
                     />
+              <% }) %>
+
                   </div>
 
 
@@ -280,21 +284,40 @@
 
 
                    <div class="form-group">
-                    <label for="jobdescriptionFile" class="form-label">Job Description</label>
-                    <a
-          target="_blank"
+                    <label for="jobdescriptionFile" class="form-label">Job Descriptions</label>
+
+
+                    <% Object.keys(listingDetails.jobDescriptionFiles).forEach((key,
+              index)=> { %>
+              <a
+                href="<%= listingDetails.jobDescriptionFiles[key] %>"
+
+                   target="_blank"
                       class="form-control btn btn-primary"
-                      href="<%=listingDetails.jobDescriptionFile%>"
+                style="margin: 0.5rem; width: 5rem"
+              >
+                JD <%= index + 1 %>
+              </a>
+              <% }) %>
 
 
-                      id="jobdescriptionFile"
 
-                    >Show file</a>
+
+
+
+
+
                   </div>
 
                   <div class="form-group ">
-                    <label for="newfileupload">Upload new Job Description</label>
-                    <input id="newfileupload" class="form-control " type="file" name="jobDescriptionFile" >
+                    <label for="newfileupload">Upload new Job Descriptions</label>
+
+  <% Object.keys(listingDetails.jobDescriptionFiles).forEach((key,
+              index)=> { %>
+
+                    <input id="newfileupload" class="form-control " type="file" name="<%= listingDetails.jobDescriptionFiles[key] %>" >
+              <% }) %>
+
                   </div>
 
 

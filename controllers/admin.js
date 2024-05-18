@@ -297,16 +297,30 @@ You can paste the above Link in the Browser's address bar.
 };
 
 module.exports.addCompanyListing = async (req, res) => {
+  let jobdesccount = 1;
+  const uploadedFilesjobdesc = req.files.reduce((acc, file) => {
+    acc[`jobDescriptionFile${jobdesccount}`] = file.path; // Cloudinary URL
+    jobdesccount++; // Increment the counter
+    return acc;
+  }, {});
+
+  const jobtitles = Object.keys(req.body)
+    .filter((key) => key.startsWith("jobTitle"))
+    .reduce((acc, key) => {
+      acc[key] = req.body[key];
+      return acc;
+    }, {});
+
   let { currentAdminSection } = req.query;
   let dateObject = new Date(req.body.lastDateToApply);
   dateObject.setHours(23, 59, 0, 0);
   let newListing = new Listing({
     isDreamOffer: req.body.isDreamOffer,
-    jobDescriptionFile: req.file.path,
+    jobDescriptionFiles: uploadedFilesjobdesc,
     companyName: req.body.companyName,
     jobLocation: req.body.jobLocation,
     jobType: req.body.jobType,
-    jobTitle: req.body.jobTitle,
+    jobTitles: jobtitles,
     forCourse: req.body.forCourse,
     ctc: req.body.ctc,
     lastDateToApply: dateObject,
@@ -329,12 +343,53 @@ module.exports.showListingDetails = async (req, res) => {
 module.exports.updateListing = async (req, res) => {
   let { listingId } = req.params;
   let query = { _id: listingId };
-  let update = {
-    $set: req.body,
-    isDreamOffer: req.body.isDreamOffer == "on" ? true : false,
-    jobDescriptionFile: req.file ? req.file.path : req.body.jobDescriptionFile,
+
+  // Initialize an object to hold the transformed job titles
+  const jobTitles = {};
+
+  // Transform req.body to nest job titles under jobTitles key
+  Object.keys(req.body).forEach((key) => {
+    if (key.startsWith("jobTitle")) {
+      jobTitles[key] = req.body[key];
+      delete req.body[key]; // Remove the flat key from req.body
+    }
+  });
+
+  // Add the nested jobTitles object to req.body
+  req.body.jobTitles = jobTitles;
+
+  let listing = await Listing.findOne(query);
+
+  req.body.jobDescriptionFiles = listing.jobDescriptionFiles;
+
+  let jobdesccount = 1;
+  const uploadedFilesjobdesc = req.files.reduce((acc, file) => {
+    acc[`jobDescriptionFile${jobdesccount}`] = file.path; // Cloudinary URL
+    jobdesccount++; // Increment the counter
+    return acc;
+  }, {});
+
+  const updatedJobDescriptionFiles = {};
+
+  Object.keys(req.body.jobDescriptionFiles || {}).forEach((key) => {
+    if (uploadedFilesjobdesc.hasOwnProperty(key)) {
+      updatedJobDescriptionFiles[key] = uploadedFilesjobdesc[key];
+    } else {
+      updatedJobDescriptionFiles[key] = req.body.jobDescriptionFiles[key];
+    }
+  });
+
+  // Assign the updated jobDescriptionFiles to req.body
+  req.body.jobDescriptionFiles = updatedJobDescriptionFiles;
+  const update = {
+    $set: {
+      ...req.body,
+      isDreamOffer: req.body.isDreamOffer === "on" ? true : false,
+    },
   };
+
   let options = { new: true };
+
   let result = await Listing.findOneAndUpdate(query, update, options);
 
   if (!result) {

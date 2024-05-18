@@ -124,7 +124,7 @@ module.exports.renderApplyForm = async (req, res) => {
     stuId: stuId,
     stuDetails: stuDetails,
     companyname: listingDetails.companyName,
-    jobtitle: listingDetails.jobTitle,
+    jobType: listingDetails.jobType,
   });
 };
 

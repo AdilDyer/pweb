@@ -327,6 +327,49 @@
     });
   });
 </script>
+<!-- company to show option in application received  -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let allcompanyselectlis = document.querySelectorAll(
+      ".dropdownToShowCompanies li "
+    );
+    let allApplicationReceivedRows = document.querySelectorAll(
+      ".dataTableApplicationReceived"
+    );
+    allcompanyselectlis.forEach((li) => {
+      // Assuming `allApplicationReceivedRows` is a reference to all the table rows in your table
+      // and `allApplicationReceivedRows` is an array of those rows.
+
+      li.addEventListener("click", (event) => {
+        // Get the selected company name
+        const selectedCompany = event.target.getAttribute("data-companyName");
+
+        // If "All" is selected, toggle the display of all rows
+        if (selectedCompany == "All") {
+          allApplicationReceivedRows.forEach((row) => {
+            // Toggle the "hidden" class to show/hide the row
+            row.classList.remove("d-none");
+          });
+        } else {
+          // If a specific company is selected, show only the rows for that company
+          allApplicationReceivedRows.forEach((row) => {
+            // Check if the row's company name matches the selected company
+            const companyName = row
+              .querySelector("td:nth-child(4)")
+              .textContent.trim(); // Assuming the company name is in the 4th column
+            if (companyName == selectedCompany) {
+              // If it matches, show the row
+              row.classList.remove("d-none");
+            } else {
+              // If it doesn't match, hide the row
+              row.classList.add("d-none");
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
 <!-- for applications -->
 <!-- table script -->
 <script>

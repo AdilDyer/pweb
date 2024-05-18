@@ -75,14 +75,14 @@
       </div>
 
       <div>
-        <h6>Job Title</h6>
+        <h6>CTC/Stipend</h6>
         <input
-          type="text"
-          id="jobTitle"
+          type="number"
+          id="ctc"
           class="form-control"
-          placeholder="Job Title"
+          name="ctc"
           required
-          name="jobTitle"
+          placeholder="CTC"
         />
       </div>
 
@@ -170,47 +170,58 @@
         </div>
       </div>
 
-      <div>
-        <h6>Job Description</h6>
-        <input
-          type="file"
-          required
-          id="jobdescriptionFile"
-          name="jobDescriptionFile"
-          class="form-control"
-        />
-      </div>
+      <div style="display: flex">
+        <div>
+          <h6>Job Title</h6>
+          <div id="jobtitlesdiv">
+            <input
+              type="text"
+              id="jobTitle"
+              class="form-control"
+              placeholder="Job Title 1"
+              required
+              name="jobTitle1"
+            />
+          </div>
+          <button
+            type="button"
+            style="margin: 1rem; margin-top: 0"
+            class="btn btn-warning"
+            id="addingmorejobtitlebtn"
+          >
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+        <div id="jobdescsdiv">
+          <h6>Job Description</h6>
+          <input
+            type="file"
+            required
+            id="jobdescriptionFile"
+            name="jobDescriptionFile1"
+            class="form-control"
+          />
+        </div>
+        <div>
+          <h6>Last Date For Application</h6>
+          <input
+            type="date"
+            id="lastDate"
+            name="lastDateToApply"
+            class="form-control"
+            required
+          />
+        </div>
 
-      <div>
-        <h6>CTC/Stipend</h6>
-        <input
-          type="number"
-          id="ctc"
-          class="form-control"
-          name="ctc"
-          required
-          placeholder="CTC"
-        />
-      </div>
-
-      <div>
-        <h6>Last Date For Application</h6>
-        <input
-          type="date"
-          id="lastDate"
-          name="lastDateToApply"
-          class="form-control"
-          required
-        />
-      </div>
-      <div style="margin-left: 1rem">
-        <h6>Is Dream Offer ?</h6>
-        <input
-          type="checkbox"
-          class="form-check-input form-control"
-          name="isDreamOffer"
-          value="true"
-        />
+        <div style="margin-left: 1rem">
+          <h6>Is Dream Offer ?</h6>
+          <input
+            type="checkbox"
+            class="form-check-input form-control"
+            name="isDreamOffer"
+            value="true"
+          />
+        </div>
       </div>
 
       <button
@@ -552,16 +563,27 @@
             <%}%>
             <td><%= recruiter.companyName %></td>
             <td><%= recruiter.jobType %></td>
-            <td><%= recruiter.jobTitle %></td>
+            <td>
+              <% Object.keys(recruiter.jobTitles).forEach((key, index) => { %>
+              <div><%=index+1%>.<%= recruiter.jobTitles[key] %></div>
+              <% }) %>
+            </td>
+
             <td><%= recruiter.jobLocation %></td>
             <td>
+              <% Object.keys(recruiter.jobDescriptionFiles).forEach((key,
+              index)=> { %>
               <a
-                href="<%=recruiter.jobDescriptionFile%>"
+                href="<%= recruiter.jobDescriptionFiles[key] %>"
                 class="btn btn-primary"
                 target="_blank"
-                >Show File</a
+                style="margin: 0.5rem; width: 5rem"
               >
+                JD <%= index + 1 %>
+              </a>
+              <% }) %>
             </td>
+
             <td><%= recruiter.ctc %></td>
             <td><%=recruiter.forCourse%></td>
             <td>
@@ -645,7 +667,29 @@
     </div>
   </div>
 </div>
+<!-- multiple job title and desc. in add new listing -->
+<script>
+  let jobTitleCount = 2;
+  let jobDescCount = 2;
+  let jobTitleBtn = document.getElementById("addingmorejobtitlebtn");
 
+  jobTitleBtn.addEventListener("click", (event) => {
+    let newJobTitle = document.createElement("input");
+    newJobTitle.type = "text";
+    newJobTitle.classList.add("form-control");
+    newJobTitle.placeholder = `Job Title ${jobTitleCount}`;
+    newJobTitle.name = `jobTitle${jobTitleCount}`;
+    jobTitleCount = jobTitleCount + 1;
+    document.getElementById("jobtitlesdiv").appendChild(newJobTitle);
+
+    let newJobDesc = document.createElement("input");
+    newJobDesc.type = "file";
+    newJobDesc.name = `jobDescriptionFile${jobDescCount}`;
+    newJobDesc.classList.add("form-control");
+    jobDescCount = jobDescCount + 1;
+    document.getElementById("jobdescsdiv").appendChild(newJobDesc);
+  });
+</script>
 <!-- show applications btn -->
 <script>
   let showapplicationbtns = document.querySelectorAll(".showapplicationbtn");
@@ -674,49 +718,6 @@
       links.forEach(function (link) {
         if (link.getAttribute("href").substring(1) == "Application")
           link.click();
-      });
-    });
-  });
-</script>
-<!-- company to show option in application received  -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    let allcompanyselectlis = document.querySelectorAll(
-      ".dropdownToShowCompanies li "
-    );
-    let allApplicationReceivedRows = document.querySelectorAll(
-      ".dataTableApplicationReceived"
-    );
-    allcompanyselectlis.forEach((li) => {
-      // Assuming `allApplicationReceivedRows` is a reference to all the table rows in your table
-      // and `allApplicationReceivedRows` is an array of those rows.
-
-      li.addEventListener("click", (event) => {
-        // Get the selected company name
-        const selectedCompany = event.target.getAttribute("data-companyName");
-
-        // If "All" is selected, toggle the display of all rows
-        if (selectedCompany == "All") {
-          allApplicationReceivedRows.forEach((row) => {
-            // Toggle the "hidden" class to show/hide the row
-            row.classList.remove("d-none");
-          });
-        } else {
-          // If a specific company is selected, show only the rows for that company
-          allApplicationReceivedRows.forEach((row) => {
-            // Check if the row's company name matches the selected company
-            const companyName = row
-              .querySelector("td:nth-child(4)")
-              .textContent.trim(); // Assuming the company name is in the 4th column
-            if (companyName == selectedCompany) {
-              // If it matches, show the row
-              row.classList.remove("d-none");
-            } else {
-              // If it doesn't match, hide the row
-              row.classList.add("d-none");
-            }
-          });
-        }
       });
     });
   });

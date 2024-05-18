@@ -30,7 +30,9 @@
     <div class="updateDiv">
       <h3># <%=update.title%></h3>
       <h5><%=update.description%></h5>
-      <h6><%=update.createdAt.toLocaleString('en-US', { timeZone: 'IST' })%></h6>
+      <h6>
+        <%=update.createdAt.toLocaleString('en-US', { timeZone: 'IST' })%>
+      </h6>
     </div>
     <br />
     <%});%>
@@ -89,21 +91,35 @@
           <td scope="row"><%=index +1%></td>
           <%}%>
           <td scope="row"><%=listing.companyName%></td>
-          <td scope="row"><%=listing.jobTitle%></td>
+
+          <td>
+            <% Object.keys(listing.jobTitles).forEach((key, index) => { %>
+            <div><%=index+1%>.<%= listing.jobTitles[key] %></div>
+            <% }) %>
+          </td>
+
           <td scope="row"><%=listing.jobLocation%></td>
           <td scope="row"><%=listing.jobType%></td>
-          <td scope="row" class="buttonTd">
+
+          <td>
+            <% Object.keys(listing.jobDescriptionFiles).forEach((key, index) =>
+            { %>
             <a
-              href="<%=listing.jobDescriptionFile%>"
-              class="btn btn-dark"
+              href="<%= listing.jobDescriptionFiles[key] %>"
+              class="btn btn-primary"
               target="_blank"
+              style="margin: 0.5rem; width: 5rem"
             >
-              Show file
+              JD <%= index + 1 %>
             </a>
+            <% }) %>
           </td>
 
           <td scope="row"><%=listing.ctc%>/-</td>
-          <td scope="row"><%=listing.lastDateToApply.toLocaleString('en-US', { timeZone: 'IST' })%></td>
+          <td scope="row">
+            <%=listing.lastDateToApply.toLocaleString('en-US', { timeZone: 'IST'
+            })%>
+          </td>
           <td scope="row" class="buttonTd">
             <a
               href="/account/apply?listingId=<%=listing._id%>&stuId=<%=stuId%>"
@@ -148,17 +164,27 @@
           <%}%>
 
           <td scope="row"><%=listing.companyName%></td>
-          <td scope="row"><%=listing.jobTitle%></td>
+          <td>
+            <% Object.keys(listing.jobTitles).forEach((key, index) => { %>
+            <div><%=index+1%>.<%= listing.jobTitles[key] %></div>
+            <% }) %>
+          </td>
+
           <td scope="row"><%=listing.jobLocation%></td>
           <td scope="row"><%=listing.jobType%></td>
-          <td scope="row" class="buttonTd">
+
+          <td>
+            <% Object.keys(listing.jobDescriptionFiles).forEach((key, index) =>{
+            %>
             <a
-              href="<%=listing.jobDescriptionFile%>"
-              class="btn btn-dark"
+              href="<%= listing.jobDescriptionFiles[key] %>"
+              class="btn btn-primary"
               target="_blank"
+              style="margin: 0.5rem; width: 5rem"
             >
-              Show file
+              JD <%= index + 1 %>
             </a>
+            <% }) %>
           </td>
           <td scope="row"><%=listing.ctc%>/-</td>
           <td scope="row">

@@ -1743,6 +1743,7 @@ img.no-style {
           background-color: lightskyblue;
           color: black;
           padding: 1rem;
+          text-align: center;
         }
       }
     }
