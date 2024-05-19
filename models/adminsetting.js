@@ -3,6 +3,9 @@ const adminSettingSchema = new mongoose.Schema({
   furtherStudentRegisEnabled: {
     type: Boolean,
   },
+  furtherCompanyRegisEnabled: {
+    type: Boolean,
+  },
 });
 
 const AdminSetting = mongoose.model("AdminSetting", adminSettingSchema);

@@ -24,7 +24,7 @@ router
 
 router
   .route("/arrayMarkRecAudited")
-  .post(wrapAsync(adminController.arrayMarkRecAudit));
+  .post(isThisAdmin, wrapAsync(adminController.arrayMarkRecAudit));
 
 router.route("/addcompanylisting").post(
   isThisAdmin,
@@ -85,22 +85,28 @@ router
 
 router
   .route("/markqueryresolved/:queryId")
-  .post(wrapAsync(adminController.markQueryResolved));
+  .post(isThisAdmin, wrapAsync(adminController.markQueryResolved));
 
 router
   .route("/arrayMarkAsResolved/:applicationId")
-  .post(wrapAsync(adminController.arrayMarkQueryResolved));
+  .post(isThisAdmin, wrapAsync(adminController.arrayMarkQueryResolved));
 
 router
   .route("/updateApplicationStatus/:applicationId")
-  .post(wrapAsync(adminController.updateApplicationStatus));
+  .post(isThisAdmin, wrapAsync(adminController.updateApplicationStatus));
 
 router
   .route("/arrayUpdateApplicationStatus/:applicationId")
-  .post(wrapAsync(adminController.arrayUpdateApplicationStatus));
+  .post(isThisAdmin, wrapAsync(adminController.arrayUpdateApplicationStatus));
 
 router
-  .route("/toggleStuRegis")
-  .get(wrapAsync(adminController.toggleStuRegis));
+  .route("/toggleRegis/:user")
+  .get(isThisAdmin, wrapAsync(adminController.toggleRegisProcess));
+
+router
+  .route("/PlacementCellReport")
+  .get(wrapAsync(adminController.renderAdminReportPdf));
+
+router.route("/showAdminReport").get(adminController.showAdminReportEjs);
 
 module.exports = router;

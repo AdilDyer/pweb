@@ -9,6 +9,8 @@ const Update = require("../models/update");
 const Query = require("../models/query");
 const AdminSetting = require("../models/adminsetting");
 let converter = require("json-2-csv");
+const puppeteer = require("puppeteer");
+const path = require("path");
 
 module.exports.showAdmin = async (req, res) => {
   let allRecruitersPending = await Recruiter.find({ isAudited: false });
@@ -69,6 +71,7 @@ module.exports.showAdmin = async (req, res) => {
 
   let adminsettings = await AdminSetting.findOne();
   let isStuRegisEnabled = adminsettings.furtherStudentRegisEnabled;
+  let isCompRegisEnabled = adminsettings.furtherCompanyRegisEnabled;
   res.render("users/admin.ejs", {
     allRecruitersPending: allRecruitersPending,
     allAuditedRecruiters: allAuditedRecruiters,
@@ -97,6 +100,7 @@ module.exports.showAdmin = async (req, res) => {
     allDisabledCompanies: allDisabledCompanies,
     currentAdminSection: req.query.currentAdminSection || "Dashboard",
     isStuRegisEnabled: isStuRegisEnabled,
+    isCompRegisEnabled: isCompRegisEnabled,
   });
 };
 
@@ -849,15 +853,84 @@ module.exports.onboardRecruiter = async (req, res) => {
 module.exports.exportAllStudentData = async (req, res) => {
   try {
     const students = await Student.find({});
-    const sanitizedStudents = students.map((student) => {
-      const sanitizedStudent = {};
-      Object.entries(student).forEach(([key, value]) => {
-        if (!key.startsWith("$") && !key.startsWith("_doc._id.")) {
-          sanitizedStudent[key] = value;
-        }
-      });
-      return sanitizedStudent;
-    });
+
+    sanitizedStudents = students.map((student) => ({
+      Username: student.username || "null",
+      "Account Disabled": student.isDeboarded || "null",
+      "Course ": student.course || "null",
+      "Full Name": student.fullname || "null",
+      "Father Name": student.fathername || "null",
+      "Mother Name": student.mothername || "null",
+      Birthdate: student.birthdate || "null",
+      "Mobile Number": student.mobileno || "null",
+      "Alternate Mobile Number": student.altmobileno || "null",
+      Email: student.email || "null",
+      "Alternate Email": student.altemail || "null",
+      "Is Verified": student.isAudited || "null",
+      "Is Registered": student.isRegistered || "null",
+      Category: student.category || "null",
+      Nationality: student.nationality || "null",
+      "Present Country": student.presentcountry || "null",
+      "Present State": student.presentstate || "null",
+      "Present District": student.presentdistrict || "null",
+      "Present Landmark": student.landmark || "null",
+      "Present Address": student.presentaddress || "null",
+      Gender: student.gender || "null",
+      "Enrollment Number": student.enrollmentNo || "null",
+      Pincode: student.pincode || "null",
+      "Placed Status": student.isPlaced || "null",
+      "Placed Date": student.placedDate || "null",
+      "Placed Job Type": student.placedJobType || "null",
+      "Placed Job Company": student.placedCompany || "null",
+      "Placed Job CTC": student.placedCtc || "null",
+      "Placed Job Location": student.placedJobLocation || "null",
+      "Placed Job Description": student.placedJobDescription || "null",
+      "Placed Other Details": student.placedOtherDetails || "null",
+      "Reseted Password Status": student.haveResetPass || "null",
+      "Tenth Marksheet URL": student.tenthMarksheetUrl || "null",
+      "Twelth Marksheet URL": student.twelthMarksheetUrl || "null",
+      "Tenth Marks": student.tenth || "null",
+      "Twelth Marks": student.twelth || "null",
+      "Last Semester CGPA": student.lastsemcgpa || "null",
+      "Other Marksheet URL": student.othermarksheetUrl || "null",
+      "Other Marks": student.othermarks || "null",
+      "Other Year of Passing": student.otheryearofpassing || "null",
+      "Other Year of Joining": student.otheryrofjoining || "null",
+      "Other Institute Name": student.otherintitutename || "null",
+      "Other University": student.otheruniversity || "null",
+      "Post-Graduation Marksheet URL":
+        student.postgraduationmarksheetUrl || "null",
+      "Post-Graduation Marks": student.postgraduation || "null",
+      "Post-Graduation Year of Passing":
+        student.postgraduationyearofpassing || "null",
+      "Post-Graduation Year of Joining":
+        student.postgraduationyrofjoining || "null",
+      "Post-Graduation Institure Name":
+        student.postgraduationintitutename || "null",
+      "Post-Graduation University": student.postgraduationuniversity || "null",
+      "Graduation Marksheet URL": student.graduationmarksheetUrl || "null",
+      "Graduation Marks": student.graduation || "null",
+      "Graduation Year of Passing": student.graduationyearofpassing || "null",
+      "Graduation Year of Joining": student.graduationyrofjoining || "null",
+      "Graduation Institute Name": student.graduationintitutename || "null",
+      "Graduation University": student.graduationuniversity || "null",
+      "Twelth Year of Passing": student.twelthyearofpassing || "null",
+      "Twelth Year of Joining": student.twelthyrofjoining || "null",
+      "Twelth Institure Name": student.twelthintitutename || "null",
+      "Twelth Board Name": student.twelthBoard || "null",
+      "Tenth Institute Name": student.tenthintitutename || "null",
+      "Tenth Year of Joining": student.tenthyearofjoining || "null",
+      "Tenth Year of Passing": student.tenthyearofpassing || "null",
+      "Tenth Board Name": student.tenthboard || "null",
+      "Profile Picture URL": student.profilePictureUrl || "null",
+    }));
+
+    sanitizedStudents = sanitizedStudents.filter(
+      (studentObj) => studentObj.Username != process.env.ADMIN_USERNAME
+    );
+
+    //Order of Keywords in the csv is determined by the order of fields in written above
+
     const csv = await converter.json2csv(sanitizedStudents);
 
     var today = new Date();
@@ -879,18 +952,80 @@ module.exports.exportAllStudentData = async (req, res) => {
     res.status(500).send("Error exporting CSV");
   }
 };
+
 module.exports.exportAllCompanyData = async (req, res) => {
   try {
     const companies = await Recruiter.find({});
-    const sanitizedcompanies = companies.map((company) => {
-      const sanitizedcompanies = {};
-      Object.entries(company).forEach(([key, value]) => {
-        if (!key.startsWith("$") && !key.startsWith("_doc._id.")) {
-          sanitizedcompanies[key] = value;
-        }
-      });
-      return sanitizedcompanies;
-    });
+    sanitizedcompanies = companies.map((company) => ({
+      "Company Name": company.companyname,
+      "Company Disabled": company.isDeboarded,
+      "Is Verified ": company.isAudited || "null",
+      "Is Registered": company.isRegistered || "null",
+      "Nature of Business": company.natureofbusiness || "null",
+      "Website Link": company.websitelink || "null",
+      "Postal Address": company.postaladdress || "null",
+      Category: company.category || "null",
+      "Head Hr Name": company.headhrname || "null",
+      "Head Hr Designation": company.headhrdesignation || "null",
+      // "Alternate Email": company.altemail || "null",
+      // "Is Verified": company.isAudited || "null",
+      // "Is Registered": company.isRegistered || "null",
+      // Category: company.category || "null",
+      // Nationality: company.nationality || "null",
+      // "Present Country": company.presentcountry || "null",
+      // "Present State": company.presentstate || "null",
+      // "Present District": company.presentdistrict || "null",
+      // "Present Landmark": company.landmark || "null",
+      // "Present Address": company.presentaddress || "null",
+      // Gender: company.gender || "null",
+      // "Enrollment Number": company.enrollmentNo || "null",
+      // Pincode: company.pincode || "null",
+      // "Placed Status": company.isPlaced || "null",
+      // "Placed Date": company.placedDate || "null",
+      // "Placed Job Type": company.placedJobType || "null",
+      // "Placed Job Company": company.placedCompany || "null",
+      // "Placed Job CTC": company.placedCtc || "null",
+      // "Placed Job Location": company.placedJobLocation || "null",
+      // "Placed Job Description": company.placedJobDescription || "null",
+      // "Placed Other Details": company.placedOtherDetails || "null",
+      // "Reseted Password Status": company.haveResetPass || "null",
+      // "Tenth Marksheet URL": company.tenthMarksheetUrl || "null",
+      // "Twelth Marksheet URL": company.twelthMarksheetUrl || "null",
+      // "Tenth Marks": company.tenth || "null",
+      // "Twelth Marks": company.twelth || "null",
+      // "Last Semester CGPA": company.lastsemcgpa || "null",
+      // "Other Marksheet URL": company.othermarksheetUrl || "null",
+      // "Other Marks": company.othermarks || "null",
+      // "Other Year of Passing": company.otheryearofpassing || "null",
+      // "Other Year of Joining": company.otheryrofjoining || "null",
+      // "Other Institute Name": company.otherintitutename || "null",
+      // "Other University": company.otheruniversity || "null",
+      // "Post-Graduation Marksheet URL":
+      //   company.postgraduationmarksheetUrl || "null",
+      // "Post-Graduation Marks": company.postgraduation || "null",
+      // "Post-Graduation Year of Passing":
+      //   company.postgraduationyearofpassing || "null",
+      // "Post-Graduation Year of Joining":
+      //   company.postgraduationyrofjoining || "null",
+      // "Post-Graduation Institure Name":
+      //   company.postgraduationintitutename || "null",
+      // "Post-Graduation University": company.postgraduationuniversity || "null",
+      // "Graduation Marksheet URL": company.graduationmarksheetUrl || "null",
+      // "Graduation Marks": company.graduation || "null",
+      // "Graduation Year of Passing": company.graduationyearofpassing || "null",
+      // "Graduation Year of Joining": company.graduationyrofjoining || "null",
+      // "Graduation Institute Name": company.graduationintitutename || "null",
+      // "Graduation University": company.graduationuniversity || "null",
+      // "Twelth Year of Passing": company.twelthyearofpassing || "null",
+      // "Twelth Year of Joining": company.twelthyrofjoining || "null",
+      // "Twelth Institure Name": company.twelthintitutename || "null",
+      // "Twelth Board Name": company.twelthBoard || "null",
+      // "Tenth Institute Name": company.tenthintitutename || "null",
+      // "Tenth Year of Joining": company.tenthyearofjoining || "null",
+      // "Tenth Year of Passing": company.tenthyearofpassing || "null",
+      // "Tenth Board Name": company.tenthboard || "null",
+    }));
+
     const csv = await converter.json2csv(sanitizedcompanies);
 
     var today = new Date();
@@ -952,10 +1087,18 @@ module.exports.markPlacedStudent = async (req, res) => {
   student.placedJobDescription = req.body.jobdescription;
   student.placedOtherDetails = req.body.otherdetails;
   student.placedJobType = req.body.jobtype;
+  student.placedDate = Date.now();
 
   await student.save();
 
-  await Application.deleteMany({ stuId: student._id });
+  let notDreamListings = await Listing.find({ isDreamOffer: false });
+  notDreamListings.forEach(async (listing) => {
+    await Application.deleteMany({
+      stuId: student._id,
+      listingId: listing._id,
+    });
+  });
+
   req.flash("success", "Marked as Placed Successfully !");
   res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
@@ -1047,19 +1190,100 @@ module.exports.arrayUpdateApplicationStatus = async (req, res) => {
   res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
-module.exports.toggleStuRegis = async (req, res) => {
+module.exports.toggleRegisProcess = async (req, res) => {
   //There has to be only one object in the AdminSetting model which contains all the admin settings
   let adminsettings = await AdminSetting.findOne();
-  if (adminsettings.furtherStudentRegisEnabled) {
-    adminsettings.furtherStudentRegisEnabled = false;
-    req.flash("success", "Further Student's Registration Disabled !");
+
+  if (req.url.includes("Student")) {
+    if (adminsettings.furtherStudentRegisEnabled) {
+      adminsettings.furtherStudentRegisEnabled = false;
+      req.flash("success", "Further Student's Registration Disabled !");
+    } else {
+      adminsettings.furtherStudentRegisEnabled = true;
+      req.flash("success", "Further Student's Registration Enabled !");
+    }
   } else {
-    adminsettings.furtherStudentRegisEnabled = true;
-    req.flash("success", "Further Student's Registration Enabled !");
+    if (adminsettings.furtherCompanyRegisEnabled) {
+      adminsettings.furtherCompanyRegisEnabled = false;
+      req.flash("success", "Further Companies Registration Disabled !");
+    } else {
+      adminsettings.furtherCompanyRegisEnabled = true;
+      req.flash("success", "Further Companies Registration Enabled !");
+    }
   }
 
   await adminsettings.save();
 
   req.session.save();
   res.redirect("/admin?currentAdminSection=Dashboard");
+};
+
+module.exports.showAdminReportEjs = (req, res) => {
+  //Send dynamic data from here to the ejs
+
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0");
+  var yyyy = today.getFullYear();
+  var hh = String(today.getHours()).padStart(2, "0");
+  var min = String(today.getMinutes()).padStart(2, "0");
+  var formattedDateTime = dd + "-" + mm + "-" + yyyy + " " + hh + ":" + min;
+  res.render("resources/reportplacementcelladmin.ejs", {
+    formattedDateTime: formattedDateTime,
+  });
+};
+module.exports.renderAdminReportPdf = async (req, res) => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(
+    `${req.protocol}://${req.get("host")}` + "/admin/showAdminReport",
+    {
+      waitUntil: "networkidle2",
+    }
+  );
+
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0");
+  var yyyy = today.getFullYear();
+  var hh = String(today.getHours()).padStart(2, "0");
+  var min = String(today.getMinutes()).padStart(2, "0");
+  var formattedDateTime = dd + "-" + mm + "-" + yyyy + " " + hh + "_" + min;
+  await page.setViewport({ width: 1920, height: 1080 });
+
+  // let pdfn = await page.pdf({
+  //   path: `${path.join(
+  //     __dirname,
+  //     "../public/files",
+  //     "SCSDF Placement Cell Report " + formattedDateTime + ".pdf"
+  //   )}`,
+  //   printBackground: true,
+  //   format: "A4",
+  // });
+
+  let pdfBuffer = await page.pdf({
+    printBackground: true,
+    format: "A4",
+  });
+
+  await browser.close();
+
+  // const pdfUrl = path.join(
+  //   __dirname,
+  //   "../public/files",
+  //   "SCSDF Placement Cell Report " + formattedDateTime + ".pdf"
+  // );
+
+  // res.download(pdfUrl, function (err) {
+  //   if (err) {
+  //     res.send(err.message);
+  //   }
+  // });
+
+  res.set({
+    "Content-Type": "application/pdf",
+    "Content-Length": pdfBuffer.length,
+    "Content-Disposition": `inline; filename="Placement Cell Report ${formattedDateTime}.pdf"`,
+  });
+  res.send(pdfBuffer);
 };

@@ -29,7 +29,7 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
 });
-//middlewares
+
 const {
   isAuthenticated,
   isLoggedIn,
@@ -48,6 +48,7 @@ const teamRouter = require("./routes/team");
 const communityRouter = require("./routes/community");
 const resourcesRouter = require("./routes/resources");
 const authRouter = require("./routes/authentication");
+const { func } = require("joi");
 
 const store = MongoStore.create({
   mongoUrl: dbUrl,
@@ -114,8 +115,10 @@ app.get("/", (req, res) => {
     isAdmin: res.locals.isAdmin,
   });
 });
-//login:auth
 
+
+
+//login:auth
 app.use("/auth", authRouter);
 app.use("/register/:user", registrationRouter);
 app.use("/account", accountRouter);

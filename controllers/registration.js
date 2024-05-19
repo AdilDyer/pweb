@@ -15,6 +15,15 @@ module.exports.renderRegistrationForm = async (req, res) => {
 
     //recruiter is successfully stored in db with isAudited == false but student is just stored in VerifiedUser model with 5 UserFields and will shown in admin dash from that model only , its not saved in Student model as of yet
     if (user == "rec") {
+      let adminsetting = await AdminSetting.findOne();
+      if (!adminsetting.furtherCompanyRegisEnabled) {
+        req.flash(
+          "error",
+          "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
+        );
+        req.session.save();
+        res.redirect("/");
+      }
       let { recid } = req.query;
       let recDetails = await Recruiter.findOne({ _id: recid });
       if (!recDetails) {
@@ -95,6 +104,16 @@ module.exports.registerTheUser = async (req, res) => {
       //   req.flash("error", "error validating recruiter's details" + error);
       //   res.redirect("/register/rec");
       // }
+
+      let adminsetting = await AdminSetting.findOne();
+      if (!adminsetting.furtherCompanyRegisEnabled) {
+        req.flash(
+          "error",
+          "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
+        );
+        req.session.save();
+        res.redirect("/");
+      }
       let attachedFileLink = "";
       if (req.files) {
         if (req.files.attachedFile) {

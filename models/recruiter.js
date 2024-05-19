@@ -11,9 +11,7 @@ const recruiterSchema = new mongoose.Schema({
     required: true,
   },
   isRegistered: { type: Boolean, required: true },
-  attachedFileLink: {
-    type: String,
-  },
+
   companyname: { type: String },
   natureofbusiness: { type: String },
   websitelink: { type: String },
@@ -152,6 +150,9 @@ const recruiterSchema = new mongoose.Schema({
     type: String,
   },
   checkmtechadsai: {
+    type: String,
+  },
+  attachedFileLink: {
     type: String,
   },
 });

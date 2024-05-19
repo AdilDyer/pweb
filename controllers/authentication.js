@@ -4,6 +4,7 @@ const VerifiedUser = require("../models/verifiedUser");
 const OTP = require("../models/otp");
 const Recruiter = require("../models/recruiter");
 const mongoose = require("mongoose");
+const AdminSetting = require("../models/adminsetting");
 const wrapAsync = require("../utils/wrapasync");
 
 module.exports.renderLoginPage = (req, res) => {
@@ -138,7 +139,32 @@ module.exports.logOutUser = function (req, res, next) {
 //FOR REGISTRATION
 module.exports.renderOtpInputForm = async (req, res) => {
   req.session.username = req.query.username;
-  res.render("auth/otpinit.ejs", { username: req.session.username });
+  let adminsetting = await AdminSetting.findOne();
+
+  if (
+    req.query.username == "Recruiter" &&
+    !adminsetting.furtherCompanyRegisEnabled
+  ) {
+    req.flash(
+      "error",
+      "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
+    );
+    req.session.save();
+    res.redirect("/");
+  } else if (
+    req.query.username == "Student" &&
+    !adminsetting.furtherStudentRegisEnabled
+  ) {
+    req.flash(
+      "error",
+      "Admin has Disabled the Further Students Registrations. Please Contact the Admin for further Queries."
+    );
+    req.session.save();
+    res.redirect("/");
+  } else {
+    req.session.save();
+    res.render("auth/otpinit.ejs", { username: req.session.username });
+  }
 };
 
 module.exports.sendOtp = async (req, res) => {
@@ -262,202 +288,225 @@ module.exports.resendOtp = async (req, res) => {
 };
 
 module.exports.verifyOtp = async (req, res) => {
-  const { email, otp } = req.body;
-  const otpDocument = await OTP.findOne({ email: email });
-  if (otpDocument) {
-    // Compare OTP codes
-    if (otp == otpDocument.code) {
-      // Check if OTP has expired
-      const expirationTime = otpDocument.expirationTime;
-      const currentTime = new Date().getTime();
+  let adminsetting = await AdminSetting.findOne();
+  if (
+    req.session.username == "Recruiter" &&
+    !adminsetting.furtherCompanyRegisEnabled
+  ) {
+    req.flash(
+      "error",
+      "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
+    );
+    req.session.save();
+    res.redirect("/");
+  } else if (
+    req.session.username == "Student" &&
+    !adminsetting.furtherStudentRegisEnabled
+  ) {
+    req.flash(
+      "error",
+      "Admin has Disabled the Further Students Registrations. Please Contact the Admin for further Queries."
+    );
+    req.session.save();
+    res.redirect("/");
+  } else {
+    const { email, otp } = req.body;
+    const otpDocument = await OTP.findOne({ email: email });
+    if (otpDocument) {
+      // Compare OTP codes
+      if (otp == otpDocument.code) {
+        // Check if OTP has expired
+        const expirationTime = otpDocument.expirationTime;
+        const currentTime = new Date().getTime();
 
-      if (expirationTime >= currentTime) {
-        // Delete the OTP document
-        await OTP.deleteMany({ email: email });
+        if (expirationTime >= currentTime) {
+          // Delete the OTP document
+          await OTP.deleteMany({ email: email });
 
-        // OTP verification successful
-        await VerifiedUser.insertMany({
-          bodyData: req.session.bodyData,
-        });
-        if (req.session.bodyData.username == "Student") {
-          req.flash(
-            "success",
-            `Email Verification Successfull ! <br> We will send Your Credentials on the Provided Email. <br> Please wait for further Email Updates on approval of the Admin.`
-          );
-
-          req.session.save();
-          res.redirect("/");
-        } else {
-          //   res.redirect("/register/rec");
-
-          const newRecruiter = new Recruiter({
-            isAudited: false,
-            isRegistered: false,
-            _id: new mongoose.Types.ObjectId(),
-            companyname: req.session.bodyData.companyname,
-            natureofbusiness: req.session.bodyData.natureofbusiness,
-            websitelink: req.session.bodyData.websitelink,
-            postaladdress: req.session.bodyData.postaladdress,
-            category: req.session.bodyData.category,
-            headhrname: req.session.bodyData.headhrname || "",
-            headhrdesignation: req.body.headhrdesignation || "",
-            headhraltmobno: req.body.headhraltmobno || "",
-            headhrmobno: req.session.bodyData.headhrmobno || "",
-            headhremail: req.session.bodyData.email || "",
-            headhraddress: req.body.headhraddress || "",
-            poc1name: req.body.poc1name || "",
-            poc1designation: req.body.poc1designation || "",
-            poc1altmobno: req.body.poc1altmobno || "",
-            poc1mobno: req.body.poc1mobno || "",
-            poc1email: req.body.poc1email || "",
-            poc1address: req.body.poc1address || "",
-            poc2name: req.body.poc2name || "",
-            poc2designation: req.body.poc2designation || "",
-            poc2altmobno: req.body.poc2altmobno || "",
-            poc2mobno: req.body.poc2mobno || "",
-            poc2email: req.body.poc2email || "",
-            poc2address: req.body.poc2address || "",
-
-            jobtitle: "",
-            jobtype: "",
-            jobdesignation: "",
-            sector: "",
-            tentativenoofhires: "",
-            tentativejoblocation: "",
-            JobDescription: "",
-            checkmtechcs: "",
-            checkmsccs: "",
-            checkmscdfis: "",
-            checkmtechadsai: "",
-            basicmtechcs: "",
-            pfmtechcs: "",
-            hramtechcs: "",
-            joiningbonusmtechcs: "",
-            relocationbonusmtechcs: "",
-            stocksmtechcs: "",
-            takehomemtechcs: "",
-            ctcmtechcs: "",
-            othersmtechcs: "",
-            basicmtechadsai: "",
-            pfmtechadsai: "",
-            hramtechadsai: "",
-            joiningbonusmtechadsai: "",
-            relocationbonusmtechadsai: "",
-            stocksmtechadsai: "",
-            takehomemtechadsai: "",
-            ctcmtechadsai: "",
-            othersmtechadsai: "",
-            basicmsccs: "",
-            pfmsccs: "",
-            hramsccs: "",
-            joiningbonusmsccs: "",
-            relocationbonusmsccs: "",
-            stocksmsccs: "",
-            takehomemsccs: "",
-            ctcmsccs: "",
-            othersmsccs: "",
-            basicmscdfis: "",
-            pfmscdfis: "",
-            hramscdfis: "",
-            joiningbonusmscdfis: "",
-            relocationbonusmscdfis: "",
-            stocksmscdfis: "",
-            takehomemscdfis: "",
-            ctcmscdfis: "",
-            othersmscdfis: "",
-            CGPAmtechcs: "",
-            Graduationmtechcs: "",
-            twelthmtechcs: "",
-            tenthmtechcs: "",
-            agelimitmtechcs: "",
-            CGPAmtechadsai: "",
-            Graduationmtechadsai: "",
-            mtechadsai12th: "",
-            mtechadsai10th: "",
-            agelimitmtechadsai: "",
-            CGPAmsccs: "",
-            Graduationmsccs: "",
-            msccs12th: "",
-            msccs10th: "",
-            agelimitmsccs: "",
-            CGPAmscdfis: "",
-            Graduationmscdfis: "",
-            mscdfis12th: "",
-            mscdfis10th: "",
-            agelimitmscdfis: "",
-            internmtechcsduration: "",
-            internmtechcsstipend: "",
-            internmtechcsctc: "",
-            internmsccsduration: "",
-            internmsccsstipend: "",
-            internmsccsctc: "",
-            internmscdfisduration: "",
-            internmscdfisstipend: "",
-            internmscdfisctc: "",
-            internmtechadsaiduration: "",
-            internmtechadsaistipend: "",
-            internmtechadsaictc: "",
-            isvirtual: "",
-            servicebonddetails: "",
-            MedicalRequirements: "",
-            selectioncriteriadetails: "",
-            stagename1: "",
-            stageduration1: "",
-            noofrounds1: "",
-            modeofstage1: "",
-            otherdetails1: "",
-            stagename2: "",
-            stageduration2: "",
-            noofrounds2: "",
-            modeofstage2: "",
-            otherdetails2: "",
-            stagename3: "",
-            stageduration3: "",
-            noofrounds3: "",
-            modeofstage3: "",
-            otherdetails3: "",
-            stagename4: "",
-            stageduration4: "",
-            noofrounds4: "",
-            modeofstage4: "",
-            otherdetails4: "",
-            stagename5: "",
-            stageduration5: "",
-            noofrounds5: "",
-            modeofstage5: "",
-            otherdetails5: "",
+          // OTP verification successful
+          await VerifiedUser.insertMany({
+            bodyData: req.session.bodyData,
           });
+          if (req.session.bodyData.username == "Student") {
+            req.flash(
+              "success",
+              `Email Verification Successfull ! <br> We will send Your Credentials on the Provided Email. <br> Please wait for further Email Updates on approval of the Admin.`
+            );
 
-          await newRecruiter.save();
+            req.session.save();
+            res.redirect("/");
+          } else {
+            //   res.redirect("/register/rec");
 
-          req.flash(
-            "success",
-            `Email Verification Successfull ! <br> We will soon Reach out to You on Provided Details. <br> Please wait for further Email Updates on approval of the Admin.`
-          );
+            const newRecruiter = new Recruiter({
+              isAudited: false,
+              isRegistered: false,
+              _id: new mongoose.Types.ObjectId(),
+              companyname: req.session.bodyData.companyname,
+              natureofbusiness: req.session.bodyData.natureofbusiness,
+              websitelink: req.session.bodyData.websitelink,
+              postaladdress: req.session.bodyData.postaladdress,
+              category: req.session.bodyData.category,
+              headhrname: req.session.bodyData.headhrname || "",
+              headhrdesignation: req.body.headhrdesignation || "",
+              headhraltmobno: req.body.headhraltmobno || "",
+              headhrmobno: req.session.bodyData.headhrmobno || "",
+              headhremail: req.session.bodyData.email || "",
+              headhraddress: req.body.headhraddress || "",
+              poc1name: req.body.poc1name || "",
+              poc1designation: req.body.poc1designation || "",
+              poc1altmobno: req.body.poc1altmobno || "",
+              poc1mobno: req.body.poc1mobno || "",
+              poc1email: req.body.poc1email || "",
+              poc1address: req.body.poc1address || "",
+              poc2name: req.body.poc2name || "",
+              poc2designation: req.body.poc2designation || "",
+              poc2altmobno: req.body.poc2altmobno || "",
+              poc2mobno: req.body.poc2mobno || "",
+              poc2email: req.body.poc2email || "",
+              poc2address: req.body.poc2address || "",
 
-          await req.session.save();
-          res.redirect("/");
+              jobtitle: "",
+              jobtype: "",
+              jobdesignation: "",
+              sector: "",
+              tentativenoofhires: "",
+              tentativejoblocation: "",
+              JobDescription: "",
+              checkmtechcs: "",
+              checkmsccs: "",
+              checkmscdfis: "",
+              checkmtechadsai: "",
+              basicmtechcs: "",
+              pfmtechcs: "",
+              hramtechcs: "",
+              joiningbonusmtechcs: "",
+              relocationbonusmtechcs: "",
+              stocksmtechcs: "",
+              takehomemtechcs: "",
+              ctcmtechcs: "",
+              othersmtechcs: "",
+              basicmtechadsai: "",
+              pfmtechadsai: "",
+              hramtechadsai: "",
+              joiningbonusmtechadsai: "",
+              relocationbonusmtechadsai: "",
+              stocksmtechadsai: "",
+              takehomemtechadsai: "",
+              ctcmtechadsai: "",
+              othersmtechadsai: "",
+              basicmsccs: "",
+              pfmsccs: "",
+              hramsccs: "",
+              joiningbonusmsccs: "",
+              relocationbonusmsccs: "",
+              stocksmsccs: "",
+              takehomemsccs: "",
+              ctcmsccs: "",
+              othersmsccs: "",
+              basicmscdfis: "",
+              pfmscdfis: "",
+              hramscdfis: "",
+              joiningbonusmscdfis: "",
+              relocationbonusmscdfis: "",
+              stocksmscdfis: "",
+              takehomemscdfis: "",
+              ctcmscdfis: "",
+              othersmscdfis: "",
+              CGPAmtechcs: "",
+              Graduationmtechcs: "",
+              twelthmtechcs: "",
+              tenthmtechcs: "",
+              agelimitmtechcs: "",
+              CGPAmtechadsai: "",
+              Graduationmtechadsai: "",
+              mtechadsai12th: "",
+              mtechadsai10th: "",
+              agelimitmtechadsai: "",
+              CGPAmsccs: "",
+              Graduationmsccs: "",
+              msccs12th: "",
+              msccs10th: "",
+              agelimitmsccs: "",
+              CGPAmscdfis: "",
+              Graduationmscdfis: "",
+              mscdfis12th: "",
+              mscdfis10th: "",
+              agelimitmscdfis: "",
+              internmtechcsduration: "",
+              internmtechcsstipend: "",
+              internmtechcsctc: "",
+              internmsccsduration: "",
+              internmsccsstipend: "",
+              internmsccsctc: "",
+              internmscdfisduration: "",
+              internmscdfisstipend: "",
+              internmscdfisctc: "",
+              internmtechadsaiduration: "",
+              internmtechadsaistipend: "",
+              internmtechadsaictc: "",
+              isvirtual: "",
+              servicebonddetails: "",
+              MedicalRequirements: "",
+              selectioncriteriadetails: "",
+              stagename1: "",
+              stageduration1: "",
+              noofrounds1: "",
+              modeofstage1: "",
+              otherdetails1: "",
+              stagename2: "",
+              stageduration2: "",
+              noofrounds2: "",
+              modeofstage2: "",
+              otherdetails2: "",
+              stagename3: "",
+              stageduration3: "",
+              noofrounds3: "",
+              modeofstage3: "",
+              otherdetails3: "",
+              stagename4: "",
+              stageduration4: "",
+              noofrounds4: "",
+              modeofstage4: "",
+              otherdetails4: "",
+              stagename5: "",
+              stageduration5: "",
+              noofrounds5: "",
+              modeofstage5: "",
+              otherdetails5: "",
+            });
+
+            await newRecruiter.save();
+
+            req.flash(
+              "success",
+              `Email Verification Successfull ! <br> We will soon Reach out to You on Provided Details. <br> Please wait for further Email Updates on approval of the Admin.`
+            );
+
+            await req.session.save();
+            res.redirect("/");
+          }
+        } else {
+          // OTP has expired
+          await OTP.deleteMany({ email: email });
+          return res.status(400).json({
+            success: false,
+            message: "OTP has expired. Please Re-Request the OTP.",
+          });
         }
       } else {
-        // OTP has expired
-        await OTP.deleteMany({ email: email });
-        return res.status(400).json({
-          success: false,
-          message: "OTP has expired. Please Re-Request the OTP.",
-        });
+        // OTP codes do not match
+        req.flash("error", "Invalid OTP Entered.");
+        req.session.save();
+        res.redirect("/auth/otp-verify-page");
       }
     } else {
-      // OTP codes do not match
-      req.flash("error", "Invalid OTP Entered.");
-      req.session.save();
-      res.redirect("/auth/otp-verify-page");
+      // No OTP document found for the provided email
+      return res.status(404).json({
+        success: false,
+        message: "No OTP found for the provided email.",
+      });
     }
-  } else {
-    // No OTP document found for the provided email
-    return res.status(404).json({
-      success: false,
-      message: "No OTP found for the provided email.",
-    });
   }
 };
 
