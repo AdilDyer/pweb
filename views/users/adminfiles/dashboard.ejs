@@ -118,6 +118,38 @@
           </div>
         </div>
       </div>
+      <div class="queries">
+        <div class="card" style="background-color: teal">
+          <div class="card-body">
+            <h5 class="card-title">Further Registrations For Students</h5>
+            <br />
+            <a
+              href="/admin/toggleStuRegis"
+              style="
+                text-decoration: none;
+                color: midnightblue;
+                background-color: yellowgreen;
+              "
+              class="btn card-link"
+            >
+              <%if(isStuRegisEnabled){%>
+              <span style="color: red; text-shadow: brown 0 0 1px"
+                >Disable</span
+              >
+              Registrations <%}else{%>
+              <span
+                style="
+                  color: green;
+                  font-weight: 500;
+                  text-shadow: lime 0 0 2px;
+                "
+                >Enable</span
+              >
+              Registrations <%}%>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="dashlower3">
       <h3>Download Stats</h3>

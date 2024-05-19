@@ -16,6 +16,7 @@
 
         align-items: center;
         overflow: hidden;
+        color: midnightblue;
       }
 
       .regis-big-div form {
@@ -97,7 +98,7 @@
     <div class="regis-big-div">
       <div
         class="left-login"
-        style="width: 100%; display: flex; justify-content: center"
+        style="width: 100%; display: flex; justify-content: center;background-color: white;"
       >
         <div class="pop-out">
           <a href="/"
@@ -111,7 +112,7 @@
         </div>
       </div>
 
-      <div class="down-regis">
+      <div class="down-regis" style="background: linear-gradient(to top left , rgba(255, 107, 107, 0.5) ,rgb(0, 255, 255,0.5));border-radius: 2rem;padding: 2rem;margin-bottom: 3rem;">
         <div class="resources-student-big-div">
           <div class="content-div regis-content-div">
             <div class="content-title container">
@@ -136,7 +137,7 @@
               >
                 <div class="input-fields">
                   <div class="form-group">
-                    <label for="CompanyName">Company Name</label>
+                    <label for="CompanyName">Company Name
                     <input
                       type="text"
                       class="form-control"
@@ -144,11 +145,11 @@
                       value="<%=listingDetails.companyName%>"
                       id="CompanyName"
                       placeholder="Company Name"
-                    />
+                    /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="NatureofBusiness">Job Location</label>
+                    <label for="NatureofBusiness">Job Location
                     <input
                       type="text"
                       class="form-control"
@@ -156,10 +157,10 @@
                       value="<%=listingDetails.jobLocation%>"
                       id="NatureofBusiness"
                       placeholder="jobLocation"
-                    />
+                    /></label>
                   </div>
                    <div class="form-group">
-                    <label for="NatureofBusiness">Job Type</label>
+                    <label for="NatureofBusiness">Job Type
                     <select name="jobType" id="joType" class="form-control">
                       <option
 
@@ -178,7 +179,121 @@
                         Internship PPO (I+P)
                       </option>
                     </select>
+                    </label>
                   </div>
+
+
+                     <div class="form-group">
+                    <label for="ctc" class="form-label">CTC/Stipend
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="ctc"
+                      value="<%=listingDetails.ctc%>"
+                      id="ctc"
+                      placeholder="CTC/Stipend"
+                    />
+                    </label>
+                  </div>
+
+
+
+
+
+
+
+
+
+<div class="" style="display: flex;">
+
+
+                   <div class="form-group" style="padding: 1rem;background-color: rgba(45, 153, 255, 0.212);border-radius: 1rem;">
+
+                    <label for="All" class="form-label">All
+                    <input
+                      type="checkbox"
+
+                      name="forCourse"
+                       <%= listingDetails.forCourse.includes('All') ? 'checked' : '' %>
+                       value="All"
+                      id="All"
+                      class="form-check-input"
+                      style="height: 20px;width:30px;"
+
+                    />
+                    </label>
+
+
+                    <br>
+
+                    <label for="MTechCS" class="form-label">MTech CS</label>
+                    <input
+                      type="checkbox"
+
+                      name="forCourse"
+                       <%= listingDetails.forCourse.includes('MtechCs') ? 'checked' : '' %>
+                       value="MtechCs"
+                      id="MtechCs"
+                        class="form-check-input"
+                      style="height: 20px;width:30px"
+
+                    />
+
+                    <br>
+
+
+
+                    <label for="MScCS" class="form-label">MSc CS</label>
+                    <input
+                      type="checkbox"
+
+                      name="forCourse"
+                       <%= listingDetails.forCourse.includes('MScCs') ? 'checked' : '' %>
+                       value="MScCs"
+                      id="MScCS"
+                      style="height: 20px;width:30px"
+                        class="form-check-input"
+
+                    />
+                    <br>
+
+
+
+                    <label for="MScDFIS" class="form-label">MSc DFIS</label>
+                    <input
+                      type="checkbox"
+
+                      name="forCourse"
+                       <%= listingDetails.forCourse.includes('MscDfis') ? 'checked' : '' %>
+                       value="MscDfis"
+                      id="MScDFIS"
+                      style="height: 20px;width:30px"
+                        class="form-check-input"
+
+                    />
+
+
+                    <br>
+
+                    <label for="MScAIDS" class="form-label">MTech ADSAI</label>
+                    <input
+                      type="checkbox"
+
+                      name="forCourse"
+                       <%= listingDetails.forCourse.includes('MtechAdsai') ? 'checked' : '' %>
+                       value="MtechAdsai"
+                         class="form-check-input"
+                      id="MScAIDS"
+                      style="height: 20px;width:30px"
+
+                    />
+
+                  </div>
+                  <br>
+
+
+
+
 
 
 
@@ -203,89 +318,19 @@
 
 
 
+                  <div class="form-group ">
+                    <label for="newfileupload">Upload new Job Descriptions</label>
 
+  <% Object.keys(listingDetails.jobDescriptionFiles).forEach((key,
+              index)=> { %>
 
-                   <div class="form-group">
-
-                    <label for="All" class="form-label">All</label>
-                    <input
-                      type="checkbox"
-
-                      name="forCourse"
-                       <%= listingDetails.forCourse.includes('All') ? 'checked' : '' %>
-                       value="All"
-                      id="All"
-                      style="height: 20px;width:40px"
-
-                    />
-
-
-
-                    <label for="MTechCS" class="form-label">MTech CS</label>
-                    <input
-                      type="checkbox"
-
-                      name="forCourse"
-                       <%= listingDetails.forCourse.includes('MtechCs') ? 'checked' : '' %>
-                       value="MtechCs"
-                      id="MtechCs"
-                      style="height: 20px;width:40px"
-
-                    />
-
-
-
-                    <label for="MScCS" class="form-label">MSc CS</label>
-                    <input
-                      type="checkbox"
-
-                      name="forCourse"
-                       <%= listingDetails.forCourse.includes('MScCs') ? 'checked' : '' %>
-                       value="MScCs"
-                      id="MScCS"
-                      style="height: 20px;width:40px"
-
-                    />
-
-
-
-                    <label for="MScDFIS" class="form-label">MSc DFIS</label>
-                    <input
-                      type="checkbox"
-
-                      name="forCourse"
-                       <%= listingDetails.forCourse.includes('MscDfis') ? 'checked' : '' %>
-                       value="MscDfis"
-                      id="MScDFIS"
-                      style="height: 20px;width:40px"
-
-                    />
-
-
-
-                    <label for="MScAIDS" class="form-label">MTech ADSAI</label>
-                    <input
-                      type="checkbox"
-
-                      name="forCourse"
-                       <%= listingDetails.forCourse.includes('MtechAdsai') ? 'checked' : '' %>
-                       value="MtechAdsai"
-                      id="MScAIDS"
-                      style="height: 20px;width:40px"
-
-                    />
+                    <input id="newfileupload" class="form-control " type="file" name="<%= listingDetails.jobDescriptionFiles[key] %>" >
+              <% }) %>
 
                   </div>
-                  <br>
-
-
-
-
-
-
-                   <div class="form-group">
+                   <div class="form-group" style="margin: 0;">
                     <label for="jobdescriptionFile" class="form-label">Job Descriptions</label>
-
+<br>
 
                     <% Object.keys(listingDetails.jobDescriptionFiles).forEach((key,
               index)=> { %>
@@ -300,39 +345,11 @@
               </a>
               <% }) %>
 
-
-
-
-
-
-
-
                   </div>
-
-                  <div class="form-group ">
-                    <label for="newfileupload">Upload new Job Descriptions</label>
-
-  <% Object.keys(listingDetails.jobDescriptionFiles).forEach((key,
-              index)=> { %>
-
-                    <input id="newfileupload" class="form-control " type="file" name="<%= listingDetails.jobDescriptionFiles[key] %>" >
-              <% }) %>
-
                   </div>
 
 
 
-                   <div class="form-group">
-                    <label for="ctc" class="form-label">CTC/Stipend</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      name="ctc"
-                      value="<%=listingDetails.ctc%>"
-                      id="ctc"
-                      placeholder="CTC/Stipend"
-                    />
-                  </div>
 
                   <%
         const date = listingDetails.lastDateToApply;
@@ -365,6 +382,7 @@
                       name="isDreamOffer"
                       <%= listingDetails.isDreamOffer ? "checked":""%>
                       id="dreamoffer"
+style="height:20px;width:30px"
                       placeholder="Is Dream Offer?"
                     />
                   </div>
@@ -374,8 +392,8 @@
 
                 </div>
                 <br>
-                  <div class="form-group">
-                                         <button class="btn btn-primary">Save Changes</button>
+                  <div class="form-group" style="text-align: center;width: 100%;margin-top: 2rem;margin-bottom: 2rem;">
+                                         <button class="btn btn-lg btn-primary">Save Changes</button>
 </div>
 
               </form>

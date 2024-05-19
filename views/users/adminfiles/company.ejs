@@ -529,6 +529,7 @@
             <th scope="col">Edit Listing</th>
             <th scope="col">Applications</th>
             <th scope="col" style="display: none">Down Listing</th>
+            <th scope="col" style="display: none">Delete Listing</th>
           </tr>
         </thead>
         <tbody>
@@ -608,6 +609,13 @@
                 href="/admin/removefromlisting/<%=recruiter._id%>"
                 class="btn btn-danger"
                 >Down Listing</a
+              >
+            </td>
+            <td style="display: none">
+              <a
+                href="/admin/removefromlisting/<%=recruiter._id%>/?delete=true"
+                class="btn btn-danger"
+                >Delete Listing</a
               >
             </td>
           </tr>
@@ -1219,7 +1227,10 @@
                 />
                 <p style="margin:auto auto;">Edit Listing </p>
               </label>
-              </li>   <li class="dropdown-item">
+              </li>
+
+
+              <li class="dropdown-item">
                  <label style="display:flex;align-items:centre;">
 
                 <input
@@ -1230,6 +1241,19 @@
                   style="display: inline"
                 />
                 <p style="margin:auto auto;">Down Listing </p>
+              </label>
+              </li>
+              <li class="dropdown-item">
+                 <label style="display:flex;align-items:centre;">
+
+                <input
+                  type="checkbox"
+                  class="form-check columnCheckboxListing"
+                  name="DeleteListing"
+                  value="Delete Listing"
+                  style="display: inline"
+                />
+                <p style="margin:auto auto;">Delete Listing</p>
               </label>
               </li>`;
         monitorAllListingCheckboxes();

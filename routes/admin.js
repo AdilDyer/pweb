@@ -99,4 +99,8 @@ router
   .route("/arrayUpdateApplicationStatus/:applicationId")
   .post(wrapAsync(adminController.arrayUpdateApplicationStatus));
 
+router
+  .route("/toggleStuRegis")
+  .get(wrapAsync(adminController.toggleStuRegis));
+
 module.exports = router;

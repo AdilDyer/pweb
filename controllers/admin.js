@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 const nodemailer = require("nodemailer");
 const Update = require("../models/update");
 const Query = require("../models/query");
+const AdminSetting = require("../models/adminsetting");
 let converter = require("json-2-csv");
 
 module.exports.showAdmin = async (req, res) => {
@@ -65,6 +66,9 @@ module.exports.showAdmin = async (req, res) => {
   let allUnresolvedQueries = await Query.find({ markedAsResolved: false });
 
   let allDisabledCompanies = await Recruiter.find({ isDeboarded: true });
+
+  let adminsettings = await AdminSetting.findOne();
+  let isStuRegisEnabled = adminsettings.furtherStudentRegisEnabled;
   res.render("users/admin.ejs", {
     allRecruitersPending: allRecruitersPending,
     allAuditedRecruiters: allAuditedRecruiters,
@@ -92,6 +96,7 @@ module.exports.showAdmin = async (req, res) => {
     allResolvedQueries: allResolvedQueries,
     allDisabledCompanies: allDisabledCompanies,
     currentAdminSection: req.query.currentAdminSection || "Dashboard",
+    isStuRegisEnabled: isStuRegisEnabled,
   });
 };
 
@@ -406,6 +411,13 @@ module.exports.updateListing = async (req, res) => {
 module.exports.removeCompanyListing = async (req, res) => {
   let { listingId } = req.params;
   let listing = await Listing.findOne({ _id: listingId });
+  if (req.query.hasOwnProperty("delete")) {
+    await Listing.deleteMany({ _id: listingId });
+    await Application.deleteMany({ listingId: listingId });
+
+    req.flash("success", "Listing Deleted Successfully !");
+    res.redirect("/admin?currentAdminSection=Companies");
+  }
   listing.isDown = true;
   await listing.save();
   req.flash("success", "Listing Down Successfully !");
@@ -576,7 +588,7 @@ module.exports.markStuAudit = async (req, res) => {
       req.flash("error", "error in sending credentials to student : " + error);
       res.redirect("/admin");
     } else {
-      req.flash("success", "Student marked as Audited. ");
+      req.flash("success", "Student marked as Verified. ");
       res.redirect("/admin?currentAdminSection=Students");
     }
   });
@@ -1033,4 +1045,21 @@ module.exports.arrayUpdateApplicationStatus = async (req, res) => {
   req.flash("success", "Applications Updated !");
   req.session.save();
   res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+};
+
+module.exports.toggleStuRegis = async (req, res) => {
+  //There has to be only one object in the AdminSetting model which contains all the admin settings
+  let adminsettings = await AdminSetting.findOne();
+  if (adminsettings.furtherStudentRegisEnabled) {
+    adminsettings.furtherStudentRegisEnabled = false;
+    req.flash("success", "Further Student's Registration Disabled !");
+  } else {
+    adminsettings.furtherStudentRegisEnabled = true;
+    req.flash("success", "Further Student's Registration Enabled !");
+  }
+
+  await adminsettings.save();
+
+  req.session.save();
+  res.redirect("/admin?currentAdminSection=Dashboard");
 };

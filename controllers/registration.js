@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const Student = require("../models/student");
 const Recruiter = require("../models/recruiter");
 const VerifiedUser = require("../models/verifiedUser");
+const AdminSetting = require("../models/adminsetting");
 module.exports.renderRegistrationForm = async (req, res) => {
   try {
     let { user } = req.params;
@@ -45,7 +46,15 @@ module.exports.renderRegistrationForm = async (req, res) => {
         recid: recid,
       });
     } else if (user == "stu") {
-      //   console.log(req.user);
+      let adminsetting = await AdminSetting.findOne();
+      if (!adminsetting.furtherStudentRegisEnabled) {
+        req.flash(
+          "error",
+          "Admin has Disabled the Further Student Registrations. Please Contact the Admin for further Queries."
+        );
+        req.session.save();
+        res.redirect("/account");
+      }
       res.render("auth/regisstu.ejs", {
         email: req.user.email,
         mobno: req.user.mobileno,
@@ -329,6 +338,15 @@ National Forensic Science University.
     }
   } else if (user == "stu") {
     try {
+      let adminsetting = await AdminSetting.findOne();
+      if (!adminsetting.furtherStudentRegisEnabled) {
+        req.flash(
+          "error",
+          "Admin has Disabled the Further Student Registrations. Please Contact the Admin for further Queries."
+        );
+        req.session.save();
+        res.redirect("/account");
+      }
       //checking the joi validation
       // const { error } = studentSchema.validate(req.body);
       // if (error) {
