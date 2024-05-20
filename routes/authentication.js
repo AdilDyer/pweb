@@ -55,8 +55,19 @@ router
 router
   .route("/resetpass")
   .get(authenticationController.renderResetPass)
-  .post(wrapAsync(authenticationController.sendResetPassOtp))
-  .put(wrapAsync(authenticationController.verifyResetPassOtp))
-  .patch(wrapAsync(authenticationController.makeResetPass));
+  .post(wrapAsync(authenticationController.sendResetPassOtp));
+
+router
+  .route("/enterResetPassOtp")
+  .get(authenticationController.enterResetPassOtp);
+
+router
+  .route("/verifyResetPassOtp")
+  .post(wrapAsync(authenticationController.verifyResetPassOtp));
+
+router
+  .route("/enterNewPass")
+  .get(wrapAsync(authenticationController.enterNewPass))
+  .post(wrapAsync(authenticationController.saveNewPassword));
 
 module.exports = router;

@@ -17,19 +17,26 @@
       <br />
       <h5 class="login-identity"><p>Student</p></h5>
 
-      <form action="/auth/resetpass" method="post">
-        <br>
+      <br />
+
+      <form action="/auth/enterNewPass" method="post">
         <input
-          type="email"
-          name="email"
-          required
+          type="password"
           style="text-align: center"
-          placeholder="Enter Your Email "
+          name="password"
+          required
+          placeholder="Enter New Password"
         />
         <br />
-        <button class="btn btn-primary">Send OTP</button>
+
+        <button
+          class="btn btn-primary"
+          style="text-align: center; width: 100%"
+          type="submit"
+        >
+          Reset Password
+        </button>
       </form>
-      <br />
     </div>
   </div>
 </div>

@@ -33,7 +33,9 @@
   <div class="previousQueriesStudent">
     <h3>Previous Queries</h3>
 
-    <div class="studentAvailableListings studentAppliedListings">
+    <div
+      class="studentAvailableListings studentAppliedListings studenttable1Container"
+    >
       <table class="table table-hover table-borderless studenttable1">
         <thead>
           <tr>
@@ -51,7 +53,9 @@
             <td scope="row"><%=query.subject%></td>
             <td scope="row"><%=query.query%></td>
             <td scope="row"><%=query.reply%></td>
-            <td scope="row"><%=query.createdAt.toLocaleString('en-US', { timeZone: 'IST' })%></td>
+            <td scope="row">
+              <%=query.createdAt.toLocaleString('en-US', { timeZone: 'IST' })%>
+            </td>
           </tr>
           <%});%>
         </tbody>

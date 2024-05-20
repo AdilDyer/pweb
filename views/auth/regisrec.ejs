@@ -328,7 +328,7 @@
               <div class="process-wrapper">
                 <div id="progress-bar-container">
                   <ul>
-                    <li class="step step01 active">
+                    <li class="step step01 active" id="commuBtn">
                       <div class="step-inner">
                         <img
                           src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992420/one_m4duss.svg"
@@ -338,7 +338,7 @@
                         /><br />Company Details
                       </div>
                     </li>
-                    <li class="step step02">
+                    <li class="step step02" id="eduBtn">
                       <div class="step-inner">
                         <img
                           src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992421/two_wowyxr.svg"
@@ -348,7 +348,7 @@
                         /><br />Offering Details
                       </div>
                     </li>
-                    <li class="step step03">
+                    <li class="step step03" id="declaBtn">
                       <div class="step-inner">
                         <img
                           src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992420/three_kdx4je.svg"
@@ -358,7 +358,7 @@
                         /><br />Selection Details
                       </div>
                     </li>
-                    <li class="step step04">
+                    <li class="step step04" id="extraBtn">
                       <div class="step-inner">
                         <img
                           src="https://res.cloudinary.com/dv9b4bqb3/image/upload/v1714992419/four_t1yszz.svg"
@@ -377,7 +377,10 @@
                 </div>
 
                 <div id="progress-content-section">
-                  <div class="section-content discovery active">
+                  <div
+                    class="section-content discovery active"
+                    id="personalDetailsSection"
+                  >
                     <div class="content-div regis-content-div">
                       <div class="content-title container">
                         <h2
@@ -765,13 +768,17 @@ dasdf</textarea
                     <button
                       type="button"
                       class="step02 btn btn-primary my-3"
+                      id="firstNextBtn"
                       style="position: relative; align-items: center"
                     >
                       Save &amp; Next
                     </button>
                   </div>
 
-                  <div class="section-content strategy">
+                  <div
+                    class="section-content strategy"
+                    id="commuDetailsSection"
+                  >
                     <div class="content-div regis-content-div" id="procedure">
                       <div class="content-title container">
                         <h2
@@ -1592,13 +1599,14 @@ dasdf</textarea
                     <button
                       type="button"
                       class="step03 btn btn-primary my-3"
+                      id="secondNextBtn"
                       style="position: relative; align-items: center"
                     >
                       Save &amp; Next
                     </button>
                   </div>
 
-                  <div class="section-content creative">
+                  <div class="section-content creative" id="eduDetailsSection">
                     <div class="content-div regis-content-div" id="procedure">
                       <div class="content-title container">
                         <h2
@@ -2165,13 +2173,17 @@ dasdf</textarea
                     <button
                       type="button"
                       class="step04 btn btn-primary my-3"
+                      id="thirdNextBtn"
                       style="position: relative; align-items: center"
                     >
                       Save &amp; Next
                     </button>
                   </div>
 
-                  <div class="section-content production">
+                  <div
+                    class="section-content production"
+                    id="declarationDetailsSection"
+                  >
                     <div class="content-div regis-content-div" id="procedure">
                       <div class="content-title container">
                         <h2
@@ -2549,6 +2561,98 @@ dasdf</textarea
       $(".step04").click(function fun5() {
         $("#line-progress").css("width", "100%");
         $(".production").addClass("active").siblings().removeClass("active");
+      });
+    </script>
+
+    <!-- not going further part if current not filled -->
+    <script>
+      let personalDetailsSectionInputs = document.querySelectorAll(
+        "#personalDetailsSection input"
+      );
+      let CommuDetailsSectionInputs = document.querySelectorAll(
+        "#commuDetailsSection input"
+      );
+      let EduDetailsSectionInputs = document.querySelectorAll(
+        "#eduDetailsSection input"
+      );
+      let DecDetailsSectionInputs = document.querySelectorAll(
+        "#declarationDetailsSection"
+      );
+      let firstNextBtn = document.getElementById("firstNextBtn");
+      let secondNextBtn = document.getElementById("secondNextBtn");
+      let thirdNextBtn = document.getElementById("thirdNextBtn");
+      let commuBtn = document.querySelector("#commuBtn");
+      commuBtn.style.color = "black";
+      let eduBtn = document.querySelector("#eduBtn");
+      eduBtn.style.color = "black";
+      let declaBtn = document.querySelector("#declaBtn");
+      declaBtn.style.color = "black";
+      let extraBtn = document.querySelector("#extraBtn");
+      extraBtn.style.color="black";
+      document.addEventListener("DOMContentLoaded", () => {
+        // Function to check if all inputs are filled
+        function checkInputs1() {
+          let allFilled = true;
+          personalDetailsSectionInputs.forEach((input) => {
+            if (input.value.trim() == "" && input.required == true) {
+              allFilled = false;
+            }
+          });
+          firstNextBtn.disabled = !allFilled;
+          eduBtn.style.display = "none";
+          declaBtn.style.display = "none";
+          extraBtn.style.display = "none";
+        }
+        function checkInputs2() {
+          let allFilled = true;
+          CommuDetailsSectionInputs.forEach((input) => {
+            if (
+              input.value.trim() == "" &&
+              input.type != "checkbox" &&
+              input.required == true
+            ) {
+              allFilled = false;
+              console.log(input);
+            }
+          });
+          secondNextBtn.disabled = !allFilled;
+          eduBtn.style.display = "inline";
+          extraBtn.style.display = "none";
+          declaBtn.style.display = "none";
+        }
+
+        function checkInputs3() {
+          let allFilled = true;
+          EduDetailsSectionInputs.forEach((input) => {
+            if (input.value.trim() == "" && input.required == true) {
+              allFilled = false;
+            }
+          });
+          thirdNextBtn.disabled = !allFilled;
+          declaBtn.style.display = "inline";
+          extraBtn.style.display = "none";
+        }
+        function checkInputs4() {
+          extraBtn.style.display = "inline";
+        }
+
+        // Initial check on page load
+        checkInputs1();
+
+        firstNextBtn.addEventListener("click", checkInputs2);
+        secondNextBtn.addEventListener("click", checkInputs3);
+        thirdNextBtn.addEventListener("click", checkInputs4);
+
+        // Add event listeners to each input
+        personalDetailsSectionInputs.forEach((input) => {
+          input.addEventListener("input", checkInputs1);
+        });
+        CommuDetailsSectionInputs.forEach((input) => {
+          input.addEventListener("input", checkInputs2);
+        });
+        EduDetailsSectionInputs.forEach((input) => {
+          input.addEventListener("input", checkInputs3);
+        });
       });
     </script>
   </body>

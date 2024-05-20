@@ -29,6 +29,7 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
 });
+const cron = require("node-cron");
 
 const {
   isAuthenticated,
@@ -116,7 +117,25 @@ app.get("/", (req, res) => {
   });
 });
 
+const checkAndUpdateListings = async () => {
+  const currentDate = new Date();
 
+  try {
+    const result = await Listing.updateMany(
+      { lastDateToApply: { $lte: currentDate }, isDown: false },
+      { $set: { isDown: true } }
+    );
+
+    console.log(`Listings Downed: ${result}`);
+  } catch (error) {
+    console.error("Error Downing listings:", error);
+  }
+};
+
+cron.schedule("0 * * * *", () => {
+  console.log("Running scheduled task to Down listings...");
+  checkAndUpdateListings();
+});
 
 //login:auth
 app.use("/auth", authRouter);
@@ -126,6 +145,11 @@ app.use("/admin", adminRouter);
 app.use("/placement-team", teamRouter);
 app.use("/community", communityRouter);
 app.use("/resources", resourcesRouter);
+
+//Outsourced html page's favicon's abrupt request handler
+app.get("/favicon.ico", (req, res) => {
+  res.status(200);
+});
 
 app.all("*", (req, res) => {
   // to not get path not found on /fevicon.ico in admin page (inadequate behaviour by admin page )

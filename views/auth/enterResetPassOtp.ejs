@@ -17,18 +17,32 @@
       <br />
       <h5 class="login-identity"><p>Student</p></h5>
 
-      <form action="/auth/resetpass" method="post">
-        <br>
+      <form
+        action="/auth/verifyResetPassOtp"
+        method="post"
+        id="verifyResendPassOtpForm"
+      >
+        <br />
         <input
           type="email"
+          readonly
+          value="<%=email%>"
           name="email"
-          required
-          style="text-align: center"
-          placeholder="Enter Your Email "
+          style="text-align: center; color: grey"
         />
         <br />
-        <button class="btn btn-primary">Send OTP</button>
+        <input
+          type="tel"
+          name="otp"
+          required
+          style="text-align: center"
+          placeholder="Enter Your OTP "
+        />
+
+        <br />
+        <button class="btn btn-primary">Verify OTP</button>
       </form>
+
       <br />
     </div>
   </div>

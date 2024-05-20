@@ -39,6 +39,14 @@ module.exports.renderRegistrationForm = async (req, res) => {
         req.session.save();
         res.redirect("/");
       }
+      if (recDetails.isAudited == false) {
+        req.flash(
+          "error",
+          "You approval from admin is Pending. Please wait untill Approval !"
+        );
+        req.session.save();
+        res.redirect("/");
+      }
 
       req.session.recid = recid;
       req.session.save();
@@ -97,6 +105,16 @@ module.exports.registerTheUser = async (req, res) => {
       //     console.log("Error finding user in Verified User ! ");
       //     res.redirect("/register/rec");
       //   }
+      let recDetails = await Recruiter.findOne({ _id: req.session.recid });
+
+      if (recDetails.isAudited == false) {
+        req.flash(
+          "error",
+          "You approval from admin is Pending. Please wait untill Approval !"
+        );
+        req.session.save();
+        res.redirect("/");
+      }
 
       //validate the rec's regis form using joi on server side
       // const { error } = recruiterSchema.validate(req.body);

@@ -319,13 +319,14 @@
 
 
                   <div class="form-group ">
-                    <label for="newfileupload">Upload new Job Descriptions</label>
+                    <label for="newfileupload">Upload new Job Descriptions
+</label>
 
   <% Object.keys(listingDetails.jobDescriptionFiles).forEach((key,
               index)=> { %>
-
                     <input id="newfileupload" class="form-control " type="file" name="<%= listingDetails.jobDescriptionFiles[key] %>" >
               <% }) %>
+
 
                   </div>
                    <div class="form-group" style="margin: 0;">

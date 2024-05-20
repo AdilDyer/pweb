@@ -535,19 +535,7 @@
         <tbody>
           <% allListedRecruiters.forEach((recruiter,index) => { %>
           <tr id="dataTableListing">
-            <%if(recruiter.isDreamOffer == true){%>
-            <td scope="row">
-              <p
-                style="
-                  color: gold;
-                  font-weight: 600;
-                  text-shadow: goldenrod 0 0 10px;
-                "
-              >
-                Dream Offer
-              </p>
-            </td>
-            <%}else if(recruiter.isDown == true){%>
+            <% if(recruiter.isDown == true){%>
             <td scope="row">
               <p
                 style="
@@ -557,6 +545,18 @@
                 "
               >
                 Downed
+              </p>
+            </td>
+            <%}else if(recruiter.isDreamOffer == true){%>
+            <td scope="row">
+              <p
+                style="
+                  color: gold;
+                  font-weight: 600;
+                  text-shadow: goldenrod 0 0 10px;
+                "
+              >
+                Dream Offer
               </p>
             </td>
             <%}else{%>
