@@ -94,8 +94,7 @@ module.exports.showAccount = async (req, res) => {
 module.exports.showStuPlacementProfile = async (req, res) => {
   let { stuId } = req.query;
   let stuDetails = await Student.findOne({ _id: stuId });
-
-  res.render("resources/studentDetails.ejs", {
+  return res.render("resources/studentDetails.ejs", {
     stuDetails: stuDetails,
     isRegistered: stuDetails.isRegistered,
     profilePictureUrl: req.user.profilePictureUrl,
