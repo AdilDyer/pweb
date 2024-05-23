@@ -72,7 +72,7 @@ module.exports.showAdmin = async (req, res) => {
   let adminsettings = await AdminSetting.findOne();
   let isStuRegisEnabled = adminsettings.furtherStudentRegisEnabled;
   let isCompRegisEnabled = adminsettings.furtherCompanyRegisEnabled;
-  res.render("users/admin.ejs", {
+  return res.render("users/admin.ejs", {
     allRecruitersPending: allRecruitersPending,
     allAuditedRecruiters: allAuditedRecruiters,
     allStudentsPending: allStudentsPending,
@@ -118,14 +118,14 @@ module.exports.showRecDetails = async (req, res) => {
 
     // console.log(recDetails);
     // If recruiter found, send the recruiter details to the client
-    res.render("resources/recruiterDetails", {
+    return res.render("resources/recruiterDetails", {
       recruiter: recDetails,
       recid: recid,
       noAuditNeeded: noAuditNeeded,
     });
   } catch (error) {
     // If an error occurs during database query, return a 500 Internal Server Error response
-    res.status(500).send("Error fetching recruiter details:" + error);
+    return res.status(500).send("Error fetching recruiter details:" + error);
   }
 };
 
@@ -193,10 +193,12 @@ You can paste the above Link in the Browser's address bar.
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error(error);
-        res.status(500).send("Failed to send Registration Mail");
+        return res.status(500).send("Failed to send Registration Mail");
       } else {
         req.flash("success", "Recruiter Updated Successfully !");
-        res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+        return res.redirect(
+          `/admin?currentAdminSection=${currentAdminSection}`
+        );
       }
     });
 
@@ -205,7 +207,7 @@ You can paste the above Link in the Browser's address bar.
     // If an error occurs during database query or save operation,
     // return a 500 Internal Server Error response
     console.error("Error updating recruiter details:", error);
-    res.status(500).send("Error updating recruiter details");
+    return res.status(500).send("Error updating recruiter details");
   }
 };
 
@@ -288,10 +290,12 @@ You can paste the above Link in the Browser's address bar.
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.error(error);
-          res.status(500).send("Failed to send Registration Mail");
+          return res.status(500).send("Failed to send Registration Mail");
         } else {
           req.flash("success", "Recruiter Updated Successfully !");
-          res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+          return res.redirect(
+            `/admin?currentAdminSection=${currentAdminSection}`
+          );
         }
       });
 
@@ -301,7 +305,7 @@ You can paste the above Link in the Browser's address bar.
     // If an error occurs during database query or save operation,
     // return a 500 Internal Server Error response
     console.error("Error updating recruiter details:", error);
-    res.status(500).send("Error updating recruiter details");
+    return res.status(500).send("Error updating recruiter details");
   }
 };
 
@@ -337,14 +341,14 @@ module.exports.addCompanyListing = async (req, res) => {
 
   await newListing.save();
   req.flash("success", "Listing Added Successfully !");
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.showListingDetails = async (req, res) => {
   let { listingId } = req.params;
   let listingDetails = await Listing.findOne({ _id: listingId });
 
-  res.render("resources/listingDetails.ejs", {
+  return res.render("resources/listingDetails.ejs", {
     listingDetails: listingDetails,
   });
 };
@@ -403,11 +407,11 @@ module.exports.updateListing = async (req, res) => {
 
   if (!result) {
     req.flash("error", "Listing Updation Failed !");
-    res.redirect(`/admin/listingDetails/${listingId}`);
+    return res.redirect(`/admin/listingDetails/${listingId}`);
   }
   req.flash("success", "Listing Updated Successfully !");
 
-  res.redirect(
+  return res.redirect(
     `/admin/listingDetails/${listingId}?currentAdminSection=Updates`
   );
 };
@@ -420,13 +424,13 @@ module.exports.removeCompanyListing = async (req, res) => {
     await Application.deleteMany({ listingId: listingId });
 
     req.flash("success", "Listing Deleted Successfully !");
-    res.redirect("/admin?currentAdminSection=Companies");
+    return res.redirect("/admin?currentAdminSection=Companies");
   }
   listing.isDown = true;
   await listing.save();
   req.flash("success", "Listing Down Successfully !");
   req.session.save();
-  res.redirect("/admin?currentAdminSection=Companies");
+  return res.redirect("/admin?currentAdminSection=Companies");
 };
 
 module.exports.markStuAudit = async (req, res) => {
@@ -590,10 +594,10 @@ module.exports.markStuAudit = async (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       req.flash("error", "error in sending credentials to student : " + error);
-      res.redirect("/admin");
+      return res.redirect("/admin");
     } else {
       req.flash("success", "Student marked as Verified. ");
-      res.redirect("/admin?currentAdminSection=Students");
+      return res.redirect("/admin?currentAdminSection=Students");
     }
   });
 };
@@ -772,11 +776,11 @@ module.exports.markStuArrayAudit = async (req, res) => {
             "error",
             "error in sending credentials to student : " + error
           );
-          // res.redirect("/admin");
+          // return res.redirect("/admin");
           console.log("error in sending mail to array of students ", error);
         } else {
           // req.flash("success", "Student marked as Audited. ");
-          // res.redirect("/admin");
+          // return res.redirect("/admin");
         }
       });
     } catch (e) {
@@ -784,7 +788,7 @@ module.exports.markStuArrayAudit = async (req, res) => {
     }
   }
   req.flash("success", "All Marked Students Verified !");
-  res.redirect("/admin?currentAdminSection=Students");
+  return res.redirect("/admin?currentAdminSection=Students");
 };
 
 module.exports.deboardRecruiter = async (req, res) => {
@@ -797,7 +801,7 @@ module.exports.deboardRecruiter = async (req, res) => {
   await result.save();
   req.flash("success", "Recruiter Desabled Successfully !");
   req.session.save();
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.deboardStudent = async (req, res) => {
@@ -823,7 +827,7 @@ module.exports.deboardStudent = async (req, res) => {
 
   req.flash("success", "Student Account Disabled Successfully !");
   req.session.save();
-  res.redirect("/admin?currentAdminSection=Students");
+  return res.redirect("/admin?currentAdminSection=Students");
 };
 
 module.exports.onboardStudent = async (req, res) => {
@@ -835,7 +839,7 @@ module.exports.onboardStudent = async (req, res) => {
   await stu.save();
 
   req.flash("success", "Student Enabled Successfully !");
-  res.redirect("/admin?currentAdminSection=Students");
+  return res.redirect("/admin?currentAdminSection=Students");
 };
 
 module.exports.onboardRecruiter = async (req, res) => {
@@ -847,7 +851,7 @@ module.exports.onboardRecruiter = async (req, res) => {
   await result.save();
   req.flash("success", "Recruiter Enabled Successfully !");
   req.session.save();
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.exportAllStudentData = async (req, res) => {
@@ -946,10 +950,10 @@ module.exports.exportAllStudentData = async (req, res) => {
       "Content-Disposition",
       `attachment; filename=SPC Students ${formattedDateTime}.csv`
     );
-    res.send(csv);
+    return res.send(csv);
   } catch (err) {
     console.error("Error exporting CSV:", err);
-    res.status(500).send("Error exporting CSV");
+    return res.status(500).send("Error exporting CSV");
   }
 };
 
@@ -1041,10 +1045,10 @@ module.exports.exportAllCompanyData = async (req, res) => {
       "Content-Disposition",
       `attachment; filename=SPC Companies ${formattedDateTime}.csv`
     );
-    res.send(csv);
+    return res.send(csv);
   } catch (err) {
     console.error("Error exporting CSV:", err);
-    res.status(500).send("Error exporting CSV");
+    return res.status(500).send("Error exporting CSV");
   }
 };
 
@@ -1054,7 +1058,7 @@ module.exports.pushUpdateToStudents = async (req, res) => {
   let newUpdate = new Update(req.body);
   await newUpdate.save();
   req.flash("Update sent Successfully !");
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.deleteUpdate = async (req, res) => {
@@ -1063,12 +1067,12 @@ module.exports.deleteUpdate = async (req, res) => {
   let { updateId } = req.params;
   await Update.deleteMany({ _id: updateId });
   req.flash("success", "Update Deleted Successfully !");
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.renderPlacedStudentForm = (req, res) => {
   let { currentAdminSection } = req.query;
-  res.render("resources/placedstudent.ejs", {
+  return res.render("resources/placedstudent.ejs", {
     applicationId: req.params.applicationId,
     currentAdminSection: currentAdminSection,
   });
@@ -1100,7 +1104,7 @@ module.exports.markPlacedStudent = async (req, res) => {
   });
 
   req.flash("success", "Marked as Placed Successfully !");
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.markQueryResolved = async (req, res) => {
@@ -1116,7 +1120,7 @@ module.exports.markQueryResolved = async (req, res) => {
 
   req.flash("success", "Query Marked as Resolved");
   req.session.save();
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.arrayMarkQueryResolved = async (req, res) => {
@@ -1144,7 +1148,7 @@ module.exports.arrayMarkQueryResolved = async (req, res) => {
 
   req.flash("success", "Queries Marked as Resolved");
   req.session.save();
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.updateApplicationStatus = async (req, res) => {
@@ -1162,7 +1166,7 @@ module.exports.updateApplicationStatus = async (req, res) => {
 
   req.flash("success", "Application Status Updated !");
   req.session.save();
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.arrayUpdateApplicationStatus = async (req, res) => {
@@ -1187,7 +1191,7 @@ module.exports.arrayUpdateApplicationStatus = async (req, res) => {
 
   req.flash("success", "Applications Updated !");
   req.session.save();
-  res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
+  return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
 
 module.exports.toggleRegisProcess = async (req, res) => {
@@ -1215,7 +1219,7 @@ module.exports.toggleRegisProcess = async (req, res) => {
   await adminsettings.save();
 
   req.session.save();
-  res.redirect("/admin?currentAdminSection=Dashboard");
+  return res.redirect("/admin?currentAdminSection=Dashboard");
 };
 
 module.exports.showAdminReportEjs = (req, res) => {
@@ -1228,7 +1232,7 @@ module.exports.showAdminReportEjs = (req, res) => {
   var hh = String(today.getHours()).padStart(2, "0");
   var min = String(today.getMinutes()).padStart(2, "0");
   var formattedDateTime = dd + "-" + mm + "-" + yyyy + " " + hh + ":" + min;
-  res.render("resources/reportplacementcelladmin.ejs", {
+  return res.render("resources/reportplacementcelladmin.ejs", {
     formattedDateTime: formattedDateTime,
   });
 };
@@ -1274,9 +1278,9 @@ module.exports.renderAdminReportPdf = async (req, res) => {
   //   "SCSDF Placement Cell Report " + formattedDateTime + ".pdf"
   // );
 
-  // res.download(pdfUrl, function (err) {
+  // return res.download(pdfUrl, function (err) {
   //   if (err) {
-  //     res.send(err.message);
+  //     return res.send(err.message);
   //   }
   // });
 
@@ -1285,5 +1289,5 @@ module.exports.renderAdminReportPdf = async (req, res) => {
     "Content-Length": pdfBuffer.length,
     "Content-Disposition": `inline; filename="Placement Cell Report ${formattedDateTime}.pdf"`,
   });
-  res.send(pdfBuffer);
+  return res.send(pdfBuffer);
 };

@@ -71,7 +71,7 @@ module.exports.showAccount = async (req, res) => {
     let countAvailableListings = availableListings.length;
     let countAppliedListings = appliedListings.length;
 
-    res.render("users/youraccountstu.ejs", {
+    return res.render("users/youraccountstu.ejs", {
       isRegistered: isRegistered,
       stuId: _id,
       profilePictureUrl: req.user.profilePictureUrl,
@@ -87,7 +87,7 @@ module.exports.showAccount = async (req, res) => {
     });
   } catch (err) {
     console.error("Error retrieving student applications:", err);
-    res.redirect("/account");
+    return res.redirect("/account");
   }
 };
 
@@ -107,18 +107,19 @@ module.exports.renderApplyForm = async (req, res) => {
   let stuDetails = await Student.findOne({ _id: stuId });
   let listingDetails = await Listing.findOne({ _id: listingId });
 
-  // if (stuDetails.isPlaced && listingDetails.isDreamOffer == false) {
-  //   req.flash("error", "Placed Students cant apply for Non-Dream Companies !");
-  //   res.redirect("/account");
-  // }
-  if (stuDetails.isDeboarded) {
-    req.flash(
-      "error",
-      "Your Account has been Disabled by the Admin. Please Contact the Administration for further Information."
-    );
-    res.redirect("/account");
+  if (stuDetails && listingDetails) {
+    if (stuDetails.isDeboarded) {
+      req.flash(
+        "error",
+        "Your Account has been Disabled by the Admin. Please Contact the Administration for further Information."
+      );
+      return res.redirect("/account");
+    }
+  } else {
+    req.flash("error", "Invalid Student or Listing Id !");
+    return res.redirect("/account");
   }
-  res.render("resources/apply.ejs", {
+  return res.render("resources/apply.ejs", {
     listingId: listingId,
     stuId: stuId,
     stuDetails: stuDetails,
@@ -139,7 +140,7 @@ module.exports.submitApply = async (req, res) => {
   });
   if (prevapp.length != 0) {
     req.flash("error", "Already Applied !");
-    res.redirect("/account");
+    return res.redirect("/account");
   } else {
     // if (req.user.isPlaced && listingDetails.isDreamOffer == false) {
     //   req.flash(
@@ -153,7 +154,7 @@ module.exports.submitApply = async (req, res) => {
         "error",
         "Your Account has been Disabled by the Admin. Please Contact the Administration for further Information."
       );
-      res.redirect("/account");
+      return res.redirect("/account");
     }
     let newApplication = new Application({
       stuId: stuId,
@@ -165,14 +166,14 @@ module.exports.submitApply = async (req, res) => {
     await newApplication.save();
 
     req.flash("success", "Application Submitted Succesfully !");
-    res.redirect("/account");
+    return res.redirect("/account");
   }
 };
 
 module.exports.renderQueryForm = async (req, res) => {
   let allQueries = await Query.find({ stuId: req.user._id });
 
-  res.render("resources/askquery.ejs", {
+  return res.render("resources/askquery.ejs", {
     isRegistered: true,
     profilePictureUrl: req.user.profilePictureUrl,
     stuId: req.user._id,
@@ -186,7 +187,7 @@ module.exports.submitStudentQuery = async (req, res) => {
   if (query.split(/\s+/).length > 100) {
     // Splitting by whitespace to count words
     req.flash("error", "Query should be less than 100 words");
-    res.redirect("/account/askqueries");
+    return res.redirect("/account/askqueries");
   }
   let newQuery = new Query({
     subject: subject,
@@ -198,5 +199,5 @@ module.exports.submitStudentQuery = async (req, res) => {
 
   req.flash("success", "Query Submitted Successfully !");
   req.session.save();
-  res.redirect("/account/askqueries");
+  return res.redirect("/account/askqueries");
 };

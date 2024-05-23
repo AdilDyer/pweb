@@ -11,7 +11,7 @@ const axios = require("axios");
 module.exports.renderLoginPage = (req, res) => {
   // let reCaptchaClientKey = process.env.CAPTCHACLIENTKEY;
   let captchaSiteKey = process.env.CAPTCHASITEKEY;
-  res.render("auth/loginstu.ejs", { captchaSiteKey: captchaSiteKey });
+  return res.render("auth/loginstu.ejs", { captchaSiteKey: captchaSiteKey });
 };
 
 module.exports.sendTwoFactor = async (req, res) => {
@@ -44,7 +44,7 @@ module.exports.sendTwoFactor = async (req, res) => {
     if (!user) {
       req.flash("error", "Invalid Username ! ");
       req.session.save();
-      res.redirect("/auth/login-student");
+      return res.redirect("/auth/login-student");
     } else {
       // If the username exists, check the password
       Student.authenticate()(
@@ -52,22 +52,21 @@ module.exports.sendTwoFactor = async (req, res) => {
         password,
         async (err, authenticatedUser) => {
           if (err) {
-            res.status(500).json({
+            return res.status(500).json({
               success: false,
               message: "Internal error",
             });
-            return;
           }
 
           if (!authenticatedUser) {
             req.flash("error", "Invalid Password ! ");
             req.session.save();
-            res.redirect("/auth/login-student");
+            return res.redirect("/auth/login-student");
           } else {
             let stuDetails = await Student.findOne({ username: username });
             if (!stuDetails) {
               req.flash("error", "Please Enter Correct Username/Password !");
-              res.redirect("/auth/login-student");
+              return res.redirect("/auth/login-student");
             }
 
             let newOtp = Math.floor(Math.random() * 900000) + 100000;
@@ -116,12 +115,12 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
             // transporter.sendMail(mailOptions, (error, info) => {
             //   if (error) {
             //     console.error(error);
-            //     res.status(500).send("Failed to send OTP");
+            //     return res.status(500).send("Failed to send OTP");
             //   } else {
             //     req.session.bodyData = req.body;
             //     req.session.bodyData.email = stuDetails.email;
             //     req.flash("success", "OTP sent successfully");
-            //     res.redirect(`/auth/login-student/verifyotp`);
+            //     return res.redirect(`/auth/login-student/verifyotp`);
             //   }
             // });
             transporter.sendMail(mailOptions, async () => {
@@ -130,7 +129,7 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
               req.session.email = stuDetails.email;
               req.flash("success", "OTP sent successfully");
               await req.session.save();
-              res.redirect(`/auth/login-student/verifyotp`);
+              return res.redirect(`/auth/login-student/verifyotp`);
             });
           }
         }
@@ -155,7 +154,7 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
 //     // Authentication failed
 //     req.flash("error", "Invalid Credentials ! ");
 //     req.session.save();
-//     res.redirect("/auth/login-student");
+//     return res.redirect("/auth/login-student");
 //   } else {
 
 //   }
@@ -167,7 +166,7 @@ module.exports.renderVerifyTwoFactor = (req, res) => {
     ? (startingFourLettersOfEmail = req.session.email.substring(0, 4))
     : null;
   startingFourLettersOfEmail += "************";
-  res.render("auth/twofactorverify.ejs", {
+  return res.render("auth/twofactorverify.ejs", {
     email: startingFourLettersOfEmail,
     username: req.session.username,
     password: req.session.password,
@@ -179,11 +178,11 @@ module.exports.authenticateUser = async (req, res) => {
     req.body.username == process.env.ADMIN_USERNAME &&
     req.body.password == process.env.ADMIN_PASS
   ) {
-    res.locals.isAdmin = true;
-    res.redirect("/admin");
+     res.locals.isAdmin = true;
+    return res.redirect("/admin");
   } else {
     req.flash("success", "Welcome to The Placement Cell !");
-    res.redirect("/account");
+    return res.redirect("/account");
   }
 };
 
@@ -193,7 +192,7 @@ module.exports.logOutUser = function (req, res, next) {
       req.flash("error", "Error Logging out :: ", err.message);
       return next(err);
     }
-    res.redirect("/");
+    return res.redirect("/");
   });
 };
 
@@ -211,7 +210,7 @@ module.exports.renderOtpInputForm = async (req, res) => {
       "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
     );
     req.session.save();
-    res.redirect("/");
+    return res.redirect("/");
   } else if (
     req.query.username == "Student" &&
     !adminsetting.furtherStudentRegisEnabled
@@ -221,10 +220,10 @@ module.exports.renderOtpInputForm = async (req, res) => {
       "Admin has Disabled the Further Students Registrations. Please Contact the Admin for further Queries."
     );
     req.session.save();
-    res.redirect("/");
+    return res.redirect("/");
   } else {
     req.session.save();
-    res.render("auth/otpinit.ejs", { username: req.session.username });
+    return res.render("auth/otpinit.ejs", { username: req.session.username });
   }
 };
 
@@ -234,7 +233,7 @@ module.exports.sendOtp = async (req, res) => {
   //   let checkExistingStudent = await Student.findOne({ email: email });
   //   if (checkExistingStudent) {
   //     req.flash("error", "Email already Registered !");
-  //     res.redirect("/auth/login-student");
+  //     return res.redirect("/auth/login-student");
   //   }
   // }
   let existingOTP = await OTP.findOne({ email: email });
@@ -252,7 +251,7 @@ module.exports.sendOtp = async (req, res) => {
   //       "error",
   //       "Please Enter a valid College Student Email of SCSDF."
   //     );
-  //     res.redirect("/otp-initialize/?username=Student");
+  //     return res.redirect("/otp-initialize/?username=Student");
   //   }
   // }
   if (existingOTP) {
@@ -315,7 +314,7 @@ You can paste the above OTP in the <strong>Following Link</strong>:
   transporter.sendMail(mailOptions, async (error, info) => {
     if (error) {
       console.error(error);
-      res.status(500).send("Failed to send OTP", error);
+      return res.status(500).send("Failed to send OTP", error);
     } else {
       req.session.bodyData = req.body;
 
@@ -326,13 +325,13 @@ You can paste the above OTP in the <strong>Following Link</strong>:
       }
 
       await req.session.save();
-      res.redirect(`/auth/otp-verify-page`);
+      return res.redirect(`/auth/otp-verify-page`);
     }
   });
 };
 
 module.exports.renderOtpVerifyPage = (req, res) => {
-  res.render("auth/otpverify.ejs", {
+  return res.render("auth/otpverify.ejs", {
     email: req.session.bodyData.email,
     username: req.session.bodyData.username,
   });
@@ -345,7 +344,7 @@ module.exports.resendOtp = async (req, res) => {
   } catch (e) {
     req.flash("error", e.message);
   }
-  res.redirect(`/auth/otp-initialize/?username=${username}`);
+  return res.redirect(`/auth/otp-initialize/?username=${username}`);
 };
 
 module.exports.verifyOtp = async (req, res) => {
@@ -359,7 +358,7 @@ module.exports.verifyOtp = async (req, res) => {
       "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
     );
     req.session.save();
-    res.redirect("/");
+    return res.redirect("/");
   } else if (
     req.session.username == "Student" &&
     !adminsetting.furtherStudentRegisEnabled
@@ -369,7 +368,7 @@ module.exports.verifyOtp = async (req, res) => {
       "Admin has Disabled the Further Students Registrations. Please Contact the Admin for further Queries."
     );
     req.session.save();
-    res.redirect("/");
+    return res.redirect("/");
   } else {
     const { email, otp } = req.body;
     const otpDocument = await OTP.findOne({ email: email });
@@ -395,9 +394,9 @@ module.exports.verifyOtp = async (req, res) => {
             );
 
             req.session.save();
-            res.redirect("/");
+            return res.redirect("/");
           } else {
-            //   res.redirect("/register/rec");
+            //   return res.redirect("/register/rec");
 
             const newRecruiter = new Recruiter({
               isAudited: false,
@@ -545,7 +544,7 @@ module.exports.verifyOtp = async (req, res) => {
             );
 
             await req.session.save();
-            res.redirect("/");
+            return res.redirect("/");
           }
         } else {
           // OTP has expired
@@ -559,7 +558,7 @@ module.exports.verifyOtp = async (req, res) => {
         // OTP codes do not match
         req.flash("error", "Invalid OTP Entered.");
         req.session.save();
-        res.redirect("/auth/otp-verify-page");
+        return res.redirect("/auth/otp-verify-page");
       }
     } else {
       // No OTP document found for the provided email
@@ -572,18 +571,6 @@ module.exports.verifyOtp = async (req, res) => {
 };
 
 module.exports.renderResetPass = (req, res) => {
-  // if (req.session.resentOtpVerified == true) {
-  //   return res.render("auth/resetpass.ejs", {
-  //     otpSent: true,
-  //     resentOtpVerified: true,
-  //   });
-  // }
-  // if (req.session.resetPass != "" && req.session.resetPass != undefined) {
-  //   return res.render("auth/resetpass.ejs", {
-  //     otpSent: true,
-  //     resentOtpVerified: false,
-  //   });
-  // }
 
   return res.render("auth/resetpass.ejs");
 };
@@ -640,17 +627,17 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error(error);
-      res.status(500).send("Failed to send OTP");
+      return res.status(500).send("Failed to send OTP");
     } else {
       req.session.email = req.body.email;
       req.session.save();
-      res.redirect("/auth/enterResetPassOtp");
+      return res.redirect("/auth/enterResetPassOtp");
     }
   });
 };
 
 module.exports.enterResetPassOtp = async (req, res) => {
-  res.render("auth/enterResetPassOtp.ejs", { email: req.session.email });
+  return res.render("auth/enterResetPassOtp.ejs", { email: req.session.email });
 };
 
 module.exports.verifyResetPassOtp = async (req, res) => {
@@ -680,5 +667,5 @@ module.exports.saveNewPassword = async (req, res) => {
     await stu.save();
   });
   req.flash("success", "Password Reset Successful !");
-  res.redirect("/auth/login-student");
+  return res.redirect("/auth/login-student");
 };

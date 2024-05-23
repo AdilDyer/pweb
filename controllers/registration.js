@@ -22,7 +22,7 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
         );
         req.session.save();
-        res.redirect("/");
+        return res.redirect("/");
       }
       let { recid } = req.query;
       let recDetails = await Recruiter.findOne({ _id: recid });
@@ -32,12 +32,12 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "Please Enter a Valid Recruiter's Registration URL !"
         );
         req.session.save();
-        res.redirect("/");
+        return res.redirect("/");
       }
       if (recDetails.isRegistered == true) {
         req.flash("success", "You already have been Registered !");
         req.session.save();
-        res.redirect("/");
+        return res.redirect("/");
       }
       if (recDetails.isAudited == false) {
         req.flash(
@@ -45,13 +45,13 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "You approval from admin is Pending. Please wait untill Approval !"
         );
         req.session.save();
-        res.redirect("/");
+        return res.redirect("/");
       }
 
       req.session.recid = recid;
       req.session.save();
 
-      res.render("auth/regisrec.ejs", {
+      return res.render("auth/regisrec.ejs", {
         headhremail: recDetails.headhremail,
         headhrname: recDetails.headhrname,
         headhrmobno: recDetails.headhrmobno,
@@ -70,9 +70,9 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "Admin has Disabled the Further Student Registrations. Please Contact the Admin for further Queries."
         );
         req.session.save();
-        res.redirect("/account");
+        return res.redirect("/account");
       }
-      res.render("auth/regisstu.ejs", {
+      return res.render("auth/regisstu.ejs", {
         email: req.user.email,
         mobno: req.user.mobileno,
         enroll: req.user.enrollmentNo,
@@ -83,11 +83,11 @@ module.exports.renderRegistrationForm = async (req, res) => {
       });
     } else {
       req.flash("error", "Invalid URL");
-      res.redirect("/");
+      return res.redirect("/");
     }
   } catch (e) {
     req.flash("error", "Please Verify Your Email !");
-    res.redirect("/");
+    return res.redirect("/");
   }
 };
 
@@ -103,7 +103,7 @@ module.exports.registerTheUser = async (req, res) => {
       //   if (req.body.headhremail != verifiedBodyData.bodyData.email) {
       //     req.flash("error", "Please Provide a Verified Email Address !");
       //     console.log("Error finding user in Verified User ! ");
-      //     res.redirect("/register/rec");
+      //     return res.redirect("/register/rec");
       //   }
       let recDetails = await Recruiter.findOne({ _id: req.session.recid });
 
@@ -113,14 +113,14 @@ module.exports.registerTheUser = async (req, res) => {
           "You approval from admin is Pending. Please wait untill Approval !"
         );
         req.session.save();
-        res.redirect("/");
+        return res.redirect("/");
       }
 
       //validate the rec's regis form using joi on server side
       // const { error } = recruiterSchema.validate(req.body);
       // if (error) {
       //   req.flash("error", "error validating recruiter's details" + error);
-      //   res.redirect("/register/rec");
+      //   return res.redirect("/register/rec");
       // }
 
       let adminsetting = await AdminSetting.findOne();
@@ -130,7 +130,7 @@ module.exports.registerTheUser = async (req, res) => {
           "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
         );
         req.session.save();
-        res.redirect("/");
+        return res.redirect("/");
       }
       let attachedFileLink = "";
       if (req.files) {
@@ -349,7 +349,7 @@ National Forensic Science University.
           if (error) {
             console.log("error in sending thanking email : " + error);
             req.session.save();
-            res.redirect("/");
+            return res.redirect("/");
           } else {
             req.flash(
               "success",
@@ -357,7 +357,7 @@ National Forensic Science University.
             );
 
             req.session.save();
-            res.redirect("/");
+            return res.redirect("/");
           }
         });
         //now i have the req.session.bodyData and bodyData inside every object in VerifiedUser with bodyData.email and bodyData.username(Recruiter);
@@ -366,12 +366,12 @@ National Forensic Science University.
         req.flash("error", "Error saving Recruiter's data:" + error.message);
         console.log(error);
         req.session.save();
-        res.redirect("/register/rec"); // Redirect to an error page
+        return res.redirect("/register/rec"); // Redirect to an error page
       }
     } catch (error) {
       req.flash("error", "error saving recruiter's data :" + error);
       req.session.save();
-      res.redirect("/register/rec");
+      return res.redirect("/register/rec");
     }
   } else if (user == "stu") {
     try {
@@ -382,12 +382,12 @@ National Forensic Science University.
           "Admin has Disabled the Further Student Registrations. Please Contact the Admin for further Queries."
         );
         req.session.save();
-        res.redirect("/account");
+        return res.redirect("/account");
       }
       //checking the joi validation
       // const { error } = studentSchema.validate(req.body);
       // if (error) {
-      //   return res.status(400).send(error.details[0].message);
+      //   return  res.status(400).send(error.details[0].message);
       // }
       // let profilePictureUrl = req.files.profilepicture[0].path;
       // let tenthMarksheetUrl = req.files.tenthmarksheet[0].path;
@@ -456,11 +456,11 @@ National Forensic Science University.
           options
         );
         req.session.save();
-        res.redirect("/account");
+        return res.redirect("/account");
       } catch (e) {
         console.log("error in updating student :" + e);
         req.session.save();
-        res.redirect("/register/stu");
+        return res.redirect("/register/stu");
       }
 
       // req.login(registeredStudent, (err) => {
@@ -468,17 +468,17 @@ National Forensic Science University.
       //     return next(err);
       //   } else {
       //     req.flash("success", "Welcome to the Placement Cell !");
-      //     res.redirect("/");
+      //     return res.redirect("/");
       //   }
       // });
     } catch (error) {
       console.log(error);
       req.flash("error", error.message);
       req.session.save();
-      res.redirect("/register/stu");
+      return res.redirect("/register/stu");
     }
   } else {
     req.session.save();
-    res.send("Invalid URL");
+    return res.send("Invalid URL");
   }
 };

@@ -111,7 +111,7 @@ app.listen(8080, () => {
 });
 
 app.get("/", (req, res) => {
-  res.render("index.ejs", {
+  return res.render("index.ejs", {
     isAuthenticated: res.locals.isAuthenticated,
     isAdmin: res.locals.isAdmin,
   });
@@ -148,16 +148,15 @@ app.use("/resources", resourcesRouter);
 
 //Outsourced html page's favicon's abrupt request handler
 app.get("/favicon.ico", (req, res) => {
-  res.status(200);
+  return res.status(200);
 });
 
 app.all("*", (req, res) => {
   // to not get path not found on /fevicon.ico in admin page (inadequate behaviour by admin page )
-
   if (req.user && req.user.username == process.env.ADMIN_USERNAME) {
-    res.redirect("/");
+    return res.redirect("/");
   } else {
     req.flash("error", "Page Not Found !", req.path);
-    res.redirect("/");
+    return res.redirect("/");
   }
 });
