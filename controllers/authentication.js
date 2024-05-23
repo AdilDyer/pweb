@@ -178,7 +178,7 @@ module.exports.authenticateUser = async (req, res) => {
     req.body.username == process.env.ADMIN_USERNAME &&
     req.body.password == process.env.ADMIN_PASS
   ) {
-     res.locals.isAdmin = true;
+    res.locals.isAdmin = true;
     return res.redirect("/admin");
   } else {
     req.flash("success", "Welcome to The Placement Cell !");
@@ -325,6 +325,7 @@ You can paste the above OTP in the <strong>Following Link</strong>:
       }
 
       await req.session.save();
+      setTimeout(() => {}, 1000);
       return res.redirect(`/auth/otp-verify-page`);
     }
   });
@@ -393,7 +394,8 @@ module.exports.verifyOtp = async (req, res) => {
               `Email Verification Successfull ! <br> We will send Your Credentials on the Provided Email. <br> Please wait for further Email Updates on approval of the Admin.`
             );
 
-            req.session.save();
+            await req.session.save();
+            setTimeout(() => {}, 1000);
             return res.redirect("/");
           } else {
             //   return res.redirect("/register/rec");
@@ -571,7 +573,6 @@ module.exports.verifyOtp = async (req, res) => {
 };
 
 module.exports.renderResetPass = (req, res) => {
-
   return res.render("auth/resetpass.ejs");
 };
 

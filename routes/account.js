@@ -33,4 +33,6 @@ router
   .route("/askqueries")
   .get(wrapAsync(accountController.renderQueryForm))
   .post(wrapAsync(accountController.submitStudentQuery));
+
+  
 module.exports = router;

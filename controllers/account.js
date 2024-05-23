@@ -199,5 +199,7 @@ module.exports.submitStudentQuery = async (req, res) => {
 
   req.flash("success", "Query Submitted Successfully !");
   req.session.save();
+  setTimeout(() => {}, 1000);
+
   return res.redirect("/account/askqueries");
 };
