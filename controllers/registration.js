@@ -22,7 +22,7 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
         );
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/");
       }
       let { recid } = req.query;
@@ -33,13 +33,12 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "Please Enter a Valid Recruiter's Registration URL !"
         );
         req.session.save();
-        setTimeout(() => {}, 1000);
         return res.redirect("/");
       }
       if (recDetails.isRegistered == true) {
         req.flash("success", "You already have been Registered !");
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/");
       }
       if (recDetails.isAudited == false) {
@@ -48,13 +47,12 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "You approval from admin is Pending. Please wait untill Approval !"
         );
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/");
       }
 
       req.session.recid = recid;
       req.session.save();
-      setTimeout(() => {}, 1000);
 
       return res.render("auth/regisrec.ejs", {
         headhremail: recDetails.headhremail,
@@ -75,7 +73,7 @@ module.exports.renderRegistrationForm = async (req, res) => {
           "Admin has Disabled the Further Student Registrations. Please Contact the Admin for further Queries."
         );
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/account");
       }
       return res.render("auth/regisstu.ejs", {
@@ -119,7 +117,7 @@ module.exports.registerTheUser = async (req, res) => {
           "You approval from admin is Pending. Please wait untill Approval !"
         );
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/");
       }
 
@@ -137,7 +135,7 @@ module.exports.registerTheUser = async (req, res) => {
           "Admin has Disabled the Further Companies Registrations. Please Contact the Admin for further Queries."
         );
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/");
       }
       let attachedFileLink = "";
@@ -357,7 +355,7 @@ National Forensic Science University.
           if (error) {
             console.log("error in sending thanking email : " + error);
             req.session.save();
-            setTimeout(() => {}, 1000);
+
             return res.redirect("/");
           } else {
             req.flash(
@@ -366,7 +364,7 @@ National Forensic Science University.
             );
 
             req.session.save();
-            setTimeout(() => {}, 1000);
+
             return res.redirect("/");
           }
         });
@@ -376,13 +374,13 @@ National Forensic Science University.
         req.flash("error", "Error saving Recruiter's data:" + error.message);
         console.log(error);
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/register/rec"); // Redirect to an error page
       }
     } catch (error) {
       req.flash("error", "error saving recruiter's data :" + error);
       req.session.save();
-      setTimeout(() => {}, 1000);
+
       return res.redirect("/register/rec");
     }
   } else if (user == "stu") {
@@ -394,7 +392,7 @@ National Forensic Science University.
           "Admin has Disabled the Further Student Registrations. Please Contact the Admin for further Queries."
         );
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/account");
       }
       //checking the joi validation
@@ -469,12 +467,12 @@ National Forensic Science University.
           options
         );
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/account");
       } catch (e) {
         console.log("error in updating student :" + e);
         req.session.save();
-        setTimeout(() => {}, 1000);
+
         return res.redirect("/register/stu");
       }
 
@@ -490,12 +488,12 @@ National Forensic Science University.
       console.log(error);
       req.flash("error", error.message);
       req.session.save();
-      setTimeout(() => {}, 1000);
+
       return res.redirect("/register/stu");
     }
   } else {
     req.session.save();
-    setTimeout(() => {}, 1000);
+
     return res.send("Invalid URL");
   }
 };

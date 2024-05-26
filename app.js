@@ -89,6 +89,8 @@ app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  let int = Math.floor(Math.random() * 10) + 1;
+  int *= 100;
   next();
 });
 passport.use(new LocalStrategy(Student.authenticate()));

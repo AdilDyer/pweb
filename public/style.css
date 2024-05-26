@@ -10,6 +10,7 @@ body {
   width: 0;
   background: transparent;
 }
+
 nav {
   height: 7rem;
   background-color: transparent;
@@ -134,6 +135,7 @@ nav {
   text-shadow: 1px 1px lightskyblue;
   text-shadow: 2px 2px darkgray;
   font-style: italic;
+
   color: black;
   font-family: "Lobster Two", "Poppins", sans-serif;
 }
@@ -193,7 +195,6 @@ nav {
   line-height: 2rem;
 
   font-weight: 500;
-
   border-radius: 1.5rem;
 
   box-shadow: 6px 10px 20px 0rem rgba(15, 22, 108, 0.9);
@@ -1848,10 +1849,6 @@ img.no-style {
           }
         }
       }
-    }
-    #Students {
-    }
-    #Application {
     }
     #Updates {
       .addupdate {

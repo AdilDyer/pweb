@@ -127,7 +127,7 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
               req.session.username = req.body.username;
               req.session.password = req.body.password;
               req.session.email = stuDetails.email;
-              req.flash("success", "OTP sent successfully");
+              req.flash("success", "OTP Sent Successfully");
               await req.session.save();
               return res.redirect(`/auth/login-student/verifyotp`);
             });
@@ -321,11 +321,10 @@ You can paste the above OTP in the <strong>Following Link</strong>:
       if (existingOTP == true) {
         req.flash("success", "OTP is Re-Sent");
       } else {
-        req.flash("success", "OTP sent successfully");
+        req.flash("success", "OTP Sent Successfully");
       }
 
       await req.session.save();
-      setTimeout(() => {}, 1000);
       return res.redirect(`/auth/otp-verify-page`);
     }
   });
@@ -395,7 +394,6 @@ module.exports.verifyOtp = async (req, res) => {
             );
 
             await req.session.save();
-            setTimeout(() => {}, 1000);
             return res.redirect("/");
           } else {
             //   return res.redirect("/register/rec");

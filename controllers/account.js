@@ -93,13 +93,21 @@ module.exports.showAccount = async (req, res) => {
 
 module.exports.showStuPlacementProfile = async (req, res) => {
   let { stuId } = req.query;
-  let stuDetails = await Student.findOne({ _id: stuId });
-  return res.render("resources/studentDetails.ejs", {
-    stuDetails: stuDetails,
-    isRegistered: stuDetails.isRegistered,
-    profilePictureUrl: req.user.profilePictureUrl,
-    stuId: stuDetails._id,
-  });
+  let adminUsername = process.env.ADMIN_USERNAME;
+  if (req.user._id == stuId || req.user.username == adminUsername) {
+    let stuDetails = await Student.findOne({ _id: stuId });
+    return res.render("resources/studentDetails.ejs", {
+      stuDetails: stuDetails,
+      isRegistered: stuDetails.isRegistered,
+      profilePictureUrl: req.user.profilePictureUrl,
+      stuId: stuDetails._id,
+    });
+  } else {
+    req.flash("error", "Invalid Student Id !");
+    await req.session.save();
+
+    return res.redirect("/account");
+  }
 };
 
 module.exports.renderApplyForm = async (req, res) => {
@@ -199,7 +207,6 @@ module.exports.submitStudentQuery = async (req, res) => {
 
   req.flash("success", "Query Submitted Successfully !");
   req.session.save();
-  setTimeout(() => {}, 1000);
 
   return res.redirect("/account/askqueries");
 };

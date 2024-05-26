@@ -183,6 +183,7 @@
           ><h6>Full Name</h6>
           <input
             required
+            data-cy="studentregisinputname"
             type="text"
             name="stuname"
             placeholder="Enter Your Full Name"
@@ -196,6 +197,7 @@
             type="number"
             placeholder="Enter Your Enrollment No."
             required
+            data-cy="studentregisenrollNo"
             style="text-align: center"
             name="enrollnostu"
           />
@@ -207,6 +209,7 @@
           <input
             required
             type="email"
+            data-cy="studentregisemail"
             name="email"
             style="text-align: center"
             placeholder="Enter Your Email"
@@ -219,6 +222,7 @@
           <input
             type="tel"
             required
+            data-cy="studentregisMobNo"
             name="stumobno"
             style="text-align: center"
             placeholder="Enter Your Mobile No."
@@ -234,15 +238,19 @@
             name="coursename"
             class="form-control"
           >
-            <option selected value="MSc Cs">MSc. Cyber Security</option>
+            <option value="MSc Cs">MSc. Cyber Security</option>
             <option value="MSc Dfis">MSc. DFIS</option>
-            <option value="MTech Cs">MTech. Cyber Security</option>
+            <option selected value="MTech Cs">MTech. Cyber Security</option>
             <option value="MTech Adsai">MTech. ADSAI</option>
           </select>
         </label>
         <br />
 
-        <button class="btn btn-lg btn-primary" type="submit">
+        <button
+          class="btn btn-lg btn-primary"
+          data-cy="studentregisSubmitBtn"
+          type="submit"
+        >
           Verify Your Email
         </button>
       </form>

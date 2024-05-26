@@ -430,7 +430,7 @@ module.exports.removeCompanyListing = async (req, res) => {
   await listing.save();
   req.flash("success", "Listing Down Successfully !");
   req.session.save();
-  setTimeout(() => {}, 1000);
+  
   return res.redirect("/admin?currentAdminSection=Companies");
 };
 
@@ -802,7 +802,7 @@ module.exports.deboardRecruiter = async (req, res) => {
   await result.save();
   req.flash("success", "Recruiter Desabled Successfully !");
   req.session.save();
-  setTimeout(() => {}, 1000);
+
 
   return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
@@ -830,7 +830,7 @@ module.exports.deboardStudent = async (req, res) => {
 
   req.flash("success", "Student Account Disabled Successfully !");
   req.session.save();
-  setTimeout(() => {}, 1000);
+
 
   return res.redirect("/admin?currentAdminSection=Students");
 };
@@ -856,7 +856,7 @@ module.exports.onboardRecruiter = async (req, res) => {
   await result.save();
   req.flash("success", "Recruiter Enabled Successfully !");
   req.session.save();
-  setTimeout(() => {}, 1000);
+
 
   return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
@@ -1127,7 +1127,7 @@ module.exports.markQueryResolved = async (req, res) => {
 
   req.flash("success", "Query Marked as Resolved");
   req.session.save();
-  setTimeout(() => {}, 1000);
+
 
   return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
@@ -1157,7 +1157,7 @@ module.exports.arrayMarkQueryResolved = async (req, res) => {
 
   req.flash("success", "Queries Marked as Resolved");
   req.session.save();
-  setTimeout(() => {}, 1000);
+
 
   return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
@@ -1177,7 +1177,7 @@ module.exports.updateApplicationStatus = async (req, res) => {
 
   req.flash("success", "Application Status Updated !");
   req.session.save();
-  setTimeout(() => {}, 1000);
+
 
   return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
@@ -1204,7 +1204,7 @@ module.exports.arrayUpdateApplicationStatus = async (req, res) => {
 
   req.flash("success", "Applications Updated !");
   req.session.save();
-  setTimeout(() => {}, 1000);
+
 
   return res.redirect(`/admin?currentAdminSection=${currentAdminSection}`);
 };
@@ -1234,7 +1234,7 @@ module.exports.toggleRegisProcess = async (req, res) => {
   await adminsettings.save();
 
   req.session.save();
-  setTimeout(() => {}, 1000);
+
 
   return res.redirect("/admin?currentAdminSection=Dashboard");
 };
@@ -1276,7 +1276,6 @@ module.exports.renderAdminReportPdf = async (req, res) => {
   //   path: `${path.join(
   //     __dirname,
   //     "../public/files",
-  //     "SCSDF Placement Cell Report " + formattedDateTime + ".pdf"
   //   )}`,
   //   printBackground: true,
   //   format: "A4",
@@ -1288,18 +1287,6 @@ module.exports.renderAdminReportPdf = async (req, res) => {
   });
 
   await browser.close();
-
-  // const pdfUrl = path.join(
-  //   __dirname,
-  //   "../public/files",
-  //   "SCSDF Placement Cell Report " + formattedDateTime + ".pdf"
-  // );
-
-  // return res.download(pdfUrl, function (err) {
-  //   if (err) {
-  //     return res.send(err.message);
-  //   }
-  // });
 
   res.set({
     "Content-Type": "application/pdf",
