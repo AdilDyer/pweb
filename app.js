@@ -153,6 +153,16 @@ app.get("/favicon.ico", (req, res) => {
   return res.status(200);
 });
 
+//error handling route
+app.use((err, req, res, next) => {
+  if (err) {
+    console.error(err);
+    req.flash("error", err);
+    return res.redirect("/");
+  }
+  return next();
+});
+
 app.all("*", (req, res) => {
   // to not get path not found on /fevicon.ico in admin page (inadequate behaviour by admin page )
   if (req.user && req.user.username == process.env.ADMIN_USERNAME) {
