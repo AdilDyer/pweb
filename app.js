@@ -157,7 +157,7 @@ app.get("/favicon.ico", (req, res) => {
 app.use((err, req, res, next) => {
   if (err) {
     console.error(err);
-    req.flash("error", err);
+    req.flash("Error : ", err);
     return res.redirect("/");
   }
   return next();
@@ -166,7 +166,8 @@ app.use((err, req, res, next) => {
 app.all("*", (req, res) => {
   // to not get path not found on /fevicon.ico in admin page (inadequate behaviour by admin page )
   if (req.user && req.user.username == process.env.ADMIN_USERNAME) {
-    return res.redirect("/");
+    req.flash("error", "Page Not Found !", req.path);
+    return res.redirect("/admin");
   } else {
     req.flash("error", "Page Not Found !", req.path);
     return res.redirect("/");
