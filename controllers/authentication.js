@@ -19,8 +19,8 @@ module.exports.sendTwoFactor = async (req, res) => {
 
   let captchaResponse = req.body["g-recaptcha-response"];
   if (!captchaResponse) {
-    req.flash("error", "reCAPTCHA Token is Missing ! ");
-    req.session.save();
+    await req.flash("error", "reCAPTCHA Token is Missing !");
+    await req.session.save();
     return res.redirect("/auth/login-student");
   }
 
@@ -127,7 +127,7 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
               req.session.username = req.body.username;
               req.session.password = req.body.password;
               req.session.email = stuDetails.email;
-              req.flash("success", "OTP Sent Successfully");
+              req.flash("success", "OTP Sent Successfully.");
               await req.session.save();
               return res.redirect(`/auth/login-student/verifyotp`);
             });
@@ -321,7 +321,7 @@ You can paste the above OTP in the <strong>Following Link</strong>:
       if (existingOTP == true) {
         req.flash("success", "OTP is Re-Sent");
       } else {
-        req.flash("success", "OTP Sent Successfully");
+        req.flash("success", "OTP Sent Successfully.");
       }
 
       await req.session.save();

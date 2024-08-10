@@ -707,7 +707,7 @@ module.exports.markStuArrayAudit = async (req, res) => {
           }
 
           h1 {
-              color: #007bff;
+              color: #191970;
               margin-bottom: 20px;
           }
 

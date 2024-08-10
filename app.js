@@ -10,38 +10,13 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const dbUrl = process.env.ATLASDB_URL;
 const MongoStore = require("connect-mongo");
-const wrapAsync = require("./utils/wrapasync");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const nodemailer = require("nodemailer");
 const Student = require("./models/student");
-const { studentSchema, recruiterSchema } = require("./schema");
-const Recruiter = require("./models/recruiter");
-const VerifiedUser = require("./models/verifiedUser");
-const OTP = require("./models/otp");
 const Listing = require("./models/listing");
-const Application = require("./models/application");
-const axios = require("axios");
-const multer = require("multer");
 const flash = require("connect-flash");
-const { storage, cloudinary } = require("./cloudConfig");
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
-});
 const cron = require("node-cron");
-
-const {
-  isAuthenticated,
-  isLoggedIn,
-  shallNotAuthenticated,
-  isVerified,
-  isThisAdmin,
-  isLoginFieldsFilled,
-  studentStayInDashboard,
-  isTwoFactorDone,
-} = require("./middleware");
-
+const { isAuthenticated, studentStayInDashboard } = require("./middleware");
 const adminRouter = require("./routes/admin");
 const accountRouter = require("./routes/account");
 const registrationRouter = require("./routes/registration");
@@ -49,7 +24,6 @@ const teamRouter = require("./routes/team");
 const communityRouter = require("./routes/community");
 const resourcesRouter = require("./routes/resources");
 const authRouter = require("./routes/authentication");
-const { func } = require("joi");
 
 const store = MongoStore.create({
   mongoUrl: dbUrl,
@@ -77,6 +51,11 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
@@ -86,16 +65,11 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  let int = Math.floor(Math.random() * 10) + 1;
-  int *= 100;
-  next();
-});
+
 passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
+
 main()
   .then(() => {
     console.log("Connected To db");
@@ -135,11 +109,12 @@ const checkAndUpdateListings = async () => {
 };
 
 cron.schedule("0 * * * *", () => {
-  console.log("Running scheduled task to Down listings...");
+  console.log(
+    "Running scheduled task to Down listings at the start of every hour...."
+  );
   checkAndUpdateListings();
 });
 
-//login:auth
 app.use("/auth", authRouter);
 app.use("/register/:user", registrationRouter);
 app.use("/account", accountRouter);
@@ -156,7 +131,6 @@ app.get("/favicon.ico", (req, res) => {
 //error handling route
 app.use((err, req, res, next) => {
   if (err) {
-    console.error(err);
     req.flash("Error : ", err);
     return res.redirect("/");
   }

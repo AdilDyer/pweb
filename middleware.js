@@ -6,6 +6,7 @@ module.exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     res.locals.isAuthenticated = true;
     res.locals.isAdmin = req.user.username == process.env.ADMIN_USERNAME;
+    
   } else {
     res.locals.isAuthenticated = false;
     res.locals.isAdmin = false;
