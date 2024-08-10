@@ -13,6 +13,7 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const Student = require("./models/student");
+const OTP = require("./models/otp");
 const Listing = require("./models/listing");
 const flash = require("connect-flash");
 const cron = require("node-cron");
@@ -40,7 +41,8 @@ store.on("error", (err) => {
 const sessionOptions = {
   store,
   secret: process.env.SECRET,
-  resave: false,
+  //to save session each time
+  resave: true,
   saveUninitialized: true,
   cookie: {
     expires: Date.now() + 12 * 60 * 60 * 1000,
@@ -56,6 +58,31 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   next();
 });
+
+//to manually apply flash messages
+// app.use((req, res, next) => {
+//   // Initialize flash object if it doesn't exist
+//   if (!req.session.flash) {
+//     req.session.flash = {};
+//   }
+//   // Store flash messages in res.locals and clear them from session
+//   res.locals.success = req.session.flash.success || null;
+//   res.locals.error = req.session.flash.error || null;
+
+//   // Clear flash messages after use
+//   req.session.flash = {};
+
+//   next();
+// });
+// // Custom function to set flash messages
+// app.use((req, res, next) => {
+//   req.flash = (type, message) => {
+//     if (type === "success" || type === "error") {
+//       req.session.flash[type] = message;
+//     }
+//   };
+//   next();
+// });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
@@ -115,6 +142,26 @@ cron.schedule("0 * * * *", () => {
   checkAndUpdateListings();
 });
 
+const deleteExpiredOTPs = async () => {
+  const currentDate = new Date();
+
+  try {
+    const result = await OTP.deleteMany({
+      expirationTime: { $lte: currentDate },
+    });
+    console.log(`Expired OTPs deleted: ${result.deletedCount}`);
+  } catch (error) {
+    console.error("Error deleting expired OTPs:", error);
+  }
+};
+
+cron.schedule("0 * * * *", () => {
+  console.log(
+    "Running scheduled task to delete expired OTPs at the start of every hour..."
+  );
+  deleteExpiredOTPs();
+});
+
 app.use("/auth", authRouter);
 app.use("/register/:user", registrationRouter);
 app.use("/account", accountRouter);
@@ -123,22 +170,15 @@ app.use("/placement-team", teamRouter);
 app.use("/community", communityRouter);
 app.use("/resources", resourcesRouter);
 
-//Outsourced html page's favicon's abrupt request handler
-app.get("/favicon.ico", (req, res) => {
-  return res.status(200);
-});
-
 //error handling route
-app.use((err, req, res, next) => {
-  if (err) {
-    req.flash("Error : ", err);
-    return res.redirect("/");
-  }
-  return next();
-});
+// app.use((err, req, res, next) => {
+//   if (err) {
+//     res.send("Error : "+ err);
+//   }
+//   return next();
+// });
 
 app.all("*", (req, res) => {
-  // to not get path not found on /fevicon.ico in admin page (inadequate behaviour by admin page )
   if (req.user && req.user.username == process.env.ADMIN_USERNAME) {
     req.flash("error", "Page Not Found !", req.path);
     return res.redirect("/admin");

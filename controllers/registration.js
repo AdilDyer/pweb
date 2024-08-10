@@ -400,11 +400,12 @@ National Forensic Science University.
       // if (error) {
       //   return  res.status(400).send(error.details[0].message);
       // }
-      // let profilePictureUrl = req.files.profilepicture[0].path;
-      // let tenthMarksheetUrl = req.files.tenthmarksheet[0].path;
-      // let twelthMarksheetUrl = req.files.twelthmarksheet[0].path;
+
+      let profilePictureUrl = req.files.profilepicture[0].path;
+      let tenthMarksheetUrl = req.files.tenthmarksheet[0].path;
+      let twelthMarksheetUrl = req.files.twelthmarksheet[0].path;
       const newStudentDetails = {
-        profilePictureUrl: "",
+        profilePictureUrl: profilePictureUrl || "",
         othermarksheetUrl: "",
         othermarks: req.body.othermarks,
         otheryearofpassing: req.body.otheryearofpassing,
@@ -431,8 +432,8 @@ National Forensic Science University.
         tenthyearofjoining: req.body.tenthyearofjoining,
         tenthyearofpassing: req.body.tenthyearofpassing,
         tenthboard: req.body.tenthboard,
-        tenthMarksheetUrl: "",
-        twelthMarksheetUrl: "",
+        tenthMarksheetUrl: tenthMarksheetUrl || "",
+        twelthMarksheetUrl: twelthMarksheetUrl || "",
         isRegistered: true,
         fathername: req.body.fathername,
         mothername: req.body.mothername,
@@ -486,7 +487,7 @@ National Forensic Science University.
       // });
     } catch (error) {
       console.log(error);
-      req.flash("error", error.message);
+      req.flash("Please Upload all required files. Error : ", error.message);
       req.session.save();
 
       return res.redirect("/register/stu");

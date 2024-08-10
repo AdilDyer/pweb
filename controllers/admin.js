@@ -150,7 +150,7 @@ module.exports.markRecAudit = async (req, res) => {
 
     //Send Email to the Recruiter informing him of pursuing further detailed registration
 
-    let regisLink = `https://placementcellnfsu.onrender.com/register/rec?recid=${recid}`;
+    let regisLink = `http://localhost:8080/register/rec?recid=${recid}`;
     let message = `<p style="color: red;">Dear Respected Recruiter,</p>
 
 <br/>
@@ -245,7 +245,7 @@ module.exports.arrayMarkRecAudit = async (req, res) => {
 
       //Send Email to the Recruiter informing him of pursuing further detailed registration
 
-      let regisLink = `https://placementcellnfsu.onrender.com/register/rec?recid=${recid}`;
+      let regisLink = `http://localhost:8080/register/rec?recid=${recid}`;
       let message = `<p style="color: red;">Dear Respected Recruiter,</p>
 
 <br/>
@@ -562,6 +562,8 @@ module.exports.markStuAudit = async (req, res) => {
     <div class="container">
         <h1>Welcome to SPC SCSDF!</h1>
         <p>We're excited to have you onboard. Below are your login credentials:</p>
+        </br>
+        <p>( Kindly keep the credentials safe and do not share with anyone )</p>
         <div class="credentials">
             <p><strong>Username:
             <br> </strong>${pId}</p>

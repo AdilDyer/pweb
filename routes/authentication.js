@@ -15,7 +15,7 @@ router
   .route("/login-student")
   .get(shallNotAuthenticated, authenticationController.renderLoginPage)
   .post(
-    // isTwoFactorDone,
+    isTwoFactorDone,
     passport.authenticate("local", {
       failureRedirect: "/auth/login-student",
       failureFlash: true,
@@ -46,28 +46,28 @@ router
   .route("/otp-verify-page")
   .get(authenticationController.renderOtpVerifyPage);
 
-router.route("/resendotp").get(wrapAsync(authenticationController.resendOtp));
+// router.route("/resendotp").get(wrapAsync(authenticationController.resendOtp));
 
 router
   .route("/otp-verify")
   .post(isLoginFieldsFilled, wrapAsync(authenticationController.verifyOtp));
 
-router
-  .route("/resetpass")
-  .get(authenticationController.renderResetPass)
-  .post(wrapAsync(authenticationController.sendResetPassOtp));
+// router
+//   .route("/resetpass")
+//   .get(authenticationController.renderResetPass)
+//   .post(wrapAsync(authenticationController.sendResetPassOtp));
 
-router
-  .route("/enterResetPassOtp")
-  .get(authenticationController.enterResetPassOtp);
+// router
+//   .route("/enterResetPassOtp")
+//   .get(authenticationController.enterResetPassOtp);
 
-router
-  .route("/verifyResetPassOtp")
-  .post(wrapAsync(authenticationController.verifyResetPassOtp));
+// router
+//   .route("/verifyResetPassOtp")
+//   .post(wrapAsync(authenticationController.verifyResetPassOtp));
 
-router
-  .route("/enterNewPass")
-  .get(wrapAsync(authenticationController.enterNewPass))
-  .post(wrapAsync(authenticationController.saveNewPassword));
+// router
+//   .route("/enterNewPass")
+//   .get(wrapAsync(authenticationController.enterNewPass))
+//   .post(wrapAsync(authenticationController.saveNewPassword));
 
 module.exports = router;

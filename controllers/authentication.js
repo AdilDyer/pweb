@@ -16,7 +16,9 @@ module.exports.renderLoginPage = (req, res) => {
 
 module.exports.sendTwoFactor = async (req, res) => {
   let { username, password } = req.body;
-
+  req.session.email = "";
+  req.session.password = "";
+  req.session.username = "";
   let captchaResponse = req.body["g-recaptcha-response"];
   if (!captchaResponse) {
     await req.flash("error", "reCAPTCHA Token is Missing !");
@@ -162,9 +164,9 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
 
 module.exports.renderVerifyTwoFactor = (req, res) => {
   let startingFourLettersOfEmail = "";
-  req.session.email
-    ? (startingFourLettersOfEmail = req.session.email.substring(0, 4))
-    : null;
+  if (req.session.email) {
+    startingFourLettersOfEmail = req.session.email.substring(0, 4);
+  }
   startingFourLettersOfEmail += "************";
   return res.render("auth/twofactorverify.ejs", {
     email: startingFourLettersOfEmail,
@@ -187,6 +189,9 @@ module.exports.authenticateUser = async (req, res) => {
 };
 
 module.exports.logOutUser = function (req, res, next) {
+  req.session.email = "";
+  req.session.password = "";
+  req.session.username = "";
   req.logout(function (err) {
     if (err) {
       req.flash("error", "Error Logging out :: ", err.message);
@@ -198,7 +203,7 @@ module.exports.logOutUser = function (req, res, next) {
 
 //FOR REGISTRATION
 module.exports.renderOtpInputForm = async (req, res) => {
-  req.session.username = req.query.username;
+  // req.session.username = req.query.username;
   let adminsetting = await AdminSetting.findOne();
 
   if (
@@ -223,7 +228,7 @@ module.exports.renderOtpInputForm = async (req, res) => {
     return res.redirect("/");
   } else {
     req.session.save();
-    return res.render("auth/otpinit.ejs", { username: req.session.username });
+    return res.render("auth/otpinit.ejs", { username: req.query.username });
   }
 };
 
@@ -236,7 +241,7 @@ module.exports.sendOtp = async (req, res) => {
   //     return res.redirect("/auth/login-student");
   //   }
   // }
-  let existingOTP = await OTP.findOne({ email: email });
+  await OTP.findOneAndDelete({ email: email });
   let newOtp = Math.floor(Math.random() * 900000) + 100000;
 
   // if (username == "Student") {
@@ -254,20 +259,11 @@ module.exports.sendOtp = async (req, res) => {
   //     return res.redirect("/otp-initialize/?username=Student");
   //   }
   // }
-  if (existingOTP) {
-    existingOTP = true;
-    await OTP.findOneAndDelete({ email: email });
-  }
   await OTP.insertMany({
     email: email,
     code: newOtp,
   });
-  let message = "";
-  if (req.session.username == "Student") {
-    message = `<p style="color: red;">Hey Dear Student !</p>`;
-  } else {
-    message = `<p style="color: red;">Dear Respected Recruiter,</p>`;
-  }
+  let message = `<p style="color: red;">Dear Sir/Mam,</p>`;
 
   message =
     message +
@@ -282,7 +278,7 @@ To Verify your Email, please Insert the <strong>Following OTP</strong>:
 <br/>
 You can paste the above OTP in the <strong>Following Link</strong>:
 <br/><br/>
-<a href="https://placementcellnfsu.onrender.com/otp-verify-page" >https://placementcellnfsu.onrender.com/otp-verify-page</a>
+<a href="http://localhost:8080/auth/otp-verify-page" >http://localhost:8080/auth/otp-verify-page</a>
 <br/><br/>
  If clicking the link doesn't work, you can copy and paste it into your browser's address bar.
  <br/><br/>
@@ -317,13 +313,7 @@ You can paste the above OTP in the <strong>Following Link</strong>:
       return res.status(500).send("Failed to send OTP", error);
     } else {
       req.session.bodyData = req.body;
-
-      if (existingOTP == true) {
-        req.flash("success", "OTP is Re-Sent");
-      } else {
-        req.flash("success", "OTP Sent Successfully.");
-      }
-
+      req.flash("success", "OTP Sent Successfully.");
       await req.session.save();
       return res.redirect(`/auth/otp-verify-page`);
     }
@@ -337,15 +327,15 @@ module.exports.renderOtpVerifyPage = (req, res) => {
   });
 };
 
-module.exports.resendOtp = async (req, res) => {
-  let { email, username } = req.query;
-  try {
-    await OTP.findOneAndDelete({ email: email });
-  } catch (e) {
-    req.flash("error", e.message);
-  }
-  return res.redirect(`/auth/otp-initialize/?username=${username}`);
-};
+// module.exports.resendOtp = async (req, res) => {
+//   let { email, username } = req.query;
+//   try {
+//     await OTP.findOneAndDelete({ email: email });
+//   } catch (e) {
+//     req.flash("error", e.message);
+//   }
+//   return res.redirect(`/auth/otp-initialize/?username=${username}`);
+// };
 
 module.exports.verifyOtp = async (req, res) => {
   let adminsetting = await AdminSetting.findOne();
@@ -570,101 +560,101 @@ module.exports.verifyOtp = async (req, res) => {
   }
 };
 
-module.exports.renderResetPass = (req, res) => {
-  return res.render("auth/resetpass.ejs");
-};
+// module.exports.renderResetPass = (req, res) => {
+//   return res.render("auth/resetpass.ejs");
+// };
 
-module.exports.sendResetPassOtp = async (req, res) => {
-  let stu = await Student.findOne({ email: req.body.email });
-  if (stu.haveResetPass == true) {
-    req.flash("error", "Cant Reset the Password more than Once !");
-    return res.redirect("/auth/login-student");
-  }
-  await OTP.deleteMany({ email: req.body.email });
-  let newOtp = Math.floor(Math.random() * 900000) + 100000;
-  await OTP.insertMany({
-    email: req.body.email,
-    code: newOtp,
-  });
-  message = `<p style="color: red;">Hey Dear Student !</p>
-    <br/>
-We have received a request to Reset Password associated with your account. If you did not make this request, you can safely ignore this email.
-<br/><br/>
-To Verify your Email, please Insert the <strong>Following OTP</strong>:
-<br/><br/>
-<h1>
-<strong>${newOtp}</strong></h1>
-<br/>
-    <br/><br/>
- Please verify your Email as soon as possible.
- <br/><br/>
-<strong>Thank you,</strong><br/>
-<p style="color: red;">The Placement Team .</p>
-<br/>
-<div>
-<img
-      src="https://res.cloudinary.com/ddxv0iwcs/image/upload/v1710502741/emblem_e7gmxn.png"
-      style="border-radius:2rem;width:60%;"
-      alt="..."
-    />
-</div>`;
+// module.exports.sendResetPassOtp = async (req, res) => {
+//   let stu = await Student.findOne({ email: req.body.email });
+//   if (stu.haveResetPass == true) {
+//     req.flash("error", "Cant Reset the Password more than Once !");
+//     return res.redirect("/auth/login-student");
+//   }
+//   await OTP.deleteMany({ email: req.body.email });
+//   let newOtp = Math.floor(Math.random() * 900000) + 100000;
+//   await OTP.insertMany({
+//     email: req.body.email,
+//     code: newOtp,
+//   });
+//   message = `<p style="color: red;">Hey Dear Student !</p>
+//     <br/>
+// We have received a request to Reset Password associated with your account. If you did not make this request, you can safely ignore this email.
+// <br/><br/>
+// To Verify your Email, please Insert the <strong>Following OTP</strong>:
+// <br/><br/>
+// <h1>
+// <strong>${newOtp}</strong></h1>
+// <br/>
+//     <br/><br/>
+//  Please verify your Email as soon as possible.
+//  <br/><br/>
+// <strong>Thank you,</strong><br/>
+// <p style="color: red;">The Placement Team .</p>
+// <br/>
+// <div>
+// <img
+//       src="https://res.cloudinary.com/ddxv0iwcs/image/upload/v1710502741/emblem_e7gmxn.png"
+//       style="border-radius:2rem;width:60%;"
+//       alt="..."
+//     />
+// </div>`;
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "noreply.spcweb@gmail.com",
-      pass: process.env.APP_PASSWORD,
-    },
-  });
-  const mailOptions = {
-    from: "noreply@placementcell <noreply.spcweb@gmail.com>",
+//   const transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//       user: "noreply.spcweb@gmail.com",
+//       pass: process.env.APP_PASSWORD,
+//     },
+//   });
+//   const mailOptions = {
+//     from: "noreply@placementcell <noreply.spcweb@gmail.com>",
 
-    to: req.body.email,
-    subject: "Password Reset Request",
-    html: message,
-  };
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error(error);
-      return res.status(500).send("Failed to send OTP");
-    } else {
-      req.session.email = req.body.email;
-      req.session.save();
-      return res.redirect("/auth/enterResetPassOtp");
-    }
-  });
-};
+//     to: req.body.email,
+//     subject: "Password Reset Request",
+//     html: message,
+//   };
+//   transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       console.error(error);
+//       return res.status(500).send("Failed to send OTP");
+//     } else {
+//       req.session.email = req.body.email;
+//       req.session.save();
+//       return res.redirect("/auth/enterResetPassOtp");
+//     }
+//   });
+// };
 
-module.exports.enterResetPassOtp = async (req, res) => {
-  return res.render("auth/enterResetPassOtp.ejs", { email: req.session.email });
-};
+// module.exports.enterResetPassOtp = async (req, res) => {
+//   return res.render("auth/enterResetPassOtp.ejs", { email: req.session.email });
+// };
 
-module.exports.verifyResetPassOtp = async (req, res) => {
-  let result = await OTP.findOne({
-    email: req.body.email,
-    code: req.body.otp,
-  });
+// module.exports.verifyResetPassOtp = async (req, res) => {
+//   let result = await OTP.findOne({
+//     email: req.session.email,
+//     code: req.body.otp,
+//   });
 
-  if (result) {
-    await OTP.deleteMany({ email: req.body.email });
-    return res.redirect("/auth/enterNewPass");
-  } else {
-    req.flash("error", "Please Enter Correct OTP.");
-    return res.redirect("/auth/enterResetPassOtp");
-  }
-};
+//   if (result) {
+//     await OTP.deleteMany({ email: req.body.email });
+//     return res.redirect("/auth/enterNewPass");
+//   } else {
+//     req.flash("error", "Please Enter Correct OTP.");
+//     return res.redirect("/auth/enterResetPassOtp");
+//   }
+// };
 
-module.exports.enterNewPass = async (req, res) => {
-  return res.render("auth/enterNewPass.ejs");
-};
+// module.exports.enterNewPass = async (req, res) => {
+//   return res.render("auth/enterNewPass.ejs");
+// };
 
-module.exports.saveNewPassword = async (req, res) => {
-  let stu = await Student.findOne({ email: req.session.email });
+// module.exports.saveNewPassword = async (req, res) => {
+//   let stu = await Student.findOne({ email: req.session.email });
 
-  stu.setPassword(req.body.password, async () => {
-    stu.haveResetPass = true;
-    await stu.save();
-  });
-  req.flash("success", "Password Reset Successful !");
-  return res.redirect("/auth/login-student");
-};
+//   stu.setPassword(req.body.password, async () => {
+//     stu.haveResetPass = true;
+//     await stu.save();
+//   });
+//   req.flash("success", "Password Reset Successful !");
+//   return res.redirect("/auth/login-student");
+// };
